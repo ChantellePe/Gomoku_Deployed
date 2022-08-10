@@ -1,10 +1,10 @@
 import React from 'react'
+import style from './Header.module.css'
 
 function Header() {
     return (
         <div>
-            <header className='header'>Gomoku</header>
-            <main className='main'></main>
+            <header className={style.header}>Gomoku</header>
         </div>
     )
 }
