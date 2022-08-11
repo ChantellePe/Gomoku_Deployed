@@ -7,7 +7,8 @@ function App() {
     <>
       <Header />
       <main className='main'>
-        <Login />
+        <Home />
+        {<Login />}
       </main>
 
     </>
