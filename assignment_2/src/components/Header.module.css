@@ -1,7 +1,10 @@
 .header {
     color: rgb(34, 0, 26);
-    text-align: center;
-    font-size: 5rem;
+    text-align: left;
+    padding-left: 5%;
+    border-bottom: #252525;
+    border-width: 1rem;
+    font-size: 3rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-transform: uppercase;
     font-weight: 700;
@@ -15,4 +18,10 @@
         1px 22px 10px rgba(16, 16, 16, 0.2),
         1px 25px 35px rgba(16, 16, 16, 0.2),
         1px 30px 60px rgba(16, 16, 16, 0.4);
+}
+
+.container {
+    border-bottom: 3px solid #202020;
+    padding-bottom: 8px;
+    width: 110%;
 }
