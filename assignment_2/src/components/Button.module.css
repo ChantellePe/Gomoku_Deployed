@@ -17,7 +17,6 @@
     transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     user-select: none;
     margin-top: 1.2%;
-
 }
 
 .button:hover {

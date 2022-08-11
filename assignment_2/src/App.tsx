@@ -1,13 +1,15 @@
 import './App.css';
 import { Header } from './components';
-import { Home } from './pages';
+import { Home, Login } from './pages';
 
 function App() {
   return (
     <>
       <Header />
-      <main className='main'></main>
-      <Home />
+      <main className='main'>
+        <Login />
+      </main>
+
     </>
   )
 }
