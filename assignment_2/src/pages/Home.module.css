@@ -9,8 +9,9 @@
 }
 
 .dropDown {
-    width: 60%;
+    width: 45%;
     font-size: 1rem;
+    text-align: center;
 
 }
 
@@ -38,7 +39,7 @@
     touch-action: manipulation;
     transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     user-select: none;
-    margin: 15% 3%;
+    margin: 5% 3%;
 }
 
 .startGameButton:hover {
@@ -52,6 +53,22 @@
     color: rgba(0, 0, 0, .3);
 }
 
-.hidden {
-    display: none;
+.gameRules {
+    margin-top: 4rem;
+    width: 40%;
+    align-content: center;
+    margin-left: 30%;
+}
+
+.rulesTitle {
+    color: rgb(255, 37, 186);
+    margin-top: 1%;
+    margin-bottom: 0.5%;
+    text-align: center;
+    border-width: 1rem;
+    font-size: 2rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+
 }
