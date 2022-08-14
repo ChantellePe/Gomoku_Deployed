@@ -1,0 +1,57 @@
+.container {
+    display: flexbox;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem;
+    padding: 2rem;
+    text-align: center;
+    align-content: center;
+}
+
+.dropDown {
+    width: 60%;
+    font-size: 1rem;
+
+}
+
+.boardForm {
+    width: auto;
+    text-align: center;
+    margin: 4rem 1rem;
+}
+
+.startGameButton {
+    position: relative;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    background-color: #d60096;
+    border: 0;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 100%;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 1rem 1rem;
+    touch-action: manipulation;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    user-select: none;
+    margin: 15% 3%;
+}
+
+.startGameButton:hover {
+    background-color: #b10076;
+    color: #ffffff;
+}
+
+.startGameButton:disabled {
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, .08);
+    color: rgba(0, 0, 0, .3);
+}
+
+.hidden {
+    display: none;
+}

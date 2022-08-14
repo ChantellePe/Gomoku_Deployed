@@ -19,7 +19,7 @@ function Header() {
         } else {
             return location.pathname !== '/login' ? (
                 <button className={buttonStyle.button} onClick={() => navigate('login')}>Log In</button>
-            ) : <button className={buttonStyle.button}>Sign Up</button>
+            ) : <button className={buttonStyle.button} onClick={() => navigate('signup')}>Sign Up</button>
         }
     }
 
