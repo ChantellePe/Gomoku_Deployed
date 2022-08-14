@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import PreviousGameItem from '../components/PreviousGameItem';
+//import PreviousGameItem from '../components/PreviousGameItem';
 
 export default function GameLog() {
 

@@ -1,6 +1,18 @@
 [
     {
-        "username": "cp",
-        "password": "1234"
+        "username": "c",
+        "password": "1"
+    },
+    {
+        "username": "cperreau",
+        "password": ""
+    },
+    {
+        "username": "c",
+        "password": ""
+    },
+    {
+        "username": "",
+        "password": ""
     }
 ]

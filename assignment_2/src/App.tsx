@@ -1,5 +1,5 @@
 import './App.css';
-import { Header, UserProvider } from './components';
+import { Header, UserProvider, Logout } from './components';
 import { Home, Login, Game, GameLog, Games } from './pages';
 import { Routes, Route, Navigate } from 'react-router-dom'
 
@@ -16,6 +16,7 @@ function App() {
           <Route path="gamelog/:id" element={<GameLog />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <Logout />
       </main>
     </UserProvider>
   )

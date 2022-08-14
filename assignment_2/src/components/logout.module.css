@@ -1,0 +1,15 @@
+.logout {
+    position: sticky;
+    border: 0;
+    box-sizing: border-box;
+    color: #d60096;
+    font-size: 90%;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: transparent;
+    cursor: pointer;
+    left: 100%;
+    bottom: 100%;
+    top: -20%;
+    padding: 4px 4px;
+}
