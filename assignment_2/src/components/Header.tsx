@@ -1,14 +1,16 @@
 import React from 'react'
-import { useContext } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+//import { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import style from './Header.module.css'
 import buttonStyle from './Button.module.css'
-import Button from './Button'
 import '../index.css'
 
 
 
 function Header() {
+
+    const navigate = useNavigate()
+
     return (
         <header>
             <div className={style.container}>
@@ -16,8 +18,7 @@ function Header() {
                 <Link to="/" className={style.title}>
                     Gomoku
                 </Link>
-
-                <Link to="login" className={buttonStyle.button}>Login</Link>
+                <button className={buttonStyle.button} onClick={() => navigate('login')}>Login</button>
             </div>
         </header >
     )
