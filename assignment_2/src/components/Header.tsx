@@ -2,18 +2,24 @@ import React from 'react'
 import { useContext } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import style from './Header.module.css'
+import buttonStyle from './Button.module.css'
 import Button from './Button'
+import '../index.css'
 
 
 
 function Header() {
     return (
-        <div className={style.container}>
-            <header className={style.header}>
-                Gomoku <span className={style.author}>by Chantelle Perreau</span>
-            </header>
-            <Button>Login</Button>
-        </div>
+        <header>
+            <div className={style.container}>
+                <span className={style.author}>Chantelle Perreau presents...</span>
+                <Link to="/" className={style.title}>
+                    Gomoku
+                </Link>
+
+                <Link to="login" className={buttonStyle.button}>Login</Link>
+            </div>
+        </header >
     )
 }
 

@@ -1,6 +1,6 @@
 .button {
     width: auto;
-    height: 80%;
+    height: 90%;
     text-align: center;
     align-items: right;
     background-color: #d60096;
@@ -16,7 +16,9 @@
     touch-action: manipulation;
     transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     user-select: none;
-    margin-top: 1.2%;
+    margin-top: 1.5%;
+    text-decoration: none;
+    margin-right: 2%;
 }
 
 .button:hover {
