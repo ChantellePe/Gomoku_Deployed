@@ -1,11 +1,11 @@
 import './App.css';
-import { Header } from './components';
+import { Header, UserProvider } from './components';
 import { Home, Login, Game, GameLog, Games } from './pages';
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 function App() {
   return (
-    <>
+    <UserProvider>
       <Header />
       <main className='main'>
         <Routes>
@@ -17,7 +17,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-    </>
+    </UserProvider>
   )
 }
 
