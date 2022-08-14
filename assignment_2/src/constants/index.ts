@@ -1,0 +1,4 @@
+export enum SQUARE_STATUS {
+    AVAILABLE = 'AVAILABLE',
+    OCCUPIED = 'OCCUPIED'
+}

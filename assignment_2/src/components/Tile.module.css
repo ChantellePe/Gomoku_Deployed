@@ -1,0 +1,25 @@
+.square {
+    height: 2rem;
+    width: 2rem;
+    border: 2px solid purple;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.playerone {
+    background-color: black;
+}
+
+.playertwo {
+    background-color: rgb(255, 255, 255);
+}
+
+.square.available {
+    background-color: rgb(223, 130, 161);
+
+}
+
+.square.occupied {
+    cursor: not-allowed;
+    pointer-events: none;
+}
