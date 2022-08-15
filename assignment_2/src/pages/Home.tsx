@@ -1,9 +1,15 @@
-import { useState } from 'react'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../components'
 import style from './Home.module.css'
+import { GameContext } from '../context'
+
+
 
 export default function Home() {
-    const [boardSize, setBoardSize] = useState(0)
+    //const [boardSize, setBoardSize] = useState(0)
+    const navigate = useNavigate()
+    const { boardSize, setBoardSize } = useContext(GameContext)
 
 
     return (
@@ -11,11 +17,11 @@ export default function Home() {
 
             <form className={style.boardForm} onSubmit={(e) => {
                 e.preventDefault()
+                navigate('/game')
             }}>
                 <select className={style.dropDown}
                     onChange={(e) => {
                         setBoardSize(Number(e.target.value))
-                        console.log(e.target.value)
 
                     }}>
                     <option value={0} hidden>Board Size</option>

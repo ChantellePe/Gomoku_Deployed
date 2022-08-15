@@ -15,6 +15,6 @@ export default function UserProvider({ children }: UserProviderProps) {
         <UserContext.Provider value={{ user, login, logout }}>
             {children}
         </UserContext.Provider>
-        //<div>UserProvider</div>
+
     )
 }
