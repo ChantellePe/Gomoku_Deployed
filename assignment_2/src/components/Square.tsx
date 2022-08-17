@@ -1,16 +1,20 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import style from './Square.module.css'
 import { SQUARE_STATUS } from '../constants'
+import { GameContext } from '../context'
 
 type SquareProps = {
     id: number
-    rowId: number
-    playerId: number
+    //isOccupied?: boolean
+    //dispatch: React.Dispatch<PlayerTurn>
 }
 
 export default function Square(props: SquareProps) {
-    const { id, rowId, playerId } = props
     const [status, setStatus] = useState(SQUARE_STATUS.AVAILABLE)
+    //const { boardSize } = useContext(GameContext)
+
+
+
 
     const getClassNames = () => {
         const className = style.square
@@ -27,6 +31,7 @@ export default function Square(props: SquareProps) {
     const handleClick = () => {
         if (status === SQUARE_STATUS.AVAILABLE) {
             setStatus(SQUARE_STATUS.OCCUPIED)
+
         }
     }
 

@@ -20,6 +20,7 @@
 }
 
 .square.occupied {
+    background-color: black;
     cursor: not-allowed;
     pointer-events: none;
 }
