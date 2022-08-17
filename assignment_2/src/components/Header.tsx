@@ -15,6 +15,7 @@ function Header() {
         if (user) {
             return (<>
                 <button className={buttonStyle.button} onClick={() => navigate('games')}>Previous Games</button>
+
             </>)
         } else {
             return location.pathname !== '/login' ? (
@@ -23,10 +24,15 @@ function Header() {
         }
     }
 
+    const welcomeMessage = () => {
+        return (user) ? (<span className={style.author}>Hi {user.username} ! Welcome to...</span>) : (<span className={style.author}> Chantelle Perreau presents...</span>)
+    }
+
+
     return (
         <header>
             <div className={style.container}>
-                <span className={style.author}>Chantelle Perreau presents...</span>
+                {welcomeMessage()}
                 <Link to="/" className={style.title}>
                     Gomoku
                 </Link>
