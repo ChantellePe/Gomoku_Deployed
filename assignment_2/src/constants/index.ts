@@ -4,6 +4,7 @@ export enum SQUARE_STATUS {
 }
 
 export enum PLAYER {
-    PLAYER_ONE = 'BLACK',
-    PLAYER_TWO = 'WHITE'
+    PLAYER_ONE = 'Black',
+    PLAYER_TWO = 'White',
+
 }

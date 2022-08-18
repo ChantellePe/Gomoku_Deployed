@@ -6,21 +6,20 @@
     cursor: pointer;
 }
 
-.playerone {
+.Black {
     background-color: black;
 }
 
-.playertwo {
+.White {
     background-color: rgb(255, 255, 255);
 }
 
 .square.available {
-    background-color: rgb(223, 130, 161);
+    background-color: rgb(255, 205, 253);
 
 }
 
 .square.occupied {
-    background-color: black;
     cursor: not-allowed;
     pointer-events: none;
 }
