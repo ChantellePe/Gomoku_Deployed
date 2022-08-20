@@ -1,17 +1,19 @@
 import { useContext, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
-//import { PLAYER } from '../constants'
-import { Square } from '../components'
+import { Square, Button } from '../components'
+import { PLAYER } from '../constants'
+import buttonStyle from '../components/Button.module.css'
+
 
 
 
 export default function Game() {
-
-    const { boardSize } = useContext(GameContext)
+    const navigate = useNavigate()
+    const { boardSize, setBoardSize } = useContext(GameContext)
     const { user } = useContext(UserContext)
-    const { playerTurn } = useContext(SquareContext)
+    const { playerTurn, nextTurn } = useContext(SquareContext)
     const [gameId, setGameID] = useState(0)
 
 
@@ -31,8 +33,13 @@ export default function Game() {
                 {[...Array(boardSize * boardSize)].map((_, index) => (
                     <Square id={index} isOccupied={false} playerTurn={playerTurn} />
                 ))}
-
             </div>
-        </div >
+
+            <div className={style.buttonSection}>
+                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} onClick={() => { }}>Restart</Button>
+                <Button className={[buttonStyle.button, buttonStyle.leave].join(' ')}>Leave</Button>
+            </div>
+        </div>
+
     )
 }

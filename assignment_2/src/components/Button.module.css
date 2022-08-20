@@ -30,3 +30,16 @@
     background: rgba(0, 0, 0, .08);
     color: rgba(0, 0, 0, .3);
 }
+
+.reset {
+    width: 60%;
+    margin-left: -20%;
+    align-items: left;
+}
+
+.leave {
+    width: 60%;
+    align-items: right;
+    margin-right: -20%;
+
+}
