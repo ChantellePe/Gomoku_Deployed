@@ -1,10 +1,11 @@
-import React from 'react'
-import SquareProvider from './SquareProvider'
+import style from './Winner.module.css'
+
 
 export default function Winner() {
 
 
+
     return (
-        <div>Winner</div>
+        <div className={style.winner}>Winner</div>
     )
 }

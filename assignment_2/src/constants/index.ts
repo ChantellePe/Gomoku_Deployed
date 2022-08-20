@@ -10,5 +10,6 @@ export enum PLAYER {
 }
 
 export enum PLAYER_MOVE_ACTION {
-    SELECT = 'SELECT'
+    SELECT = 'SELECT',
+    RESET = 'RESET'
 }

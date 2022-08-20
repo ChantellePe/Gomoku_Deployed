@@ -10,7 +10,7 @@ type SquareProviderProps = {
 export default function SquareProvider({ children }: SquareProviderProps) {
     const [playerTurn, setPlayerTurn] = useState<PLAYER>(PLAYER.PLAYER_ONE)
     const nextTurn = (player: PLAYER) => setPlayerTurn(player)
-    const [isOccupied, setIsOccupied] = useState(false)
+    const [isOccupied] = useState(false)
 
 
 

@@ -8,10 +8,11 @@ type GameProviderProps = {
 
 export default function GameProvider({ children }: GameProviderProps) {
     const [boardSize, setBoardSize] = useState<number>(0)
+    const [gameId, setGameId] = useState<number>(0)
 
 
     return (
-        <GameContext.Provider value={{ boardSize, setBoardSize }}>
+        <GameContext.Provider value={{ boardSize, setBoardSize, gameId, setGameId }}>
             {children}
         </GameContext.Provider>
 
