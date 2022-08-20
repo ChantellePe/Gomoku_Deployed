@@ -8,3 +8,7 @@ export enum PLAYER {
     PLAYER_TWO = 'White',
 
 }
+
+export enum PLAYER_MOVE_ACTION {
+    SELECT = 'SELECT'
+}
