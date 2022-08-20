@@ -26,7 +26,7 @@ export default function Home() {
                     }}>
                     <option value={0} hidden>Board Size</option>
                     {(Array.from(Array(15)).map((e, i) => i + 5).map((num) =>
-                        <option value={num}>{num}</option>)
+                        <option key={num} value={num}>{num}</option>)
                     )}
                 </select>
                 <div className={style.gameRules}>

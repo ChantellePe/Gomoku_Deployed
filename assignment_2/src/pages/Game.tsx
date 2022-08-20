@@ -1,20 +1,26 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
-import { PLAYER } from '../constants'
+//import { PLAYER } from '../constants'
 import { Square } from '../components'
+
+
 
 export default function Game() {
 
     const { boardSize } = useContext(GameContext)
     const { user } = useContext(UserContext)
-    const { playerTurn, nextTurn } = useContext(SquareContext)
+    const { playerTurn } = useContext(SquareContext)
+    const [gameId, setGameID] = useState(0)
+
 
 
 
     if (!user) return <Navigate to="/login" replace />
     if (!boardSize) return null
+
+
 
 
     return (
