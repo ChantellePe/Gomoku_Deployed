@@ -1,4 +1,4 @@
-import { useContext, useReducer, useState } from 'react'
+import { useContext, useReducer, useState, useEffect, useCallback } from 'react'
 import { Navigate } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
@@ -42,6 +42,90 @@ export default function Game(props: gameProps) {
     const [playerTwoState, dispatch2] = useReducer(gameReducer, [])
 
 
+
+
+    useEffect(() => {
+        function exists(arr: number[][], search: number[]): boolean {
+            return arr.some(row => JSON.stringify(row) === JSON.stringify(search))
+        }
+
+        function fiveConseq(squareIds: number[][]): boolean {
+            for (let idx = 0; idx < squareIds.length; idx++) {
+                if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 1, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 2, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 3, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 4, squareIds[idx][1]])) {
+                    if (!(exists(squareIds, [squareIds[idx][0] - 1, squareIds[idx][1]])) && (!exists(squareIds, [squareIds[idx][0] + 5, squareIds[idx][1]]))) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+
+        function fiveDown(squareIds: number[][]): boolean {
+            const number = boardSize
+            for (let idx = 0; idx < squareIds.length; idx++) {
+                if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
+                    if (!(exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1])) && !(exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5]))) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+
+        function diagLeft(squareIds: number[][]): boolean {
+            const number = boardSize - 1
+            for (let idx = 0; idx < squareIds.length; idx++) {
+                if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
+                    if (!(exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1])) && (!exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5]))) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+
+        function diagRight(squareIds: number[][]): boolean {
+            const number = boardSize + 1
+            for (let idx = 0; idx < squareIds.length; idx++) {
+                if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
+                    if (!(exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1])) && (!exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5]))) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+
+        console.log(playerOneState)
+        console.log(playerTwoState)
+
+        if (playerOneState.length + playerTwoState.length === boardSize ** 2) {
+            setWinner('tie')
+        } else {
+            if (fiveConseq(playerOneState)) {
+                setWinner(PLAYER.PLAYER_ONE)
+            } else if (fiveConseq(playerTwoState)) {
+                setWinner(PLAYER.PLAYER_TWO)
+            } else if (fiveDown(playerTwoState)) {
+                setWinner(PLAYER.PLAYER_TWO)
+            } else if (fiveDown(playerOneState)) {
+                setWinner(PLAYER.PLAYER_ONE)
+            } else if (diagLeft(playerTwoState)) {
+                setWinner(PLAYER.PLAYER_TWO)
+            } else if (diagLeft(playerOneState)) {
+                setWinner(PLAYER.PLAYER_ONE)
+            } else if (diagRight(playerTwoState)) {
+                setWinner(PLAYER.PLAYER_TWO)
+            } else if (diagRight(playerOneState)) {
+                setWinner(PLAYER.PLAYER_ONE)
+            } else {
+                setWinner(undefined)
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [playerOneState, playerTwoState])
+
+
     if (!user) return <Navigate to="/login" replace />
     if (!boardSize) return null
 
@@ -51,52 +135,17 @@ export default function Game(props: gameProps) {
         const index = id + 1
         if (index > boardSize) {
             if (index % boardSize !== 0) {
-                row = Math.floor(index / boardSize)
-                square = (id % boardSize)
+                square = id
+                row = Math.floor((id / boardSize))
             } else if (index % boardSize === 0) {
                 row = (index / boardSize) - 1
-                square = boardSize - 1
+                square = id
             }
         } else if (id < boardSize) {
             row = 0
             square = id
         }
-        return [row, square]
-    }
-
-    function declareWinner(): boolean {
-        if (playerOneState.length + playerTwoState.length === boardSize ** 2) {
-            setWinner('tie')
-            return true
-        } else {
-            if (fiveConseq(playerOneState)) {
-                setWinner(PLAYER.PLAYER_ONE)
-                return true
-            } else if (fiveConseq(playerTwoState)) {
-                setWinner(PLAYER.PLAYER_TWO)
-                return true
-            } else if (fiveDown(playerTwoState)) {
-                setWinner(PLAYER.PLAYER_TWO)
-                return true
-            } else if (fiveDown(playerOneState)) {
-                setWinner(PLAYER.PLAYER_ONE)
-                return true
-            } else if (diagLeft(playerTwoState)) {
-                setWinner(PLAYER.PLAYER_TWO)
-                return true
-            } else if (diagLeft(playerOneState)) {
-                setWinner(PLAYER.PLAYER_ONE)
-                return true
-            } else if (diagRight(playerTwoState)) {
-                setWinner(PLAYER.PLAYER_TWO)
-                return true
-            } else if (diagRight(playerOneState)) {
-                setWinner(PLAYER.PLAYER_ONE)
-                return true
-            } else {
-                return false
-            }
-        }
+        return [square, row]
     }
 
     const announceWinner = () => {
@@ -111,64 +160,12 @@ export default function Game(props: gameProps) {
         }
     }
 
-    function exists(arr: number[][], search: number[]): boolean {
-        return arr.some(row => JSON.stringify(row) === JSON.stringify(search))
-    }
-
-    function fiveConseq(squareIds: number[][]): boolean {
-        for (let idx = 0; idx < squareIds.length; idx++) {
-            if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 1, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 2, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 3, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 4, squareIds[idx][1]])) {
-                if (exists(squareIds, [squareIds[idx][0] - 1, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 5, squareIds[idx][1]])) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    function fiveDown(squareIds: number[][]): boolean {
-        const number = boardSize
-        for (let idx = 0; idx < squareIds.length; idx++) {
-            if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
-                if (exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1]) && exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5])) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    function diagLeft(squareIds: number[][]): boolean {
-        const number = boardSize - 1
-        for (let idx = 0; idx < squareIds.length; idx++) {
-            if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
-                if (exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1]) && exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5])) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    function diagRight(squareIds: number[][]): boolean {
-        const number = boardSize + 1
-        for (let idx = 0; idx < squareIds.length; idx++) {
-            if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
-                if (exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1]) && exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5])) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
 
     return (
         <div className={style.container}>
-            <h1 className={style.header}>{!declareWinner ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
-            <div className={style.board} id={`Game-${gameId}`} onClick={() => {
-                declareWinner()
-            }} style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
+            <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
+            <div className={style.board} id={`Game-${gameId}`}
+                style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                 {[...Array(boardSize * boardSize)].map((_, index) => (
                     <Square key={idGenerator(index).join(",")} id={idGenerator(index)} isOccupied={false} playerTurn={playerTurn}
                         playerMove={() => {

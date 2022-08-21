@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import style from './Square.module.css'
 import { PLAYER, SQUARE_STATUS } from '../constants'
 import { SquareContext } from '../context'
@@ -19,6 +19,8 @@ export default function Square(props: SquareProps) {
     const [status, setStatus] = useState(SQUARE_STATUS.AVAILABLE)
     const [classList, setClassList] = useState([`${style.square} ${style.available}`])
     const { playerTurn, nextTurn } = useContext(SquareContext)
+
+
 
 
 
