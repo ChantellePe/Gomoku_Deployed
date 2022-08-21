@@ -1,11 +1,12 @@
 import { useContext, useReducer, useState, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
 import { Square, Button } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import buttonStyle from '../components/Button.module.css'
 import { useLocalStorage } from '../hooks'
+
 
 
 
@@ -17,6 +18,7 @@ type PlayerMove = {
     type: PLAYER_MOVE_ACTION
     payload: number[]
 }
+
 
 function gameReducer(state: number[][], action: PlayerMove) {
     const { type, payload } = action
@@ -31,6 +33,8 @@ function gameReducer(state: number[][], action: PlayerMove) {
 }
 
 
+
+
 export default function Game(props: gameProps) {
     const navigate = useNavigate()
     const [winner, setWinner] = useState<PLAYER | 'tie' | undefined>(undefined)
@@ -39,14 +43,27 @@ export default function Game(props: gameProps) {
     const { boardSize, gameId, setGameId } = useContext(GameContext)
     const { user } = useContext(UserContext)
     const { playerTurn, nextTurn } = useContext(SquareContext)
-    const [game, saveGame] = useLocalStorage<Record<string, number[][]>>('Games', {})
-    const completedGames = game[`Game-${gameId}`] || []
+    const [games, saveGames] = useLocalStorage<Record<string, number[][]>>('Games', {})
+    const completedGames = games[`Game-${gameId}`] || []
     //const { [`Game-${gameId}`]: selectedSquares = [], ...otherGames } = game
     const [playerOneState, dispatch1] = useReducer(gameReducer, completedGames)
     const [playerTwoState, dispatch2] = useReducer(gameReducer, completedGames)
+    const location = useLocation()
+
+    const resetGame = () => {
+        setResetButtonClicked(() => resetButtonClicked ? false : true)
+        dispatch1({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
+        dispatch2({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
+        nextTurn(PLAYER.PLAYER_ONE)
+        setGameOver(false)
+        setWinner(undefined)
+    }
 
 
-
+    useEffect(() => {
+        resetGame()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location])
 
 
     useEffect(() => {
@@ -136,6 +153,7 @@ export default function Game(props: gameProps) {
                 setWinner(undefined)
             }
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playerOneState, playerTwoState])
 
@@ -144,15 +162,6 @@ export default function Game(props: gameProps) {
     if (!user) return <Navigate to="/login" replace />
     if (!boardSize) return null
 
-    const resetGame = () => {
-        setResetButtonClicked(() => resetButtonClicked ? false : true)
-        dispatch1({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
-        dispatch2({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
-        setGameOver(false)
-        setWinner(undefined)
-        nextTurn(PLAYER.PLAYER_ONE)
-        console.log(`ResetButton: ${resetButtonClicked}`)
-    }
 
 
     const idGenerator = (id: number): number[] => {
@@ -212,10 +221,10 @@ export default function Game(props: gameProps) {
 
     const leave = () => {
         if (gameOver) {
-            saveGame({ ...game, [`Game-${gameId}`]: mergeArrays(playerOneState, playerTwoState) })
+            saveGames({ ...games, [`Game-${gameId}`]: mergeArrays(playerOneState, playerTwoState) })
             incrementGameId(1)
-            navigate('/games')
             resetGame()
+            navigate('/games')
         } else if (!gameOver) {
             resetGame()
             navigate('/')
@@ -245,15 +254,12 @@ export default function Game(props: gameProps) {
                         }
                         } />
 
+
                 ))}
             </div>
 
             <div className={style.buttonSection}>
-                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} disabled={disableButton()} onClick={() => {
-
-                    resetGame()
-                }
-                }>Restart</Button>
+                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} disabled={disableButton()} onClick={resetGame}>Restart</Button>
                 <Button className={[buttonStyle.button, buttonStyle.leave].join(' ')} onClick={leave}>Leave</Button>
             </div>
         </div>

@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components'
 import style from './Home.module.css'
 import { GameContext } from '../context'
-
+import { SquareContext } from '../context'
+import { PLAYER } from '../constants'
 
 
 export default function Home() {
     //const [boardSize, setBoardSize] = useState(0)
     const navigate = useNavigate()
     const { boardSize, setBoardSize } = useContext(GameContext)
+    const { nextTurn } = useContext(SquareContext)
 
 
     return (
@@ -17,6 +19,7 @@ export default function Home() {
 
             <form className={style.boardForm} onSubmit={(e) => {
                 e.preventDefault()
+                nextTurn(PLAYER.PLAYER_ONE)
                 navigate('/game')
             }}>
                 <select className={style.dropDown}
