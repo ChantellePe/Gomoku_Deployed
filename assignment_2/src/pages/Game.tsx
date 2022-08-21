@@ -1,4 +1,4 @@
-import { useContext, useReducer, useState, useEffect, useCallback } from 'react'
+import { useContext, useReducer, useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
@@ -33,9 +33,11 @@ function gameReducer(state: number[][], action: PlayerMove) {
 export default function Game(props: gameProps) {
     //const navigate = useNavigate()
     const [winner, setWinner] = useState<PLAYER | 'tie' | undefined>(undefined)
+    const [gameOver, setGameOver] = useState(false)
+    const [resetButtonClicked, setResetButtonClicked] = useState(false);
     const { boardSize, gameId } = useContext(GameContext)
     const { user } = useContext(UserContext)
-    const { playerTurn } = useContext(SquareContext)
+    const { playerTurn, nextTurn } = useContext(SquareContext)
     const [games, saveGames] = useLocalStorage<Record<string, number[][]>>('games', {})
     const { [`Game-${gameId}`]: selectedSquares = [], ...otherGames } = games
     const [playerOneState, dispatch1] = useReducer(gameReducer, [])
@@ -101,23 +103,32 @@ export default function Game(props: gameProps) {
 
         if (playerOneState.length + playerTwoState.length === boardSize ** 2) {
             setWinner('tie')
+            setGameOver(true)
         } else {
             if (fiveConseq(playerOneState)) {
                 setWinner(PLAYER.PLAYER_ONE)
+                setGameOver(true)
             } else if (fiveConseq(playerTwoState)) {
                 setWinner(PLAYER.PLAYER_TWO)
+                setGameOver(true)
             } else if (fiveDown(playerTwoState)) {
                 setWinner(PLAYER.PLAYER_TWO)
+                setGameOver(true)
             } else if (fiveDown(playerOneState)) {
                 setWinner(PLAYER.PLAYER_ONE)
+                setGameOver(true)
             } else if (diagLeft(playerTwoState)) {
                 setWinner(PLAYER.PLAYER_TWO)
+                setGameOver(true)
             } else if (diagLeft(playerOneState)) {
                 setWinner(PLAYER.PLAYER_ONE)
+                setGameOver(true)
             } else if (diagRight(playerTwoState)) {
                 setWinner(PLAYER.PLAYER_TWO)
+                setGameOver(true)
             } else if (diagRight(playerOneState)) {
                 setWinner(PLAYER.PLAYER_ONE)
+                setGameOver(true)
             } else {
                 setWinner(undefined)
             }
@@ -126,8 +137,20 @@ export default function Game(props: gameProps) {
     }, [playerOneState, playerTwoState])
 
 
+
     if (!user) return <Navigate to="/login" replace />
     if (!boardSize) return null
+
+    const resetGame = () => {
+        setResetButtonClicked(() => resetButtonClicked ? false : true)
+        dispatch1({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
+        dispatch2({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
+        setGameOver(false)
+        setWinner(undefined)
+        nextTurn(PLAYER.PLAYER_ONE)
+        console.log(`ResetButton: ${resetButtonClicked}`)
+    }
+
 
     const idGenerator = (id: number): number[] => {
         let row = 0
@@ -160,14 +183,22 @@ export default function Game(props: gameProps) {
         }
     }
 
+    const getBoardStyles = (): string => {
+        if (gameOver) {
+            return `${style.gameOver} ${style.board}`
+        } else {
+            return `${style.board}`
+        }
+    }
+
 
     return (
         <div className={style.container}>
             <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
-            <div className={style.board} id={`Game-${gameId}`}
+            <div className={getBoardStyles()} id={`Game-${gameId}`}
                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                 {[...Array(boardSize * boardSize)].map((_, index) => (
-                    <Square key={idGenerator(index).join(",")} id={idGenerator(index)} isOccupied={false} playerTurn={playerTurn}
+                    <Square resetButtonClicked={resetButtonClicked} key={idGenerator(index).join(",")} id={idGenerator(index)} playerTurn={playerTurn}
                         playerMove={() => {
                             if (playerTurn === PLAYER.PLAYER_ONE) {
                                 dispatch1({ type: PLAYER_MOVE_ACTION.SELECT, payload: idGenerator(index) })
@@ -181,7 +212,11 @@ export default function Game(props: gameProps) {
             </div>
 
             <div className={style.buttonSection}>
-                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')}>Restart</Button>
+                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} onClick={() => {
+
+                    resetGame()
+                }
+                }>Restart</Button>
                 <Button className={[buttonStyle.button, buttonStyle.leave].join(' ')}>Leave</Button>
             </div>
         </div>

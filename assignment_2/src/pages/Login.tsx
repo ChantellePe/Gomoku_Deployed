@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Input, Message } from '../components'
 import { UserContext } from '../context'
@@ -7,10 +7,17 @@ import users from '../data/user.json'
 
 export default function Login() {
     const { login } = useContext(UserContext)
+    const usernameInput = useRef<HTMLInputElement | null>(null)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [isCredentialInvalid, setIsCredentialInvalid] = useState(false)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (usernameInput.current) {
+            usernameInput.current.focus()
+        }
+    }, [])
 
 
     const handleLogin = () => {

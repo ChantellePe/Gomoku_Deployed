@@ -7,20 +7,24 @@ import { SquareContext } from '../context'
 
 type SquareProps = {
     id: number[]
-    isOccupied?: boolean
     playerTurn: PLAYER
     playerMove: () => void
-    //dispatch: React.Dispatch<PlayerTurn>
-}
+    resetButtonClicked: boolean
 
+
+}
 export default function Square(props: SquareProps) {
 
-    const { playerMove } = props
+    const { playerMove, resetButtonClicked } = props
     const [status, setStatus] = useState(SQUARE_STATUS.AVAILABLE)
     const [classList, setClassList] = useState([`${style.square} ${style.available}`])
     const { playerTurn, nextTurn } = useContext(SquareContext)
 
-
+    useEffect(() => {
+        setStatus(SQUARE_STATUS.AVAILABLE)
+        setClassList([`${style.square} ${style.available}`])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [resetButtonClicked])
 
 
 
