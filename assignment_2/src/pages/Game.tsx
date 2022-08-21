@@ -30,6 +30,7 @@ function gameReducer(state: number[][], action: PlayerMove) {
     }
 }
 
+
 export default function Game(props: gameProps) {
     const navigate = useNavigate()
     const [winner, setWinner] = useState<PLAYER | 'tie' | undefined>(undefined)
@@ -38,10 +39,12 @@ export default function Game(props: gameProps) {
     const { boardSize, gameId, setGameId } = useContext(GameContext)
     const { user } = useContext(UserContext)
     const { playerTurn, nextTurn } = useContext(SquareContext)
-    const [game, saveGame] = useLocalStorage<number[][]>(`Game-${gameId}`, [])
+    const [game, saveGame] = useLocalStorage<Record<string, number[][]>>('Games', {})
+    const completedGames = game[`Game-${gameId}`] || []
     //const { [`Game-${gameId}`]: selectedSquares = [], ...otherGames } = game
-    const [playerOneState, dispatch1] = useReducer(gameReducer, [])
-    const [playerTwoState, dispatch2] = useReducer(gameReducer, [])
+    const [playerOneState, dispatch1] = useReducer(gameReducer, completedGames)
+    const [playerTwoState, dispatch2] = useReducer(gameReducer, completedGames)
+
 
 
 
@@ -209,14 +212,13 @@ export default function Game(props: gameProps) {
 
     const leave = () => {
         if (gameOver) {
-            saveGame(mergeArrays(playerOneState, playerTwoState))
+            saveGame({ ...game, [`Game-${gameId}`]: mergeArrays(playerOneState, playerTwoState) })
             incrementGameId(1)
             navigate('/games')
             resetGame()
         } else if (!gameOver) {
             resetGame()
             navigate('/')
-
         }
     }
 
