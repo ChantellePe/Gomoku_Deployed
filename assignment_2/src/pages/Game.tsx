@@ -1,12 +1,12 @@
 import { useContext, useReducer, useState, useEffect } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
 import { Square, Button } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import buttonStyle from '../components/Button.module.css'
-//import { PlayerMoveType } from '../types'
 import { useLocalStorage } from '../hooks'
+
 
 
 type gameProps = {
@@ -31,15 +31,15 @@ function gameReducer(state: number[][], action: PlayerMove) {
 }
 
 export default function Game(props: gameProps) {
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
     const [winner, setWinner] = useState<PLAYER | 'tie' | undefined>(undefined)
     const [gameOver, setGameOver] = useState(false)
     const [resetButtonClicked, setResetButtonClicked] = useState(false);
-    const { boardSize, gameId } = useContext(GameContext)
+    const { boardSize, gameId, setGameId } = useContext(GameContext)
     const { user } = useContext(UserContext)
     const { playerTurn, nextTurn } = useContext(SquareContext)
-    const [games, saveGames] = useLocalStorage<Record<string, number[][]>>('games', {})
-    const { [`Game-${gameId}`]: selectedSquares = [], ...otherGames } = games
+    const [game, saveGame] = useLocalStorage<number[][]>(`Game-${gameId}`, [])
+    //const { [`Game-${gameId}`]: selectedSquares = [], ...otherGames } = game
     const [playerOneState, dispatch1] = useReducer(gameReducer, [])
     const [playerTwoState, dispatch2] = useReducer(gameReducer, [])
 
@@ -186,11 +186,46 @@ export default function Game(props: gameProps) {
     const getBoardStyles = (): string => {
         if (gameOver) {
             return `${style.gameOver} ${style.board}`
-        } else {
+        } else if (!gameOver) {
             return `${style.board}`
+        }
+        return `${style.board}`
+    }
+
+    const mergeArrays = (a1: number[][], a2: number[][]) => {
+        let length = a1.length > a2.length ? a1.length : a2.length
+        let a3: number[][] = []
+        for (let i: number = 0; i < length; i++) {
+            a3.push(a1[i])
+            a3.push(a2[i])
+        }
+        return a3
+
+    }
+
+    const incrementGameId = (count: number) => {
+        setGameId(gameId + count)
+    }
+
+    const leave = () => {
+        if (gameOver) {
+            saveGame(mergeArrays(playerOneState, playerTwoState))
+            incrementGameId(1)
+            navigate('/games')
+            resetGame()
+        } else if (!gameOver) {
+            resetGame()
+            navigate('/')
+
         }
     }
 
+    const disableButton = () => {
+        if (winner !== undefined) {
+            return true
+        }
+        return false
+    }
 
     return (
         <div className={style.container}>
@@ -212,12 +247,12 @@ export default function Game(props: gameProps) {
             </div>
 
             <div className={style.buttonSection}>
-                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} onClick={() => {
+                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} disabled={disableButton()} onClick={() => {
 
                     resetGame()
                 }
                 }>Restart</Button>
-                <Button className={[buttonStyle.button, buttonStyle.leave].join(' ')}>Leave</Button>
+                <Button className={[buttonStyle.button, buttonStyle.leave].join(' ')} onClick={leave}>Leave</Button>
             </div>
         </div>
 

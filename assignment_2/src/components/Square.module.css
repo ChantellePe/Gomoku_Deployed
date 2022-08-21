@@ -16,9 +16,6 @@
 
 .available {
     background-color: rgb(255, 205, 253);
-    cursor: allowed;
-    pointer-events: all;
-
 }
 
 .occupied {

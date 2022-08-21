@@ -10,13 +10,14 @@ type SquareProps = {
     playerTurn: PLAYER
     playerMove: () => void
     resetButtonClicked: boolean
+    isOccupied?: boolean
 
 
 }
 export default function Square(props: SquareProps) {
 
-    const { playerMove, resetButtonClicked } = props
-    const [status, setStatus] = useState(SQUARE_STATUS.AVAILABLE)
+    const { playerMove, resetButtonClicked, isOccupied = false } = props
+    const [status, setStatus] = useState(!isOccupied ? SQUARE_STATUS.AVAILABLE : SQUARE_STATUS.OCCUPIED)
     const [classList, setClassList] = useState([`${style.square} ${style.available}`])
     const { playerTurn, nextTurn } = useContext(SquareContext)
 

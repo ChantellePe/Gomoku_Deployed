@@ -8,7 +8,7 @@ type GameProviderProps = {
 
 export default function GameProvider({ children }: GameProviderProps) {
     const [boardSize, setBoardSize] = useState<number>(0)
-    const [gameId, setGameId] = useState<number>(0)
+    const [gameId, setGameId] = useState<number>(1)
 
 
     return (
