@@ -6,13 +6,8 @@ import { Square, Button } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import buttonStyle from '../components/Button.module.css'
 import { useLocalStorage } from '../hooks'
+//import Moment from 'moment'
 
-
-
-
-type gameProps = {
-    gameId?: number
-}
 
 type PlayerMove = {
     type: PLAYER_MOVE_ACTION
@@ -32,18 +27,14 @@ function gameReducer(state: number[][], action: PlayerMove) {
     }
 }
 
-
-
-
-export default function Game(props: gameProps) {
+export default function Game() {
     const navigate = useNavigate()
-    const [winner, setWinner] = useState<PLAYER | 'tie' | undefined>(undefined)
     const [gameOver, setGameOver] = useState(false)
     const [resetButtonClicked, setResetButtonClicked] = useState(false);
-    const { boardSize, gameId, setGameId } = useContext(GameContext)
+    const { boardSize, gameId, winner, setWinner } = useContext(GameContext)
     const { user } = useContext(UserContext)
     const { playerTurn, nextTurn } = useContext(SquareContext)
-    const [games, saveGames] = useLocalStorage<Record<string, number[][]>>('Games', {})
+    const [games, savedGames] = useLocalStorage<Record<string, number[][]>>('Games', {})
     const completedGames = games[`Game-${gameId}`] || []
     //const { [`Game-${gameId}`]: selectedSquares = [], ...otherGames } = game
     const [playerOneState, dispatch1] = useReducer(gameReducer, completedGames)
@@ -58,6 +49,8 @@ export default function Game(props: gameProps) {
         setGameOver(false)
         setWinner(undefined)
     }
+
+
 
 
     useEffect(() => {
@@ -121,36 +114,38 @@ export default function Game(props: gameProps) {
         console.log(playerOneState)
         console.log(playerTwoState)
 
-        if (playerOneState.length + playerTwoState.length === boardSize ** 2) {
-            setWinner('tie')
-            setGameOver(true)
-        } else {
-            if (fiveConseq(playerOneState)) {
-                setWinner(PLAYER.PLAYER_ONE)
-                setGameOver(true)
-            } else if (fiveConseq(playerTwoState)) {
-                setWinner(PLAYER.PLAYER_TWO)
-                setGameOver(true)
-            } else if (fiveDown(playerTwoState)) {
-                setWinner(PLAYER.PLAYER_TWO)
-                setGameOver(true)
-            } else if (fiveDown(playerOneState)) {
-                setWinner(PLAYER.PLAYER_ONE)
-                setGameOver(true)
-            } else if (diagLeft(playerTwoState)) {
-                setWinner(PLAYER.PLAYER_TWO)
-                setGameOver(true)
-            } else if (diagLeft(playerOneState)) {
-                setWinner(PLAYER.PLAYER_ONE)
-                setGameOver(true)
-            } else if (diagRight(playerTwoState)) {
-                setWinner(PLAYER.PLAYER_TWO)
-                setGameOver(true)
-            } else if (diagRight(playerOneState)) {
-                setWinner(PLAYER.PLAYER_ONE)
+        if (playerOneState.length > 3 && playerTwoState.length > 3) {
+            if (playerOneState.length + playerTwoState.length === boardSize ** 2) {
+                setWinner(PLAYER.TIE)
                 setGameOver(true)
             } else {
-                setWinner(undefined)
+                if (fiveConseq(playerOneState)) {
+                    setWinner(PLAYER.PLAYER_ONE)
+                    setGameOver(true)
+                } else if (fiveConseq(playerTwoState)) {
+                    setWinner(PLAYER.PLAYER_TWO)
+                    setGameOver(true)
+                } else if (fiveDown(playerTwoState)) {
+                    setWinner(PLAYER.PLAYER_TWO)
+                    setGameOver(true)
+                } else if (fiveDown(playerOneState)) {
+                    setWinner(PLAYER.PLAYER_ONE)
+                    setGameOver(true)
+                } else if (diagLeft(playerTwoState)) {
+                    setWinner(PLAYER.PLAYER_TWO)
+                    setGameOver(true)
+                } else if (diagLeft(playerOneState)) {
+                    setWinner(PLAYER.PLAYER_ONE)
+                    setGameOver(true)
+                } else if (diagRight(playerTwoState)) {
+                    setWinner(PLAYER.PLAYER_TWO)
+                    setGameOver(true)
+                } else if (diagRight(playerOneState)) {
+                    setWinner(PLAYER.PLAYER_ONE)
+                    setGameOver(true)
+                } else {
+                    setWinner(undefined)
+                }
             }
         }
 
@@ -188,7 +183,7 @@ export default function Game(props: gameProps) {
             return 'Black WINS!!!'
         } else if (winner === PLAYER.PLAYER_TWO) {
             return 'White WINS!!!'
-        } else if (winner === 'tie') {
+        } else if (winner === PLAYER.TIE) {
             return `It's a TIE!!!`
         } else {
             return winner
@@ -215,17 +210,13 @@ export default function Game(props: gameProps) {
 
     }
 
-    const incrementGameId = (count: number) => {
-        setGameId(gameId + count)
-    }
-
     const leave = () => {
-        if (gameOver) {
-            saveGames({ ...games, [`Game-${gameId}`]: mergeArrays(playerOneState, playerTwoState) })
-            incrementGameId(1)
-            resetGame()
+        console.log(winner)
+        const finalArray = mergeArrays(playerOneState, playerTwoState)
+        if (gameOver && finalArray.length > 0) {
+            savedGames({ ...games, [`Game-${gameId}`]: finalArray })
             navigate('/games')
-        } else if (!gameOver) {
+        } else {
             resetGame()
             navigate('/')
         }
@@ -239,8 +230,7 @@ export default function Game(props: gameProps) {
     }
 
     return (
-        <div className={style.container}>
-            <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
+        <div className={style.container}>            <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
             <div className={getBoardStyles()} id={`Game-${gameId}`}
                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                 {[...Array(boardSize * boardSize)].map((_, index) => (

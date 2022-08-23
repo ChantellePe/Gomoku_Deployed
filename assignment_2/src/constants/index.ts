@@ -6,6 +6,7 @@ export enum SQUARE_STATUS {
 export enum PLAYER {
     PLAYER_ONE = 'Black',
     PLAYER_TWO = 'White',
+    TIE = "Game is a draw"
 
 }
 
