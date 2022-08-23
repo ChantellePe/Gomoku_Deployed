@@ -1,12 +1,12 @@
 import { useContext, useReducer, useState, useEffect } from 'react'
-import { Navigate, useNavigate, useLocation } from 'react-router-dom'
+import { Navigate, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
 import { Square, Button } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import buttonStyle from '../components/Button.module.css'
 import { useLocalStorage } from '../hooks'
-//import Moment from 'moment'
+
 
 
 type PlayerMove = {
@@ -14,8 +14,12 @@ type PlayerMove = {
     payload: number[]
 }
 
+type gameProps = {
+    gameWinner?: PLAYER
+    id?: number
+}
 
-function gameReducer(state: number[][], action: PlayerMove) {
+function gameReducer(state: number[][] = [], action: PlayerMove) {
     const { type, payload } = action
     switch (type) {
         case PLAYER_MOVE_ACTION.SELECT:
@@ -27,19 +31,24 @@ function gameReducer(state: number[][], action: PlayerMove) {
     }
 }
 
-export default function Game() {
+export default function Game(props: gameProps) {
+    //const { id, gameWinner } = props
+
     const navigate = useNavigate()
     const [gameOver, setGameOver] = useState(false)
     const [resetButtonClicked, setResetButtonClicked] = useState(false);
-    const { boardSize, gameId, winner, setWinner } = useContext(GameContext)
+    const { boardSize, winner, setWinner, gameId, setGameId } = useContext(GameContext)
     const { user } = useContext(UserContext)
     const { playerTurn, nextTurn } = useContext(SquareContext)
-    const [games, savedGames] = useLocalStorage<Record<string, number[][]>>('Games', {})
-    const completedGames = games[`Game-${gameId}`] || []
-    //const { [`Game-${gameId}`]: selectedSquares = [], ...otherGames } = game
+    const [games, saveGames] = useLocalStorage<Record<string, number[][]>>('Games', {})
+    //const [winningPlayer, saveWinningPlayer] = useLocalStorage<[PLAYER]>('winner', [])
+    // const completedGames = games[`Game-${gameID}`] || []
+    setGameId(Object.keys(games).length + 1)
+    const { [`Game-${gameId}`]: completedGames = [], ...otherGames } = games
     const [playerOneState, dispatch1] = useReducer(gameReducer, completedGames)
     const [playerTwoState, dispatch2] = useReducer(gameReducer, completedGames)
     const location = useLocation()
+
 
     const resetGame = () => {
         setResetButtonClicked(() => resetButtonClicked ? false : true)
@@ -55,11 +64,12 @@ export default function Game() {
 
     useEffect(() => {
         resetGame()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
 
 
     useEffect(() => {
+
+
         function exists(arr: number[][], search: number[]): boolean {
             return arr.some(row => JSON.stringify(row) === JSON.stringify(search))
         }
@@ -147,6 +157,8 @@ export default function Game() {
                     setWinner(undefined)
                 }
             }
+            console.log(playerOneState)
+            console.log(playerTwoState)
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -202,32 +214,43 @@ export default function Game() {
     const mergeArrays = (a1: number[][], a2: number[][]) => {
         let length = a1.length > a2.length ? a1.length : a2.length
         let a3: number[][] = []
+
         for (let i: number = 0; i < length; i++) {
             a3.push(a1[i])
             a3.push(a2[i])
         }
+        if (winner === PLAYER.PLAYER_ONE) {
+            a3.push([1000])
+        } else if (winner === PLAYER.PLAYER_TWO) {
+            a3.push([2000])
+        } else if (winner === PLAYER.TIE) {
+            a3.push([2000])
+        }
         return a3
-
     }
+
+
 
     const leave = () => {
         console.log(winner)
         const finalArray = mergeArrays(playerOneState, playerTwoState)
         if (gameOver && finalArray.length > 0) {
-            savedGames({ ...games, [`Game-${gameId}`]: finalArray })
+            saveGames({ ...games, [`Game-${gameId}:${winner}`]: finalArray })
+
             navigate('/games')
         } else {
+            saveGames(otherGames)
             resetGame()
             navigate('/')
         }
     }
 
-    const disableButton = () => {
-        if (winner !== undefined) {
-            return true
-        }
-        return false
-    }
+    // const disableButton = () => {
+    //     if (winner !== undefined) {
+    //         return true
+    //     }
+    //     return false
+    // }
 
     return (
         <div className={style.container}>            <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
@@ -249,7 +272,7 @@ export default function Game() {
             </div>
 
             <div className={style.buttonSection}>
-                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} disabled={disableButton()} onClick={resetGame}>Restart</Button>
+                <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} onClick={resetGame}>Restart</Button>
                 <Button className={[buttonStyle.button, buttonStyle.leave].join(' ')} onClick={leave}>Leave</Button>
             </div>
         </div>

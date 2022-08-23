@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Button, Input, Message } from '../components'
 import users from '../data/user.json'
 import style from './Login.module.css'
+
 //import { useLocalStorage } from '../hooks'
 
 export default function SignUp() {
@@ -9,6 +10,13 @@ export default function SignUp() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+    const usernameInput = useRef<HTMLInputElement | null>(null)
+
+    useEffect(() => {
+        if (usernameInput.current) {
+            usernameInput.current.focus()
+        }
+    }, [])
 
     const handleSignUp = () => {
         if (users.find((u) => u.username === username)) {
@@ -36,6 +44,7 @@ export default function SignUp() {
             }}>
             {errorMessage && <Message variant="error" message={errorMessage} />}
             <Input
+                ref={usernameInput}
                 name="username"
                 placeholder="Username"
                 value={username}

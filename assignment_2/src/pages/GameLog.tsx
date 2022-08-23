@@ -1,19 +1,38 @@
-import { useParams } from 'react-router-dom'
+
 import { useContext } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../context'
+import buttonStyle from '../components/Button.module.css'
+import style from './GameLog.module.css'
 
 //import PreviousGameItem from '../components/PreviousGameItem';
 
-export default function GameLog() {
+type gameLogProps = {
+    id?: number
+
+}
+
+export default function GameLog(props: gameLogProps) {
     const { user } = useContext(UserContext)
-    const { gameId } = useParams();
+    const navigate = useNavigate()
+    const { id } = useParams();
     if (!user) return <Navigate to='/login' />
-    if (!gameId) return null
+    if (!id) return null
+
+
+
 
 
     return (
-        <div>GameLog</div>
+        <div className={style.container}>
+            {/* <img className={style.poster} src={poster} alt={title} /> */}
+            {/* <div className={style.title}>{title}</div> */}
+
+            <button className={buttonStyle.button} onClick={() => navigate(`/games`)}>
+                Back
+            </button>
+        </div>
     )
 }
+
 

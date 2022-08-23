@@ -3,7 +3,12 @@ import { Header, UserProvider, GameProvider, SquareProvider, Logout } from './co
 import { Home, Login, Game, GameLog, Games, SignUp } from './pages';
 import { Routes, Route, Navigate } from 'react-router-dom'
 
+
+
 function App() {
+
+
+
   return (
     <UserProvider>
       <SquareProvider>

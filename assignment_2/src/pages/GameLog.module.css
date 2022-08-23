@@ -20,10 +20,9 @@
 
 
 .list {
-    height: auto;
-    margin-top: 5%;
+    margin-top: 10%;
     border: 3px solid #363636;
-    padding: 8px 25px 8px 50px;
+    padding: 8px 15px 8px 15px;
     width: 75%;
     display: inline-flex;
     justify-content: space-between;

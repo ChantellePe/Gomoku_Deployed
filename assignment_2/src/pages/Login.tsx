@@ -30,6 +30,12 @@ export default function Login() {
         }
     }
 
+    useEffect(() => {
+        if (usernameInput.current) {
+            usernameInput.current.focus()
+        }
+    }, [])
+
     return (
         <form
             className={style.container}
@@ -42,6 +48,7 @@ export default function Login() {
             {isCredentialInvalid && <Message variant='error' message='Invalid username and password' />}
 
             <Input
+                ref={usernameInput}
                 name="username"
                 placeholder="Username"
                 value={username}

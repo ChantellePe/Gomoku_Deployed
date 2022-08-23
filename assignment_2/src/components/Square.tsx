@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, memo } from 'react'
 import style from './Square.module.css'
 import { PLAYER, SQUARE_STATUS } from '../constants'
 import { SquareContext } from '../context'
@@ -11,10 +11,9 @@ type SquareProps = {
     playerMove: () => void
     resetButtonClicked: boolean
     isOccupied?: boolean
-
-
 }
-export default function Square(props: SquareProps) {
+
+export default memo(function Square(props: SquareProps) {
 
     const { playerMove, resetButtonClicked, isOccupied = false } = props
     const [status, setStatus] = useState(!isOccupied ? SQUARE_STATUS.AVAILABLE : SQUARE_STATUS.OCCUPIED)
@@ -49,4 +48,4 @@ export default function Square(props: SquareProps) {
     return (
         <div className={classList.join(" ")} onClick={handleClick}></div>
     )
-}
+})
