@@ -11,6 +11,7 @@ type SquareProps = {
     playerMove: () => void
     resetButtonClicked?: boolean
     isOccupied?: boolean
+    className?: string
 }
 
 export default memo(function Square(props: SquareProps) {

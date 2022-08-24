@@ -6,7 +6,7 @@ import { Square, Button } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import buttonStyle from '../components/Button.module.css'
 import { useLocalStorage } from '../hooks'
-
+import Moment from 'moment'
 
 
 type PlayerMove = {
@@ -42,6 +42,7 @@ export default function Game() {
     const [playerOneState, dispatch1] = useReducer(gameReducer, completedGames)
     const [playerTwoState, dispatch2] = useReducer(gameReducer, completedGames)
     const location = useLocation()
+    const date = Moment().format('DD/MM/YYYY')
 
 
     const resetGame = () => {
@@ -231,7 +232,7 @@ export default function Game() {
         console.log(winner)
         const finalArray = mergeArrays(playerOneState, playerTwoState)
         if (gameOver && finalArray.length > 0) {
-            saveGames({ ...games, [`Game-${gameId}-${winner}-${Number(boardSize)}`]: finalArray })
+            saveGames({ ...games, [`Game-${gameId}-${winner}-${Number(boardSize)}-${date}`]: finalArray })
 
             navigate('/games')
         } else {

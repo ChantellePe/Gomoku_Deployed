@@ -45,7 +45,26 @@
 }
 
 .viewLog {
-    width: 30%;
     height: auto;
+    text-align: center;
+    align-items: right;
+    background-color: #d60096;
+    border: 0;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 1rem 1rem;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    user-select: none;
+    width: 25%;
     font-size: 100%;
+}
+
+
+.viewLog:hover {
+    background-color: #b10076;
+    color: #ffffff;
 }

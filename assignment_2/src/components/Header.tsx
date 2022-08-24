@@ -1,4 +1,4 @@
-import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import style from './Header.module.css'
 import buttonStyle from './Button.module.css'
 import '../index.css'
@@ -12,7 +12,6 @@ function Header() {
     const { user } = useContext(UserContext)
     const { boardSize } = useContext(GameContext)
     const location = useLocation()
-    const { id } = useParams()
 
     const getboardSize = () => {
         return boardSize ? '/game' : '/'

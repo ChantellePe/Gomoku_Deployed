@@ -3,30 +3,36 @@
     flex-direction: column;
     width: auto;
     height: 48px;
-    font-size: 1.4rem;
+    font-size: 16px;
+    margin-top: 25px;
+    padding-top: 15px;
     display: flex;
     align-items: center;
 }
+
 
 .board {
     display: grid;
     margin-top: 2%;
     cursor: not-allowed;
     pointer-events: none;
-
 }
+
+
 
 .header {
     text-align: center;
 }
 
-
-/* .header {
-    margin-top: 10%;
-    border: 3px solid #363636;
-    padding: 8px 15px 8px 15px;
-    width: 75%;
-    display: inline-flex;
+.buttonSection {
+    align-content: center;
+    align-items: center;
+    height: auto;
+    margin-top: 5%;
     justify-content: space-between;
-    background-color: rgb(255, 205, 253, 0.65);
-} */
+    flex-direction: row;
+    display: flex;
+    width: auto;
+    font-size: 0.7rem;
+    padding-bottom: 5%;
+}

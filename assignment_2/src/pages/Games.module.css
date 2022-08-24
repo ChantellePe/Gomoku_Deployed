@@ -8,12 +8,6 @@
     align-items: center;
 }
 
-.board {
-    display: grid;
-    margin-top: 2%;
-
-}
-
 .header {
     text-align: center;
 }
@@ -23,9 +17,12 @@
     height: auto;
     margin-top: 5%;
     border: 3px solid #363636;
-    padding: 8px 25px 8px 50px;
+    padding: 25px;
     width: 75%;
+
     display: inline-flex;
     justify-content: space-between;
+
     background-color: rgb(255, 205, 253, 0.65);
+
 }

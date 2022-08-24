@@ -5,24 +5,12 @@ import buttonStyle from '../components/Button.module.css'
 import { UserContext } from '../context'
 import { useLocalStorage } from '../hooks'
 import style from './Games.module.css'
-import Moment from 'moment'
-//import { PLAYER } from '../constants'
 
-
-// type gamesProps = {
-//     gameWinner: PLAYER
-//     gameId: number
-// }
 
 export default function Games() {
-    //const { gameId } = useContext(GameContext)
-    //const [gameWinner, setGameWinner] = useState<PLAYER>()
     const { user } = useContext(UserContext)
     const navigate = useNavigate()
     const [games] = useLocalStorage<Record<string, number[][]>>('Games', {})
-    const date = Moment().format('DD/MM/YYYY')
-
-
 
 
     if (!user) return <Navigate to='/login' />
@@ -36,30 +24,23 @@ export default function Games() {
                 const noOfGames = games[key].length
                 const id = key.split('-')[1]
                 const winner = key.split('-')[2]
-
-
-
+                const date = key.split('-')[4]
                 if (noOfGames === 0) return null
                 return (
                     <div className={style.list} key={key}>
                         <p className={style.title}>
                             {`Game #${id} @${date}`}
-
                         </p>
-
-
-
                         <p>
                             {`Winner: ${winner}`}
                         </p>
                         <Button
-                            className={[buttonStyle.button, buttonStyle.viewLog].join(' ')}
+                            className={[buttonStyle.viewLog].join(' ')}
                             onClick={() => navigate(`/gamelog/${id}`)}>
                             View Game Log
                         </Button>
 
                     </div>
-
                 )
             })}
         </div>
