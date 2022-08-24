@@ -7,12 +7,12 @@ import style from './GameLog.module.css'
 
 //import PreviousGameItem from '../components/PreviousGameItem';
 
-type gameLogProps = {
-    id?: number
+// type gameLogProps = {
+//     id?: number
 
-}
+// }
 
-export default function GameLog(props: gameLogProps) {
+export default function GameLog() {
     const { user } = useContext(UserContext)
     const navigate = useNavigate()
     const { id } = useParams();

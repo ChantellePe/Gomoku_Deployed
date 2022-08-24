@@ -1,5 +1,5 @@
 import { useContext, useReducer, useState, useEffect } from 'react'
-import { Navigate, useNavigate, useLocation, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
 import { Square, Button } from '../components'
@@ -14,10 +14,7 @@ type PlayerMove = {
     payload: number[]
 }
 
-type gameProps = {
-    gameWinner?: PLAYER
-    id?: number
-}
+
 
 function gameReducer(state: number[][] = [], action: PlayerMove) {
     const { type, payload } = action
@@ -31,8 +28,7 @@ function gameReducer(state: number[][] = [], action: PlayerMove) {
     }
 }
 
-export default function Game(props: gameProps) {
-    //const { id, gameWinner } = props
+export default function Game() {
 
     const navigate = useNavigate()
     const [gameOver, setGameOver] = useState(false)
@@ -41,8 +37,6 @@ export default function Game(props: gameProps) {
     const { user } = useContext(UserContext)
     const { playerTurn, nextTurn } = useContext(SquareContext)
     const [games, saveGames] = useLocalStorage<Record<string, number[][]>>('Games', {})
-    //const [winningPlayer, saveWinningPlayer] = useLocalStorage<[PLAYER]>('winner', [])
-    // const completedGames = games[`Game-${gameID}`] || []
     setGameId(Object.keys(games).length + 1)
     const { [`Game-${gameId}`]: completedGames = [], ...otherGames } = games
     const [playerOneState, dispatch1] = useReducer(gameReducer, completedGames)
@@ -64,6 +58,8 @@ export default function Game(props: gameProps) {
 
     useEffect(() => {
         resetGame()
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
 
 

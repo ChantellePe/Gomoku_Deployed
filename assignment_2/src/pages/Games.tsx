@@ -1,12 +1,12 @@
-import { useContext, useState, useEffect } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { useContext } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { Button } from '../components'
 import buttonStyle from '../components/Button.module.css'
-import { GameContext, UserContext } from '../context'
+import { UserContext } from '../context'
 import { useLocalStorage } from '../hooks'
 import style from './Games.module.css'
 import Moment from 'moment'
-import { PLAYER } from '../constants'
+//import { PLAYER } from '../constants'
 
 
 // type gamesProps = {
@@ -15,7 +15,6 @@ import { PLAYER } from '../constants'
 // }
 
 export default function Games() {
-    const { id } = useParams()
     //const { gameId } = useContext(GameContext)
     //const [gameWinner, setGameWinner] = useState<PLAYER>()
     const { user } = useContext(UserContext)
@@ -35,7 +34,7 @@ export default function Games() {
             </h1>
             {Object.keys(games).map((key, i, value) => {
                 const noOfGames = games[key].length
-                const gameId = key.split('-')[1].split(":")[0]
+                const id = key.split('-')[1].split(":")[0]
                 const winner = key.split(':')[1]
 
 
@@ -44,7 +43,7 @@ export default function Games() {
                 return (
                     <div className={style.list} key={key}>
                         <p className={style.title}>
-                            {`Game #${gameId} @${date}`}
+                            {`Game #${id} @${date}`}
 
                         </p>
 
@@ -55,7 +54,7 @@ export default function Games() {
                         </p>
                         <Button
                             className={[buttonStyle.button, buttonStyle.viewLog].join(' ')}
-                            onClick={() => navigate(`/gamelog/${Number(gameId)})}`)}>
+                            onClick={() => navigate(`/gamelog/${id}`)}>
                             View Game Log
                         </Button>
 
