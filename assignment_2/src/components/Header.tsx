@@ -1,22 +1,37 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
 import style from './Header.module.css'
 import buttonStyle from './Button.module.css'
 import '../index.css'
 import { useContext } from 'react'
-import { UserContext } from '../context'
+import { GameContext, UserContext } from '../context'
+
 
 
 function Header() {
     const navigate = useNavigate()
     const { user } = useContext(UserContext)
+    const { boardSize } = useContext(GameContext)
     const location = useLocation()
+    const { id } = useParams()
+
+    const getboardSize = () => {
+        return boardSize ? '/game' : '/'
+    }
+
 
     const getActions = () => {
         if (user) {
-            return (<>
-                <button className={buttonStyle.button} onClick={() => navigate('games')}>Previous Games</button>
+            if (location.pathname === '/games' || location.pathname.includes('/gamelog/')) {
+                return (<>
+                    <button className={buttonStyle.button} onClick={() => navigate(getboardSize())}>Play Again</button>
+                </>)
+            } else {
+                return (<>
+                    <button className={buttonStyle.button} onClick={() => navigate('games')}>Previous Games</button>
+                </>)
+            }
 
-            </>)
+
         } else {
             return location.pathname !== '/login' ? (
                 <button className={buttonStyle.button} onClick={() => navigate('login')}>Log In</button>

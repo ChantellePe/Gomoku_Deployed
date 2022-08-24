@@ -1,12 +1,13 @@
 import { useState, useContext, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Input, Message } from '../components'
-import { UserContext } from '../context'
+import { UserContext, GameContext } from '../context'
 import style from './Login.module.css'
 import users from '../data/user.json'
 
 export default function Login() {
     const { login } = useContext(UserContext)
+    const { boardSize } = useContext(GameContext)
     const usernameInput = useRef<HTMLInputElement | null>(null)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -26,7 +27,7 @@ export default function Login() {
             setIsCredentialInvalid(true)
         } else {
             login(username)
-            navigate('/')
+            boardSize ? navigate('/game') : navigate('/')
         }
     }
 

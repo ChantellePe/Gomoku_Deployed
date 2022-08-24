@@ -231,7 +231,7 @@ export default function Game() {
         console.log(winner)
         const finalArray = mergeArrays(playerOneState, playerTwoState)
         if (gameOver && finalArray.length > 0) {
-            saveGames({ ...games, [`Game-${gameId}:${winner}`]: finalArray })
+            saveGames({ ...games, [`Game-${gameId}-${winner}-${Number(boardSize)}`]: finalArray })
 
             navigate('/games')
         } else {

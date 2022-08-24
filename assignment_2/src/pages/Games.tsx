@@ -34,8 +34,8 @@ export default function Games() {
             </h1>
             {Object.keys(games).map((key, i, value) => {
                 const noOfGames = games[key].length
-                const id = key.split('-')[1].split(":")[0]
-                const winner = key.split(':')[1]
+                const id = key.split('-')[1]
+                const winner = key.split('-')[2]
 
 
 

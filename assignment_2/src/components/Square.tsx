@@ -7,9 +7,9 @@ import { SquareContext } from '../context'
 
 type SquareProps = {
     id: number[]
-    playerTurn: PLAYER
+    playerTurn?: PLAYER
     playerMove: () => void
-    resetButtonClicked: boolean
+    resetButtonClicked?: boolean
     isOccupied?: boolean
 }
 
