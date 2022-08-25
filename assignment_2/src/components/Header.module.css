@@ -1,7 +1,6 @@
-.author {
+.welcome {
     font-size: 1.3rem;
     pointer-events: none;
-    font-family: 'Dancing Script', cursive, Times, serif;
     text-shadow: none;
     text-transform: none;
     font-weight: 700;
@@ -10,7 +9,7 @@
     display: inline-flex;
     position: absolute;
     margin-left: 2%;
-    margin-bottom: 2%;
+    margin-bottom: 0;
     z-index: 0;
 }
 
@@ -29,25 +28,24 @@
 }
 
 .title {
-    color: rgb(255, 37, 186);
-    margin-top: 1.3%;
-    margin-bottom: 0.5%;
+    color: rgb(230, 39, 169);
+    margin-top: 1.2%;
+    margin-bottom: 0.2%;
     text-align: left;
     padding-left: 3%;
     border-width: 1rem;
-    font-size: 4.3rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 4.5rem;
+    font-family: 'Cinzel', Verdana, Geneva, Tahoma, sans-serif, Tahoma, sans-serif;
     text-transform: uppercase;
-    font-weight: 700;
     text-shadow: 1px 1px 1px#414141,
         1px 2px 1px #4d0046,
         1px 3px 1px #8a015c,
         1px 4px 1px #580051,
         1px 5px 1px #5c0040,
         1px 6px 1px #99007f,
-        1px 18px 6px rgb(58, 0, 58),
-        1px 22px 10px rgba(29, 0, 24, 0.2),
-        1px 25px 35px rgba(39, 0, 33, 0.2),
+        1px 18px 6px rgb(58, 0, 58, 0.6),
+        1px 22px 10px rgba(44, 1, 37, 0),
+
         1px 30px 60px rgba(179, 0, 155, 0.5);
 
 }

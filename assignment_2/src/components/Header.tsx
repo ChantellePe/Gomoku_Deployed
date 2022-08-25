@@ -39,7 +39,7 @@ function Header() {
     }
 
     const welcomeMessage = () => {
-        return (user) ? (<span className={style.author}>Hi {user.username} ! Welcome to...</span>) : (<span className={style.author}> Chantelle Perreau presents...</span>)
+        return (user) ? (<span className={style.welcome}>Hi {user.username} ! Welcome to...</span>) : (<span className={style.welcome}> Welcome to...</span>)
     }
 
 

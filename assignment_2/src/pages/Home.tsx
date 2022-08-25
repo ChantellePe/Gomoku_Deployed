@@ -28,15 +28,15 @@ export default function Home() {
 
                     }}>
                     <option value={0} hidden>Board Size</option>
-                    {(Array.from(Array(15)).map((e, i) => i + 5).map((num) =>
+                    {(Array.from(Array(20)).map((e, i) => i + 5).map((num) =>
                         <option key={num} value={num}>{num}</option>)
                     )}
                 </select>
                 <div className={style.gameRules}>
                     <header className={style.rulesTitle}>Game Rules:</header>
-                    <p>Players alternate turns placing a stone of their color on an empty intersection. Black plays first.
+                    <p>Players alternate turns placing a stone of their color on an empty intersection. <br></br><br></br> Black plays first.
                         The winner is the first player to form an unbroken chain of five stones horizontally, vertically, or diagonally.
-                        Placing so that a line of more than five stones of the same color is created does not result in a win.</p>
+                        <br></br><br></br>Placing so that a line of more than five stones of the same color is created does not result in a win.</p>
                 </div>
                 <Button
                     className={style.startGameButton}

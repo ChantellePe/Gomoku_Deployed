@@ -1,11 +1,10 @@
 body {
   margin: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif, 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Domine', Verdana, Times, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 #root {
   min-height: 100vh;

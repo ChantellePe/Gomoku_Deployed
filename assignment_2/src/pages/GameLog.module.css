@@ -51,8 +51,8 @@
     text-shadow:
         1px 4px 1px #580051,
         1px 5px 1px #5c0040,
-        1px 6px 1px #99007f,
-        1px 22px 10px rgba(44, 1, 37, 0.2),
-        1px 25px 35px rgba(39, 0, 33, 0.2),
-        1px 30px 60px rgba(179, 0, 155, 0.2);
+        1px 6px 1px #99007f67,
+        1px 22px 10px rgba(44, 1, 37, 0.1),
+        1px 25px 35px rgba(39, 0, 33, 0.1),
+        1px 30px 60px rgba(179, 0, 155, 0.1);
 }
