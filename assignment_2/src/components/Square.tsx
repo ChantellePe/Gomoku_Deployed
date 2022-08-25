@@ -12,6 +12,7 @@ type SquareProps = {
     resetButtonClicked?: boolean
     isOccupied?: boolean
     classes?: string
+    children?: React.ReactElement
 }
 
 export default memo(function Square(props: SquareProps) {
@@ -50,6 +51,6 @@ export default memo(function Square(props: SquareProps) {
     }
 
     return (
-        <div className={location.pathname === '/game' ? classList.join(" ") : classes} onClick={handleClick}></div>
+        <div className={location.pathname === '/game' ? classList.join(" ") : classes} onClick={handleClick}>{props.children}</div>
     )
 })

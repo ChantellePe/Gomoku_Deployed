@@ -79,22 +79,30 @@ export default function GameLog() {
                                     const classColor = (sqID: number[]) => gameArr.map((e, i) => {
                                         //console.log(e)
                                         //console.log(sqID)
+
                                         if (arraysEqual(e, sqID)) {
-                                            console.log("square found")
-                                            console.log(i)
                                             if (i === 0 || i % 2 === 0) {
-                                                return ([`${squareStyle.square}  ${squareStyle.Black}`].filter((arr) => arr !== `${style.available}`))
+                                                return (`${squareStyle.square}  ${squareStyle.Black} ${style.numberWhite}`)
                                             } else if (i === 1 || i % 2 === 1) {
-                                                return ([`${squareStyle.square}  ${squareStyle.White}`].filter((arr) => arr !== `${style.available}`))
+                                                return ([`${squareStyle.square}  ${squareStyle.White}`])
                                             }
                                         } else if (!arraysEqual(e, sqID)) {
                                             return (`${squareStyle.square} ${style.available}`)
                                         }
 
+
                                     })
+                                    const getIndex = (sqID: number[]) => gameArr.map((e, i) => {
+                                        if (arraysEqual(e, sqID)) {
+                                            return i + 1
+                                        }
+
+                                    })
+
                                     return (
                                         <div>
-                                            <Square id={idGenerator(index, boardSize)} classes={classColor(idGenerator(index, boardSize)).join(' ')} key={idGenerator(index, boardSize).join(" ")} playerMove={() => null} />
+                                            <Square id={idGenerator(index, boardSize)} classes={classColor(idGenerator(index, boardSize)).join(' ')}
+                                                key={idGenerator(index, boardSize).join(" ")} playerMove={() => null}><div className={`${style.numbers}`}>{getIndex(idGenerator(index, boardSize))}</div></Square>
                                         </div>
                                     )
                                 })}
@@ -108,7 +116,7 @@ export default function GameLog() {
                 }
 
             })}
-        </div>
+        </div >
     )
 }
 
