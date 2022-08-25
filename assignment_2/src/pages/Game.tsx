@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useReducer, useState, useEffect } from 'react'
 import { Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
@@ -8,13 +9,10 @@ import buttonStyle from '../components/Button.module.css'
 import { useLocalStorage } from '../hooks'
 import Moment from 'moment'
 
-
 type PlayerMove = {
     type: PLAYER_MOVE_ACTION
     payload: number[]
 }
-
-
 
 function gameReducer(state: number[][] = [], action: PlayerMove) {
     const { type, payload } = action
@@ -37,13 +35,11 @@ export default function Game() {
     const { user } = useContext(UserContext)
     const { playerTurn, nextTurn } = useContext(SquareContext)
     const [games, saveGames] = useLocalStorage<Record<string, number[][]>>('Games', {})
-    setGameId(Object.keys(games).length + 1)
     const { [`Game-${gameId}`]: completedGames = [], ...otherGames } = games
     const [playerOneState, dispatch1] = useReducer(gameReducer, completedGames)
     const [playerTwoState, dispatch2] = useReducer(gameReducer, completedGames)
     const location = useLocation()
     const date = Moment().format('DD/MM/YYYY')
-
 
     const resetGame = () => {
         setResetButtonClicked(() => resetButtonClicked ? false : true)
@@ -54,18 +50,15 @@ export default function Game() {
         setWinner(undefined)
     }
 
-
-
+    useEffect(() => {
+        setGameId(Object.keys(games).length + 1)
+    }, [])
 
     useEffect(() => {
         resetGame()
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
 
-
     useEffect(() => {
-
 
         function exists(arr: number[][], search: number[]): boolean {
             return arr.some(row => JSON.stringify(row) === JSON.stringify(search))
@@ -157,16 +150,10 @@ export default function Game() {
             console.log(playerOneState)
             console.log(playerTwoState)
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playerOneState, playerTwoState])
-
-
 
     if (!user) return <Navigate to="/login" replace />
     if (!boardSize) return null
-
-
 
     const idGenerator = (id: number): number[] => {
         let row = 0
@@ -216,24 +203,14 @@ export default function Game() {
             a3.push(a1[i])
             a3.push(a2[i])
         }
-        if (winner === PLAYER.PLAYER_ONE) {
-            a3.push([1000])
-        } else if (winner === PLAYER.PLAYER_TWO) {
-            a3.push([2000])
-        } else if (winner === PLAYER.TIE) {
-            a3.push([2000])
-        }
         return a3
     }
-
-
 
     const leave = () => {
         console.log(winner)
         const finalArray = mergeArrays(playerOneState, playerTwoState)
         if (gameOver && finalArray.length > 0) {
             saveGames({ ...games, [`Game-${gameId}-${winner}-${Number(boardSize)}-${date}`]: finalArray })
-
             navigate('/games')
         } else {
             saveGames(otherGames)
@@ -241,13 +218,6 @@ export default function Game() {
             navigate('/')
         }
     }
-
-    // const disableButton = () => {
-    //     if (winner !== undefined) {
-    //         return true
-    //     }
-    //     return false
-    // }
 
     return (
         <div className={style.container}>            <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
@@ -263,8 +233,6 @@ export default function Game() {
                             }
                         }
                         } />
-
-
                 ))}
             </div>
 
@@ -273,6 +241,5 @@ export default function Game() {
                 <Button className={[buttonStyle.button, buttonStyle.leave].join(' ')} onClick={leave}>Leave</Button>
             </div>
         </div>
-
     )
 }

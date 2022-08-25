@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 
 import { useContext } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
@@ -17,39 +18,43 @@ export default function GameLog() {
     const { id } = useParams();
 
 
-    const getboardSize = (): number | null => {
-        Object.keys(games).map((key, i, value) => {
-            const gameDetails = key.split('-')
-            if (gameDetails[1] === id) {
-                return parseInt(gameDetails[3])
-            }
-            return null
-        })
-        return null
-    }
-
-    const idGenerator = (id: number): number[] => {
+    const idGenerator = (id: number, boardSize: number): number[] => {
         let row = 0
         let square = 0
         const index = id + 1
-        const boardSize = getboardSize();
-        if (boardSize) {
-            if (index > boardSize) {
-                if (index % boardSize) {
-                    square = id
-                    row = Math.floor((id / boardSize))
-                } else if (index % boardSize === 0) {
-                    row = (index / boardSize) - 1
-                    square = id
-                }
-            } else if (id < boardSize) {
-                row = 0
+        if (index > boardSize) {
+            if (index % boardSize !== 0) {
                 square = id
+                row = Math.floor((id / boardSize))
+            } else if (index % boardSize === 0) {
+                square = id
+                row = (index / boardSize) - 1
             }
-            return [square, row]
+        } else if (id < boardSize) {
+            square = id
+            row = 0
         }
-        return []
+        return [square, row]
     }
+
+    const arraysEqual = (a1: number[], a2: number[]): boolean => {
+        return JSON.stringify(a1) === JSON.stringify(a2);
+    }
+
+    // const classGenerator = (array: number[][], id: number[]) => {
+    //     for (let i = 0; i < array.length; i++) {
+    //         console.log(array[i])
+    //         console.log(id)
+    //         if (array[i] === id) {
+    //             console.log("square found")
+    //             if (i === 0 || i % 2 === 0) {
+    //                 return `${style.Black}`
+    //             } else if (i === 1 || i % 2 !== 0) {
+    //                 return `${style.White}`
+    //             }
+    //         }
+    //     }
+    // }
 
 
 
@@ -61,22 +66,35 @@ export default function GameLog() {
             {Object.keys(games).map((key, i, value) => {
                 const gameDetails = key.split('-')
                 if (gameDetails[1] === id) {
-                    console.log("found game")
                     const winner = gameDetails[2]
                     const boardSize = parseInt(gameDetails[3])
+                    const gameArr = games[key]
                     return (
                         <div className={style.container}>
                             <h1 className={style.header}>Winner: {winner}</h1>
                             <div className={style.board} id={`Game-${id}`}
                                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                                 {[...Array(boardSize ** 2)].map((e, index) => {
-                                    for (let i = 0; i < games[key].length; i++) {
 
+                                    const classColor = (sqID: number[]) => gameArr.map((e, i) => {
+                                        //console.log(e)
+                                        //console.log(sqID)
+                                        if (arraysEqual(e, sqID)) {
+                                            console.log("square found")
+                                            console.log(i)
+                                            if (i === 0 || i % 2 === 0) {
+                                                return ([`${squareStyle.square}  ${squareStyle.Black}`].filter((arr) => arr !== `${style.available}`))
+                                            } else if (i === 1 || i % 2 === 1) {
+                                                return ([`${squareStyle.square}  ${squareStyle.White}`].filter((arr) => arr !== `${style.available}`))
+                                            }
+                                        } else if (!arraysEqual(e, sqID)) {
+                                            return (`${squareStyle.square} ${style.available}`)
+                                        }
 
-                                    }
+                                    })
                                     return (
                                         <div>
-                                            <Square className={squareStyle.square} key={idGenerator(index).join(",")} id={idGenerator(index)} playerMove={() => null} />
+                                            <Square id={idGenerator(index, boardSize)} classes={classColor(idGenerator(index, boardSize)).join(' ')} key={idGenerator(index, boardSize).join(" ")} playerMove={() => null} />
                                         </div>
                                     )
                                 })}
