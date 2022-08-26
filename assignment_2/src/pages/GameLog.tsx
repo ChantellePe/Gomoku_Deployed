@@ -41,38 +41,21 @@ export default function GameLog() {
         return JSON.stringify(a1) === JSON.stringify(a2);
     }
 
-    // const classGenerator = (array: number[][], id: number[]) => {
-    //     for (let i = 0; i < array.length; i++) {
-    //         console.log(array[i])
-    //         console.log(id)
-    //         if (array[i] === id) {
-    //             console.log("square found")
-    //             if (i === 0 || i % 2 === 0) {
-    //                 return `${style.Black}`
-    //             } else if (i === 1 || i % 2 !== 0) {
-    //                 return `${style.White}`
-    //             }
-    //         }
-    //     }
-    // }
-
-
-
     if (!user) return <Navigate to='/login' />
     if (!id) return null
 
     return (
         <div>
-            {Object.keys(games).map((key, i, value) => {
+            {Object.keys(games).map((key) => {
                 const gameDetails = key.split('-')
                 if (gameDetails[1] === id) {
                     const winner = gameDetails[2]
                     const boardSize = parseInt(gameDetails[3])
                     const gameArr = games[key]
                     return (
-                        <div className={style.container}>
-                            <h1 className={style.header}>Winner: {winner}</h1>
-                            <div className={style.board} id={`Game-${id}`}
+                        <div key="container" className={style.container}>
+                            <h1 key="winner" className={style.header}>Winner: {winner}</h1>
+                            <div key="board" className={style.board} id={`Game-${id}`}
                                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                                 {[...Array(boardSize ** 2)].map((e, index) => {
 

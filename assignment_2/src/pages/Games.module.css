@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     width: auto;
-    height: 48px;
     font-size: 1.4rem;
     display: flex;
     align-items: center;
+    padding-bottom: 5%;
 }
 
 .header {
@@ -22,10 +22,11 @@
     border: 3px solid #363636;
     padding: 25px;
     width: 60%;
-
     display: inline-flex;
     justify-content: space-between;
-
     background-color: rgb(255, 205, 253, 0.65);
+}
 
+.hidden {
+    display: none;
 }
