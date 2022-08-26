@@ -1,5 +1,5 @@
 .welcome {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     pointer-events: none;
     text-shadow: none;
     text-transform: none;
@@ -9,7 +9,7 @@
     display: inline-flex;
     position: absolute;
     margin-left: 2%;
-    margin-bottom: 0;
+    margin-top: 0.1%;
     z-index: 0;
 }
 
@@ -29,12 +29,13 @@
 
 .title {
     color: rgb(230, 39, 169);
-    margin-top: 1.2%;
-    margin-bottom: 0.2%;
+    height: 100%;
+    margin-top: 1%;
     text-align: left;
+    padding-top: 0.1%;
     padding-left: 3%;
     border-width: 1rem;
-    font-size: 4.5rem;
+    font-size: 5rem;
     font-family: 'Cinzel', Verdana, Geneva, Tahoma, sans-serif, Tahoma, sans-serif;
     text-transform: uppercase;
     text-shadow: 1px 1px 1px#414141,
@@ -45,7 +46,5 @@
         1px 6px 1px #99007f,
         1px 18px 6px rgb(58, 0, 58, 0.6),
         1px 22px 10px rgba(44, 1, 37, 0),
-
         1px 30px 60px rgba(179, 0, 155, 0.5);
-
 }

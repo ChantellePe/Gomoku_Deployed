@@ -46,7 +46,7 @@ export default function Login() {
 
             }}
         >
-            {isCredentialInvalid && <Message variant='error' message='Invalid username and password' />}
+            {isCredentialInvalid && <Message variant='error' message='Invalid username or password' />}
 
             <Input
                 ref={usernameInput}
