@@ -30,12 +30,13 @@ export default function Game() {
 
     const navigate = useNavigate()
     const [gameOver, setGameOver] = useState(false)
+    const [winner, setWinner] = useState<PLAYER | undefined>(undefined)
     const [resetButtonClicked, setResetButtonClicked] = useState(false);
-    const { boardSize, winner, setWinner, gameId, setGameId } = useContext(GameContext)
+    const { boardSize } = useContext(GameContext)
     const { user } = useContext(UserContext)
     const { playerTurn, nextTurn } = useContext(SquareContext)
     const [games, saveGames] = useLocalStorage<Record<string, number[][]>>('Games', {})
-    const { [`Game-${gameId}`]: completedGames = [], ...otherGames } = games
+    const { [`Game-${Object.keys(games).length + 1}`]: completedGames = [], ...otherGames } = games
     const [playerOneState, dispatch1] = useReducer(gameReducer, completedGames)
     const [playerTwoState, dispatch2] = useReducer(gameReducer, completedGames)
     const location = useLocation()
@@ -51,15 +52,10 @@ export default function Game() {
     }
 
     useEffect(() => {
-        setGameId(Object.keys(games).length + 1)
-    }, [])
-
-    useEffect(() => {
         resetGame()
     }, [location])
 
     useEffect(() => {
-
         function exists(arr: number[][], search: number[]): boolean {
             return arr.some(row => JSON.stringify(row) === JSON.stringify(search))
         }
@@ -210,7 +206,7 @@ export default function Game() {
         console.log(winner)
         const finalArray = mergeArrays(playerOneState, playerTwoState)
         if (gameOver && finalArray.length > 0) {
-            saveGames({ ...games, [`Game-${gameId}-${winner}-${Number(boardSize)}-${date}`]: finalArray })
+            saveGames({ ...games, [`Game-${Object.keys(games).length + 1}-${winner}-${Number(boardSize)}-${date}`]: finalArray })
             navigate('/games')
         } else {
             saveGames(otherGames)
@@ -220,8 +216,9 @@ export default function Game() {
     }
 
     return (
-        <div className={style.container}>            <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
-            <div className={getBoardStyles()} id={`Game-${gameId}`}
+        <div className={style.container}>
+            <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
+            <div className={getBoardStyles()} id={`Game-${Object.keys(games).length + 1}`}
                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                 {[...Array(boardSize * boardSize)].map((_, index) => (
                     <Square resetButtonClicked={resetButtonClicked} key={idGenerator(index).join(",")} id={idGenerator(index)} playerTurn={playerTurn}
@@ -235,7 +232,6 @@ export default function Game() {
                         } />
                 ))}
             </div>
-
             <div className={style.buttonSection}>
                 <Button className={[buttonStyle.button, buttonStyle.reset].join(' ')} onClick={resetGame}>Restart</Button>
                 <Button className={[buttonStyle.button, buttonStyle.leave].join(' ')} onClick={leave}>Leave</Button>

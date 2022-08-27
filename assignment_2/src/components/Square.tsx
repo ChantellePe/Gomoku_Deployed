@@ -51,6 +51,6 @@ export default memo(function Square(props: SquareProps) {
     }
 
     return (
-        <div className={location.pathname === '/game' ? classList.join(" ") : classes} onClick={handleClick}>{props.children}</div>
+        <div className={location.pathname === '/game' ? classList.join(" ") : classes} data-testid='square' onClick={handleClick}>{props.children}</div>
     )
 })
