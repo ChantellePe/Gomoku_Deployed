@@ -22,14 +22,11 @@ export default memo(function Square(props: SquareProps) {
     const [classList, setClassList] = useState([`${style.square}`])
     const { playerTurn, nextTurn } = useContext(SquareContext)
 
-
-
     useEffect(() => {
         setStatus(SQUARE_STATUS.AVAILABLE)
         setClassList([`${style.square}`])
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resetButtonClicked])
-
 
 
     const handleClick = () => {
@@ -43,7 +40,6 @@ export default memo(function Square(props: SquareProps) {
             playerMove()
             setStatus(SQUARE_STATUS.OCCUPIED)
             setClassList([`${className} ${style.occupied} ${style.White}`])
-            console.log(`${style.White}`)
             nextTurn(PLAYER.PLAYER_ONE)
         } else {
             return setStatus(SQUARE_STATUS.AVAILABLE)
