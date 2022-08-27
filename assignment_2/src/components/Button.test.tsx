@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import Button from './Button'
 
 describe('Button component', () => {
-    it('should render a button', () => {
+    it('should render', () => {
         render(<Button>Test Button</Button>)
         const button = screen.getByText('Test Button')
         expect(button).toBeInTheDocument()

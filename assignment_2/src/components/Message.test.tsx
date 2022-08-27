@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 import Message from './Message'
 
@@ -10,7 +10,6 @@ describe('Message component', () => {
     })
 
     it('should have the correct style', () => {
-
         render(<Message variant='success' message='success'></Message>)
         const testMessage = screen.getByText('success')
         expect(testMessage).toHaveClass('success')

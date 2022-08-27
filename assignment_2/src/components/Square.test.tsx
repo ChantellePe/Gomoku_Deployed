@@ -6,7 +6,6 @@ import Square from './Square'
 
 const testSeatId = [1, 1]
 
-
 describe('Square component', () => {
     const moveFunction = jest.fn()
     it('should render a Square', () => {

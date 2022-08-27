@@ -13,6 +13,10 @@
     text-align: center;
     font-size: 3.5rem;
     margin-bottom: 1%;
+    text-shadow:
+        1px 4px 1px #80757e34,
+        1px 5px 1px #41393e31,
+        1px 30px 60px rgba(78, 1, 68, 0.1);
 }
 
 

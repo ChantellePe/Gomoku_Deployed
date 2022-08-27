@@ -14,4 +14,8 @@
     padding: 4px 4px;
     margin-right: 1%;
     font-family: 'Domine', Verdana, Times, serif;
+    text-shadow:
+        1px 1px 1px#4141414f,
+        1px 2px 1px #4d00473b,
+        1px 30px 60px rgba(179, 0, 155, 0.1);
 }

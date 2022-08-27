@@ -18,6 +18,10 @@
 
 .header {
     text-align: center;
+    text-shadow:
+        1px 4px 1px #80757e34,
+        1px 5px 1px #6d636a31,
+        1px 30px 60px rgba(78, 1, 68, 0.1);
 }
 
 .buttonSection {

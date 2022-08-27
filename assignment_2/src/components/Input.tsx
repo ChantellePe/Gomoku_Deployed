@@ -1,5 +1,4 @@
 import React from 'react'
-
 import style from './Input.module.css'
 
 const Input = React.forwardRef(
@@ -13,6 +12,7 @@ const Input = React.forwardRef(
                 className={style.input}
                 type="text"
                 autoComplete="false"
+                data-testid='input'
                 {...props}
             />
         )
