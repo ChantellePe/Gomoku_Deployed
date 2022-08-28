@@ -51,6 +51,21 @@ export default function Game() {
         setWinner(undefined)
     }
 
+    const getClassNames = (gameOver: boolean, winner: PLAYER | undefined) => {
+        switch (gameOver) {
+            case false:
+                return `${style.header}`
+            case true && winner === PLAYER.PLAYER_ONE:
+                return `${style.header} ${style.winnerBlack}`
+            case true && winner === PLAYER.PLAYER_TWO:
+                return `${style.header} ${style.winnerWhite}`
+            case true && winner === PLAYER.TIE:
+                return `${style.header} ${style.winnerTie}`
+            default:
+                return `${style.header}`
+        }
+    }
+
     useEffect(() => {
         resetGame()
     }, [location])
@@ -217,7 +232,7 @@ export default function Game() {
 
     return (
         <div className={style.container}>
-            <h1 className={style.header}>{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
+            <h1 className={getClassNames(gameOver, winner)} >{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
             <div className={getBoardStyles()} id={`Game-${Object.keys(games).length + 1}`}
                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                 {[...Array(boardSize * boardSize)].map((_, index) => (

@@ -24,6 +24,129 @@
         1px 30px 60px rgba(78, 1, 68, 0.1);
 }
 
+.winnerWhite {
+    color: white;
+    height: 100%;
+    margin-top: 1%;
+    padding-top: 0.1%;
+    font-size: 4rem;
+    font-family: 'Cinzel', Verdana, sans-serif;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px#414141,
+        1px 2px 1px #4d0046,
+        1px 3px 1px #8a015c,
+        1px 4px 1px #580051,
+        1px 5px 1px #5c0040,
+        1px 6px 1px #99007f,
+        1px 18px 6px rgba(58, 0, 58, 0.226),
+        1px 22px 10px rgba(44, 1, 37, 0.301),
+        1px 30px 60px rgb(214, 0, 178);
+    animation: zoom-in-white 1s ease 5;
+}
+
+.winnerBlack {
+    color: black;
+    height: 100%;
+    margin-top: 1%;
+    padding-top: 0.1%;
+    font-size: 4rem;
+    font-family: 'Cinzel', Verdana, sans-serif;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px#414141,
+        1px 2px 1px #4d0046,
+        1px 3px 1px #8a015c,
+        1px 4px 1px #580051,
+        1px 5px 1px #5c0040,
+        1px 6px 1px #99007f,
+        1px 18px 6px rgba(58, 0, 58, 0.226),
+        1px 22px 10px rgba(44, 1, 37, 0.301),
+        1px 30px 60px rgb(214, 0, 178);
+    animation: zoom-in-black 1s ease 5;
+}
+
+.winnerTie {
+    color: rgb(230, 39, 169);
+    height: 100%;
+    margin-top: 1%;
+    padding-top: 0.1%;
+    font-size: 4rem;
+    font-family: 'Cinzel', Verdana, sans-serif;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px#414141,
+        1px 2px 1px #4d0046,
+        1px 3px 1px #8a015c,
+        1px 4px 1px #580051,
+        1px 5px 1px #5c0040,
+        1px 6px 1px #99007f,
+        1px 18px 6px rgba(58, 0, 58, 0.226),
+        1px 22px 10px rgba(44, 1, 37, 0.301),
+        1px 30px 60px rgb(214, 0, 178);
+    animation: zoom-in-tie 1s ease 10;
+}
+
+
+@keyframes zoom-in-white {
+    0% {
+        transform: scale(1, 1);
+        color: rgb(255, 255, 255);
+    }
+
+    50% {
+        transform: scale(1.7, 1.7);
+        color: rgb(230, 39, 169);
+    }
+
+    100% {
+        transform: scale(1, 1);
+        color: rgb(255, 255, 255);
+    }
+}
+
+@keyframes zoom-in-black {
+    0% {
+        transform: scale(1, 1);
+        color: rgb(0, 0, 0);
+    }
+
+    50% {
+        transform: scale(1.7, 1.7);
+        color: rgb(230, 39, 169);
+    }
+
+    100% {
+        transform: scale(1, 1);
+        color: rgb(0, 0, 0);
+    }
+}
+
+@keyframes zoom-in-tie {
+    0% {
+        transform: scale(1, 1);
+        color: rgb(230, 39, 169);
+    }
+
+    25% {
+        transform: scale(1.3, 1.3);
+        color: rgb(255, 255, 255);
+    }
+
+    50% {
+        transform: scale(1.7, 1.7);
+        color: rgb(0, 0, 0);
+    }
+
+    75% {
+        transform: scale(1.3, 1.3);
+        color: rgb(255, 255, 255);
+    }
+
+    100% {
+        transform: scale(1, 1);
+        color: rgb(230, 39, 169);
+    }
+}
+
+
 .buttonSection {
     align-content: center;
     align-items: center;
