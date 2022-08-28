@@ -69,14 +69,11 @@ export default function GameLog() {
                                         } else if (!arraysEqual(e, sqID)) {
                                             return (`${squareStyle.square} ${style.available}`)
                                         }
-
-
                                     })
                                     const getIndex = (sqID: number[]) => gameArr.map((e, i) => {
                                         if (arraysEqual(e, sqID)) {
                                             return i + 1
                                         }
-
                                     })
 
                                     return (

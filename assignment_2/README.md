@@ -11,7 +11,7 @@ Please let me know if you come across any incompatibility issues.
 
 # Special features for my bonus mark
 
-As I am relatively new to web developement I wanted to dive deep into a number of different aspects rather on just focusing on 1 particular thing.
+As I am relatively new to web developement so I wanted to dive deep into a number of different aspects (such as testing, animation, user experience etc.) rather on just focusing on 1 particular thing.
 
 My additional features that I included are:
 
