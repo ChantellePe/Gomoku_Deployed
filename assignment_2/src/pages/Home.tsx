@@ -8,7 +8,6 @@ import { PLAYER } from '../constants'
 
 
 export default function Home() {
-    //const [boardSize, setBoardSize] = useState(0)
     const navigate = useNavigate()
     const { boardSize, setBoardSize } = useContext(GameContext)
     const { nextTurn } = useContext(SquareContext)

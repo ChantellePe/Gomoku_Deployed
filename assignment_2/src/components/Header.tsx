@@ -29,8 +29,6 @@ function Header() {
                     <button className={buttonStyle.button} onClick={() => navigate('games')}>Previous Games</button>
                 </>)
             }
-
-
         } else {
             return location.pathname !== '/login' ? (
                 <button className={buttonStyle.button} onClick={() => navigate('login')}>Log In</button>
@@ -39,7 +37,7 @@ function Header() {
     }
 
     const welcomeMessage = () => {
-        return (user) ? (<span className={style.welcome}>Hi {user.username}! Welcome to...</span>) : (<span className={style.welcome}> Welcome to...</span>)
+        return (user) ? (<span data-testid="name" className={style.welcome}>Hi {user.username}! Welcome to...</span>) : (<span data-testid="no name" className={style.welcome}> Welcome to...</span>)
     }
 
 

@@ -60,9 +60,6 @@ export default function GameLog() {
                                 {[...Array(boardSize ** 2)].map((e, index) => {
 
                                     const classColor = (sqID: number[]) => gameArr.map((e, i) => {
-                                        //console.log(e)
-                                        //console.log(sqID)
-
                                         if (arraysEqual(e, sqID)) {
                                             if (i === 0 || i % 2 === 0) {
                                                 return (`${squareStyle.square}  ${squareStyle.Black} ${style.numberWhite}`)

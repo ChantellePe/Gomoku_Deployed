@@ -3,8 +3,6 @@ import { Button, Input, Message } from '../components'
 import users from '../data/user.json'
 import style from './Login.module.css'
 
-//import { useLocalStorage } from '../hooks'
-
 export default function SignUp() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
