@@ -3,26 +3,19 @@ import style from './Header.module.css'
 import buttonStyle from './Button.module.css'
 import '../index.css'
 import { useContext } from 'react'
-import { GameContext, UserContext } from '../context'
-
+import { UserContext } from '../context'
 
 
 function Header() {
     const navigate = useNavigate()
     const { user } = useContext(UserContext)
-    const { boardSize } = useContext(GameContext)
     const location = useLocation()
-
-    const getboardSize = () => {
-        return boardSize ? '/game' : '/'
-    }
-
 
     const getActions = () => {
         if (user) {
             if (location.pathname === '/games' || location.pathname.includes('/gamelog/')) {
                 return (<>
-                    <button className={buttonStyle.button} onClick={() => navigate(getboardSize())}>Play Again</button>
+                    <button className={buttonStyle.button} onClick={() => navigate('/')}>Play Again</button>
                 </>)
             } else {
                 return (<>
