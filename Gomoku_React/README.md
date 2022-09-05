@@ -1,16 +1,16 @@
 # gomoku_react
-Assignment 2 COSC560
+Assessment 3 COSC560
 
-# My Assigment 2 - Gomoku in React
+# My Assigment 3 - Gomoku Service
 
-This project was build in a Windows environment. I chose this option as my work is windows based and I am going to start some basic web dev tasks and wanted to learn in the environment I will be working in. 
+<!-- This project was build in a Windows environment. I chose this option as my work is windows based and I am going to start some basic web dev tasks and wanted to learn in the environment I will be working in. 
 
 Please let me know if you come across any incompatibility issues. 
 
-*Also please note I added some additional features to create a better user experience. Some features appear to deviate away from the assignment criteria but I assure you, the basic criteria is there, instead I just added more options. 
+*Also please note I added some additional features to create a better user experience. Some features appear to deviate away from the assignment criteria but I assure you, the basic criteria is there, instead I just added more options. --> 
 
 # Special features for my bonus mark
-
+<!-- 
 As I am relatively new to web developement so I wanted to dive deep into a number of different aspects (such as testing, animation, user experience etc.) rather on just focusing on 1 particular thing.
 
 My additional features that I included are:
@@ -22,9 +22,9 @@ My additional features that I included are:
 - Ability to go straight from login page to game if board size is already selected on home page*
 - Ability to go straight to the home page from games page and game log page (header button changes)
 - Username is displayed in the top left corner once logged in
-- Test components for all 6 functional components totalling 14 individual tests
+- Test components for all 6 functional components totalling 14 individual tests -->
 
-## To start the app
+<!-- ## To start the app
 
 In the project directory, you can run:
 
@@ -79,3 +79,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+ -->
