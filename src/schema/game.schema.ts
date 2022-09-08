@@ -8,26 +8,36 @@ const players = {
     PlayerTwo: "White",
 } as const;
 
+const winners = {
+    PlayerOne: "Black",
+    PlayerTwo: "White",
+    Tie: "Tie"
+} as const;
+
 const Players = z.nativeEnum(players)
 
 const payload = {
     body: object({
-        gameId: string({
+        id: string({
             required_error: "Game id is required",
         }),
-        squareId: z.array(number()),
+        gameOver: z.boolean(),
+        gameArray_PlayerOne: array(z.array(number())),
+        gameArray_PlayerTwo: array(z.array(number())),
+        gameArray_Combined: array(z.array(number())),
         player: z.nativeEnum(players),
-        winner: string().optional(),
+        winner: z.nativeEnum(winners).optional(),
         boardSize: number({
             required_error: "Board size is required",
         }),
-        date: date({
+        date: string({
             required_error: "Date is required",
         })
     })
 }
 
-const updateDeleteParams = {
+
+const updateParams = {
     params: object({
         id: string({
             required_error: "Game id is required",
@@ -40,9 +50,8 @@ export const createGameSchema = object({
 })
 export const updateGameSchema = object({
     ...payload,
-    ...updateDeleteParams
+    ...updateParams
 })
 
 export type CreateGameInput = TypeOf<typeof createGameSchema>;
 export type UpdateGameInput = TypeOf<typeof updateGameSchema>;
-export type PlayerEnum = z.infer<typeof Players>

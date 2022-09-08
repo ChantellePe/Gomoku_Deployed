@@ -27,7 +27,7 @@ export default function Games() {
                 if (noOfGames === 0) return null
 
                 return (
-                    <div id={gameId} className={`${style.list}`} key={key}>
+                    <div id={gameId} className={`${style.list}`} key={gameId}>
                         <p className={style.title}>
                             {`Game #${gameId} @ ${date}`}
                         </p>
