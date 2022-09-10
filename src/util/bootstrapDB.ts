@@ -11,9 +11,11 @@ const run = async () => {
 
         await UserModel.deleteMany();
         await UserModel.create();
+        await UserModel.updateOne();
 
         await GameModel.deleteMany();
         await GameModel.create();
+        await UserModel.updateOne();
 
         process.exit(0)
     } catch (err) {

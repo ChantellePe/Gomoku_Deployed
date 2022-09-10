@@ -1,21 +1,22 @@
 import mongoose, { Document } from "mongoose"
 import { UserDocument } from './user.model'
 
-export enum Winner {
-    PlayerOne = 'Black',
-    PlayerTwo = 'White',
-    Tie = "It's a Tie!"
-}
+// export enum Winner {
+//     PlayerOne = 'Black',
+//     PlayerTwo = 'White',
+//     Tie = "It's a Tie!"
+// }
 
-export enum Player {
-    PlayerOne = 'Black',
-    PlayerTwo = 'White',
-}
+// export enum Player {
+//     PlayerOne = 'Black',
+//     PlayerTwo = 'White',
+// }
+
 export interface GameDocument extends Document {
     userId: UserDocument["_id"];
     gameID: String;
-    currentPlayer: Player;
-    winner: Winner;
+    currentPlayer: String;
+    winner: String;
     gameArray: [[number]];
     playerOneArray: [[number]];
     playerTwoArray: [[number]];
@@ -26,8 +27,8 @@ export interface GameDocument extends Document {
 const getGamesSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     gameID: String,
-    winner: Winner,
-    currentPlayer: Player,
+    winner: String,
+    currentPlayer: String,
     gameArray: [[Number]],
     playerOneArray: [[Number]],
     playerTwoArray: [[Number]],
