@@ -36,7 +36,7 @@ export default function Games() {
                         </p>
                         <Button
                             className={[buttonStyle.viewLog].join(' ')}
-                            onClick={() => navigate(`/gamelog/${gameId}`)}>
+                            onClick={() => navigate(`/games/${gameId}`)}>
                             View Game Log
                         </Button>
                     </div>

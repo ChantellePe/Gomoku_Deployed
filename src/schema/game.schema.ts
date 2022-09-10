@@ -14,25 +14,22 @@ const winners = {
     Tie: "Tie"
 } as const;
 
-const Players = z.nativeEnum(players)
 
 const payload = {
     body: object({
-        id: string({
-            required_error: "Game id is required",
+        userId: string({
+            required_error: "User id is required",
         }),
         gameOver: z.boolean(),
         gameArray_PlayerOne: array(z.array(number())),
         gameArray_PlayerTwo: array(z.array(number())),
-        gameArray_Combined: array(z.array(number())),
-        player: z.nativeEnum(players),
+        gameArray: array(z.array(number())),
+        currentPlayer: z.nativeEnum(players),
         winner: z.nativeEnum(winners).optional(),
         boardSize: number({
             required_error: "Board size is required",
         }),
-        date: string({
-            required_error: "Date is required",
-        })
+
     })
 }
 
@@ -40,11 +37,11 @@ const getParams = {
     params: object({
         id: string({
             required_error: "Game id is required",
-        })
-    })
+        }),
+    }),
 }
 
-const updateParams = {
+const updateDeleteParams = {
     params: object({
         id: string({
             required_error: "Game id is required",
@@ -57,13 +54,13 @@ export const createGameSchema = object({
 })
 export const updateGameSchema = object({
     ...payload,
-    ...updateParams
+    ...updateDeleteParams
 })
 export const getGameSchema = object({
     ...getParams
 })
 export const deleteGameSchema = object({
-    ...getParams
+    ...updateDeleteParams
 })
 
 
