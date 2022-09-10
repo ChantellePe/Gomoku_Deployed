@@ -1,7 +1,5 @@
 import { object, string, number, TypeOf, date, array, z } from "zod"
 
-
-
 const getParams = {
     params: object({
         id: string({
@@ -9,9 +7,6 @@ const getParams = {
         })
     })
 }
-
-
-
 
 export const getGameSchema = object({
     ...getParams

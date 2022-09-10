@@ -2,11 +2,7 @@ import express, { Request, Response } from "express";
 import validateSchema from '../middleware/validateSchema';
 import { createGameSchema, updateGameSchema } from '../schema/game.schema';
 
-
-
 const gameHandler = express.Router();
-
-
 
 // Create a game
 gameHandler.post("/", validateSchema(createGameSchema), (req: Request, res: Response) => {

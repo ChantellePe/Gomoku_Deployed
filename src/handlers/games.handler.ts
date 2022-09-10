@@ -2,34 +2,33 @@ import express, { Request, Response } from "express";
 import { z } from "zod";
 import validateSchema from '../middleware/validateSchema';
 import { deleteGamesSchema } from '../schema/gamelog.schema';
-
+import { getGameSchema } from '../schema/gamelog.schema';
+import { getAllGames, getGameById } from '../service/games.service'
 
 const gamesHandler = express.Router();
 
-const winners = {
-    PlayerOne: "Black",
-    PlayerTwo: "White",
-    Tie: "Tie"
-}
-
 let date = new Date();
 
-// Get games
-gamesHandler.get("/", (req: Request, res: Response) => {
+gamesHandler.get("/", async (req: Request, res: Response) => {
     try {
-        return res.status(200).json(
-
-            {
-                id: "Game 1",
-                boardSize: 21,
-                winner: winners.PlayerOne,
-                date: date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-            }
-
-        )
+        const result = await getAllGames();
+        return res.status(200).send(result.map(g => ({
+            _id: g._id,
+            gameID: g.gameID,
+            winner: g.winner,
+            date: g.date
+        })));
     } catch (err) {
         return res.status(500).send(err);
     }
+})
+
+
+gamesHandler.get("/:id", validateSchema(getGameSchema), async (req: Request, res: Response) => {
+    const game = await getGameById(req.params.id);
+    console.log(game)
+    if (!game) return res.sendStatus(404);
+    return res.status(200).json({ game });
 })
 
 
