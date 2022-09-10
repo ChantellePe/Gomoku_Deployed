@@ -2,9 +2,9 @@ import e from "express";
 import express, { Request, Response } from "express";
 import { z } from "zod";
 import validateSchema from '../middleware/validateSchema';
-import { deleteGamesSchema } from '../schema/gamelog.schema';
-import { getGameSchema } from '../schema/gamelog.schema';
-import { getGameById, getGamesByUserId } from '../service/games.service'
+import { deleteGameSchema, getGameSchema } from '../schema/game.schema';
+import { getGameById, getGamesByUserId, createGame, deleteGame } from '../service/games.service'
+
 
 const gamesHandler = express.Router();
 
@@ -41,11 +41,12 @@ gamesHandler.get("/:id", validateSchema(getGameSchema), async (req: Request, res
 })
 
 
-gamesHandler.delete("/:id", validateSchema(deleteGamesSchema), (req: Request, res: Response) => {
+
+gamesHandler.delete("/:id", validateSchema(deleteGameSchema), async (req: Request, res: Response) => {
     console.log('Delete')
-    // Delete in storage
+    const gameId = req.params.id;
+    await deleteGame(gameId);
     res.sendStatus(200);
 })
-
 
 export default gamesHandler;

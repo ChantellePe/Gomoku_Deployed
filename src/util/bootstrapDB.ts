@@ -2,7 +2,7 @@ import 'dotenv/config';
 import connect from './connectDB';
 
 import UserModel from "../model/user.model";
-import GameModel from "../model/gamelog.model";
+import GameModel from "../model/game.model";
 
 
 const run = async () => {
@@ -13,9 +13,9 @@ const run = async () => {
         await UserModel.create();
         await UserModel.updateOne();
 
+        await GameModel.deleteOne();
         await GameModel.deleteMany();
         await GameModel.create();
-        await UserModel.updateOne();
 
         process.exit(0)
     } catch (err) {

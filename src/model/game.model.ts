@@ -34,7 +34,7 @@ const getGamesSchema = new mongoose.Schema({
     playerTwoArray: [[Number]],
     boardSize: Number,
     date: Date
-})
+}, { timestamps: true })
 
 
 export default mongoose.model<GameDocument>("Game", getGamesSchema)

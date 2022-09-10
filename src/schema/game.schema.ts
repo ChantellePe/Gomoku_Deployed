@@ -36,6 +36,13 @@ const payload = {
     })
 }
 
+const getParams = {
+    params: object({
+        id: string({
+            required_error: "Game id is required",
+        })
+    })
+}
 
 const updateParams = {
     params: object({
@@ -52,6 +59,15 @@ export const updateGameSchema = object({
     ...payload,
     ...updateParams
 })
+export const getGameSchema = object({
+    ...getParams
+})
+export const deleteGameSchema = object({
+    ...getParams
+})
+
 
 export type CreateGameInput = TypeOf<typeof createGameSchema>;
 export type UpdateGameInput = TypeOf<typeof updateGameSchema>;
+export type DeleteGamesInput = TypeOf<typeof deleteGameSchema>;
+export type ReadGameInput = TypeOf<typeof getGameSchema>;
