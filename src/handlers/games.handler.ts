@@ -3,15 +3,16 @@ import express, { Request, Response } from "express";
 import { z } from "zod";
 import validateSchema from '../middleware/validateSchema';
 import { deleteGameSchema, getGameSchema } from '../schema/game.schema';
-import { getGameByFilter, deleteGame, getGamesByFilter, getGameById } from '../service/games.service'
-import mongoose from "mongoose";
+import { deleteGame, getGamesByFilter, getGameById } from '../service/games.service'
+import { deserializeUser } from "../middleware/deserializeUser";
 
 const gamesHandler = express.Router();
+gamesHandler.use(deserializeUser);
 
 //Get games by User
 gamesHandler.get("/", async (req: Request, res: Response) => {
     try {
-        const userId = "62f88bd5e67347af189c4baa";
+        const userId = req.userId;
         //const userId = req.body.userId;
         const games = await getGamesByFilter({ userId });
         if (!games) {
