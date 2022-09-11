@@ -13,8 +13,6 @@ gameHandler.post("/", validateSchema(createGameSchema), async (req: Request, res
     // TODO: decode user id from token
     const userId = req.userId;
     const game = req.body;
-    //const allUserGames = await getGamesByUserId(userId);
-
     const newGame = await createGame({ ...game, userId });
     return res.status(200).send(newGame);
 })

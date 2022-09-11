@@ -1,35 +1,45 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Button } from '../components'
 import buttonStyle from '../components/Button.module.css'
 import { UserContext } from '../context'
-import { useLocalStorage } from '../hooks'
+import type { Game } from '../types'
 import style from './Games.module.css'
+import { get } from '../utils/http'
 
 export default function Games() {
 
     const { user } = useContext(UserContext)
     const navigate = useNavigate()
-    const [games] = useLocalStorage<Record<string, number[][]>>('Games', {})
+    const [games, setGames] = useState<Game[]>([])
+
+    const fetchGames = async () => {
+        const fetchedGames = await get<Game[]>('/games')
+        setGames(fetchedGames)
+    }
+
+    useEffect(() => {
+        fetchGames()
+    }, [])
 
 
     if (!user) return <Navigate to='/login' />
     return (
         <div className={style.container}>
             <h1 className={style.header}>
-                You have {Object.keys(games).length} {Object.keys(games).length === 1 ? 'game' : 'games'}
+                You have {games.length} {games.length === 1 ? 'game' : 'games'}
             </h1>
-            {Object.keys(games).map((key, i) => {
-                const noOfGames = games[key].length
-                const gameId = key.split('-')[1]
-                const winner = key.split('-')[2]
-                const date = key.split('-')[4]
+            {games.map((key, i) => {
+                const noOfGames = games.length
+                const gameId = games[i]._id
+                const winner = games[i].winner
+                const date = games[i].createdAt
                 if (noOfGames === 0) return null
 
                 return (
                     <div id={gameId} className={`${style.list}`} key={gameId}>
                         <p className={style.title}>
-                            {`Game #${gameId} @ ${date}`}
+                            {`Game #${i} @ ${date}`}
                         </p>
                         <p>
                             {`Winner: ${winner}`}
