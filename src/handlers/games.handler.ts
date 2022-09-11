@@ -28,7 +28,7 @@ gamesHandler.get("/", async (req: Request, res: Response) => {
 //Get game by Game Id
 gamesHandler.get("/:id", validateSchema(getGameSchema), async (req: Request, res: Response) => {
     try {
-        const id = req.params.id
+        const id = req.params.id;
         const game = await getGameById(id);
         if (!game) return res.sendStatus(404);
         return res.status(200).json({ game });
@@ -40,8 +40,9 @@ gamesHandler.get("/:id", validateSchema(getGameSchema), async (req: Request, res
 //Delete game by Game Id
 gamesHandler.delete("/:id", validateSchema(deleteGameSchema), async (req: Request, res: Response) => {
     try {
-        const id = req.params.id
-        await deleteGame(id);
+        const id = req.params.id;
+        const userId = req.userId;
+        await deleteGame(id, userId);
         return res.sendStatus(200);
     } catch (err) {
         return res.status(500).send(err);
