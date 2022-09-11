@@ -19,12 +19,10 @@ gamesHandler.get("/", async (req: Request, res: Response) => {
         } else {
             return res.status(200).json({ games });
         }
-
     } catch (err) {
         return res.status(500).send(err);
     }
 })
-
 
 //Get game by Game Id
 gamesHandler.get("/:id", validateSchema(getGameSchema), async (req: Request, res: Response) => {
@@ -36,11 +34,9 @@ gamesHandler.get("/:id", validateSchema(getGameSchema), async (req: Request, res
     } catch (err) {
         return res.status(500).send(err);
     }
-
 })
 
-
-
+//Delete game by Game Id
 gamesHandler.delete("/:id", validateSchema(deleteGameSchema), async (req: Request, res: Response) => {
     try {
         const id = req.params.id

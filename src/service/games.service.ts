@@ -28,8 +28,6 @@ export async function updateGame(
     )
 }
 
-
-
 export async function getGameByFilter(query: FilterQuery<GameDocument>) {
     return await GameModel.findOne(query).lean()
 }

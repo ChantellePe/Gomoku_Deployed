@@ -1,7 +1,5 @@
-
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
-import { request } from 'http';
 import gameHandler from './handlers/game.handler';
 import gamesHandler from './handlers/games.handler';
 import connectDB from './util/connectDB';

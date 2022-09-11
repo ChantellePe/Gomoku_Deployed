@@ -1,5 +1,5 @@
 
-import { object, string, number, TypeOf, date, array, z } from "zod"
+import { object, string, number, TypeOf, array, z } from "zod"
 
 
 //saveGames({ ...games, [`Game-${Object.keys(games).length + 1}-${winner}-${Number(boardSize)}-${date}`]: finalArray })
@@ -29,7 +29,6 @@ const payload = {
         boardSize: number({
             required_error: "Board size is required",
         }),
-
     })
 }
 

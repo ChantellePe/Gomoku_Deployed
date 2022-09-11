@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import validateSchema from '../middleware/validateSchema';
 import { createGameSchema, updateGameSchema } from '../schema/game.schema';
-import { createGame, getGameByFilter, getGamesByUserId, updateGame } from "../service/games.service";
+import { createGame, getGameByFilter, updateGame } from "../service/games.service";
 import mongoose from "mongoose";
 
 const gameHandler = express.Router();
@@ -17,9 +17,7 @@ gameHandler.post("/", validateSchema(createGameSchema), async (req: Request, res
     return res.status(200).send(newGame);
 })
 
-
-
-// Modify a game aka Player Move
+// Modify a game
 gameHandler.put("/:id", validateSchema(updateGameSchema), async (req: Request, res: Response) => {
     // update in storage
     const game = req.body;
