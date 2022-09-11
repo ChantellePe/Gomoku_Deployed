@@ -7,7 +7,7 @@ import { signJwt } from "../util/jwt";
 
 const authHandler = express.Router();
 
-authHandler.post("/register", validateSchema(registerSchema), async (req: Request<{}, {}, RegisterInput["body"]>, res: Response) => {
+authHandler.post("/signup", validateSchema(registerSchema), async (req: Request<{}, {}, RegisterInput["body"]>, res: Response) => {
     try {
         const { username, password } = req.body;
 

@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use('/game', gameHandler);
 app.use('/games', gamesHandler);
-app.use('/auth', authHandler);
+app.use('/', authHandler);
 
 
 mongoose.connection.once('connected', () => {
