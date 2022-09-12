@@ -1,35 +1,29 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button, Input, Message } from '../components'
-import users from '../data/user.json'
+import { UserContext } from '../context'
 import style from './Login.module.css'
 
 export default function SignUp() {
+    const { signup } = useContext(UserContext)
+    const navigate = useNavigate()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-    const usernameInput = useRef<HTMLInputElement | null>(null)
 
-    useEffect(() => {
-        if (usernameInput.current) {
-            usernameInput.current.focus()
-        }
-    }, [])
 
-    const handleSignUp = () => {
-        if (users.find((u) => u.username === username)) {
-            setErrorMessage(`Username ${username} has been taken`)
-            return
-        }
-
+    const handleSignUp = async () => {
+        setErrorMessage('')
         if (password !== confirmPassword) {
             setErrorMessage('Passwords do not match')
             return
+        }
+        const result = await signup(username, password)
+        if (result === true) {
+            navigate('/')
         } else {
-            console.log({
-                username,
-                password,
-            })
+            setErrorMessage(result)
         }
     }
 
@@ -39,14 +33,15 @@ export default function SignUp() {
             onSubmit={(e) => {
                 e.preventDefault()
                 handleSignUp()
-            }}>
+            }}
+        >
             {errorMessage && <Message variant="error" message={errorMessage} />}
             <Input
-                ref={usernameInput}
                 name="username"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => {
+                    setErrorMessage('')
                     setUsername(e.target.value)
                 }}
             />
@@ -56,6 +51,7 @@ export default function SignUp() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => {
+                    setErrorMessage('')
                     setPassword(e.target.value)
                 }}
             />
@@ -66,6 +62,7 @@ export default function SignUp() {
                 placeholder="Confirm password"
                 value={confirmPassword}
                 onChange={(e) => {
+                    setErrorMessage('')
                     setConfirmPassword(e.target.value)
                 }}
             />
@@ -76,6 +73,5 @@ export default function SignUp() {
                 Sign Up
             </Button>
         </form>
-
     )
 }

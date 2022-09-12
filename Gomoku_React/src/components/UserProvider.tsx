@@ -1,20 +1,62 @@
-import React, { useState } from "react"
-import { UserContext } from "../context"
-import { User } from "../types"
+import { User, Credential } from '../types'
+import { UserContext } from '../context'
+import { useLocalStorage } from '../hooks'
+import { post, setToken } from '../utils/http'
 
 type UserProviderProps = {
     children: React.ReactNode
 }
 
 export default function UserProvider({ children }: UserProviderProps) {
-    const [user, setUser] = useState<User | undefined>(undefined)
-    const login = (username: string) => setUser({ username })
-    const logout = () => setUser(undefined)
+    const [user, setUser] = useLocalStorage<User | undefined>('user', undefined)
+    const [username, setUsername] = useLocalStorage<string | undefined>("", undefined)
+    if (user) {
+        setToken(user.token)
+    }
+
+    const login = async (username: string, password: string) => {
+        try {
+            const user = await post<Credential, User>('/login', {
+                username,
+                password,
+            })
+            setUser(user)
+            setUsername(username)
+            setToken(user.token)
+            return true
+        } catch (error) {
+            if (error instanceof Error) {
+                return error.message
+            }
+            return 'Unable to login at this moment, please try again'
+        }
+    }
+
+    const signup = async (username: string, password: string) => {
+        try {
+            const user = await post<Credential, User>('/signup', {
+                username,
+                password,
+            })
+            setUser(user)
+            setToken(user.token)
+            return true
+        } catch (error) {
+            if (error instanceof Error) {
+                return error.message
+            }
+            return 'Unable to login at this moment, please try again'
+        }
+    }
+
+    const logout = () => {
+        setUser(undefined)
+        setToken('')
+    }
 
     return (
-        <UserContext.Provider value={{ user, login, logout }}>
+        <UserContext.Provider value={{ user, username, login, signup, logout }}>
             {children}
         </UserContext.Provider>
-
     )
 }

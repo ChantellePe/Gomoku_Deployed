@@ -3,7 +3,9 @@ import { User } from '../types'
 
 type UserContextType = {
     user?: User
-    login: (username: string) => void
+    username: String | undefined
+    login: (username: string, password: string) => Promise<true | string>
+    signup: (username: string, password: string) => Promise<true | string>
     logout: () => void
 }
 

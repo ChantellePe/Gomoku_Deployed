@@ -16,7 +16,7 @@ authHandler.post("/signup", validateSchema(registerSchema), async (req: Request<
         const existingUser = await getUserByUsername(username);
 
         if (existingUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            return res.status(409).send("User already exists. Please log in using your credentials");
         }
 
         //Encrypt user password

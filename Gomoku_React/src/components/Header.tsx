@@ -8,7 +8,7 @@ import { UserContext } from '../context'
 
 function Header() {
     const navigate = useNavigate()
-    const { user } = useContext(UserContext)
+    const { user, username } = useContext(UserContext)
     const location = useLocation()
 
     const getActions = () => {
@@ -30,7 +30,7 @@ function Header() {
     }
 
     const welcomeMessage = () => {
-        return (user) ? (<span data-testid="name" className={style.welcome}>Hi {user.username}! Welcome to...</span>) : (<span data-testid="no name" className={style.welcome}> Welcome to...</span>)
+        return (user) ? (<span data-testid="name" className={style.welcome}>Hi {username}! Welcome to...</span>) : (<span data-testid="no name" className={style.welcome}> Welcome to...</span>)
     }
 
 
