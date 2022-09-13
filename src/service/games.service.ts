@@ -5,9 +5,9 @@ import mongoose, { DocumentDefinition, FilterQuery } from 'mongoose';
 //     return await GameModel.findById({ userId }).lean();
 // }
 
-// export async function getGameById(id: string) {
-//     return await GameModel.findById(id).lean();
-// }
+export async function getGameById(id: string) {
+    return await GameModel.findById(id).lean();
+}
 
 export async function createGame(input: DocumentDefinition<GameDocument>) {
     return GameModel.create(input);

@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 import { z } from "zod";
 import validateSchema from '../middleware/validateSchema';
 import { deleteGameSchema, getGameSchema } from '../schema/game.schema';
-import { deleteGame, getGamesByFilter, getGameByFilter } from '../service/games.service'
+import { deleteGame, getGamesByFilter, getGameById } from '../service/games.service'
 import { deserializeUser } from "../middleware/deserializeUser";
 
 const gamesHandler = express.Router();
@@ -29,7 +29,7 @@ gamesHandler.get("/:id", validateSchema(getGameSchema), async (req: Request, res
     try {
         const id = req.params.id;
         const userId = req.userId;
-        const game = await getGameByFilter({ id, userId });
+        const game = await getGameById(id);
         if (!game) return res.sendStatus(404);
         return res.status(200).json({ game });
     } catch (err) {
