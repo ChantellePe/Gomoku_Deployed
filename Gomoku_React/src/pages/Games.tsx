@@ -7,6 +7,15 @@ import type { GameType } from '../types'
 import style from './Games.module.css'
 import { get } from '../utils/http'
 
+
+const dateFormat = (date: string) => {
+    const day = date.split("-")[2]
+    const month = date.split("-")[1]
+    const year = date.split("-")[0]
+
+    return day + "/" + month + "/" + year
+}
+
 export default function Games() {
 
     const { user, logout } = useContext(UserContext)
@@ -40,7 +49,6 @@ export default function Games() {
     const gameDetails2 = Object.values(gameDetails)
     const gameDetails3 = Object.values(gameDetails2)
 
-
     const numOfGames = (games) ? gameDetails3[0].length : ""
     console.log(gameDetails3)
 
@@ -52,13 +60,14 @@ export default function Games() {
             {gameDetails3[0].map((key, i) => {
                 if (numOfGames === 0) return null
                 const gameId = gameDetails3[0][i]?._id
-                const date = gameDetails3[0][i]?.createdAt
+                const createdAt = gameDetails3[0][i]?.createdAt
                 const winner = gameDetails3[0][i]?.winner
-                console.log(winner)
+                const date = createdAt.split("T")[0]
+
                 return (
                     <div id={gameId} className={`${style.list}`} key={gameId}>
                         <p className={style.title}>
-                            {`Game #${i + 1} @ ${date}`}
+                            {`Game #${i + 1} @ ${dateFormat(date)}`}
                         </p>
                         <p>
                             {`Winner: ${winner}`}
