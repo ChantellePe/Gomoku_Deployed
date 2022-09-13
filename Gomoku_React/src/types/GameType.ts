@@ -1,4 +1,4 @@
-export type Game = {
+export type GameType = {
     _id: string
     userId: string
     CurrentPlayer: String
@@ -8,5 +8,6 @@ export type Game = {
     gameArray_PlayerOne: number[][]
     gameArray_PlayerTwo: number[][]
     boardSize: number
-    createdAt: string
+    createdAt: String
+    updatedAt: String
 }

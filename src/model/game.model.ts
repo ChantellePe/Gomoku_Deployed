@@ -6,6 +6,7 @@ export interface GameDocument extends Document {
     gameIndex: number;
     currentPlayer: String;
     winner: String;
+    gameOver: Boolean;
     gameArray: [[]];
     gameArray_PlayerOne: [[number]];
     gameArray_PlayerTwo: [[number]];
@@ -17,6 +18,7 @@ const getGamesSchema = new mongoose.Schema({
     gameIndex: Number,
     winner: String,
     currentPlayer: String,
+    gameOver: Boolean,
     gameArray: [[Number]],
     gameArray_PlayerOne: [[Number]],
     gameArray_PlayerTwo: [[Number]],
