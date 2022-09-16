@@ -2,7 +2,7 @@ import { useState, useContext, useEffect, memo } from 'react'
 import style from './Square.module.css'
 import { PLAYER, SQUARE_STATUS } from '../constants'
 import { SquareContext } from '../context'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 
 type SquareProps = {
@@ -21,6 +21,7 @@ export default memo(function Square(props: SquareProps) {
     const [status, setStatus] = useState(!isOccupied ? SQUARE_STATUS.AVAILABLE : SQUARE_STATUS.OCCUPIED)
     const [classList, setClassList] = useState([`${style.square}`])
     const { playerTurn, nextTurn } = useContext(SquareContext)
+    const { id = "" } = useParams()
 
     useEffect(() => {
         setStatus(SQUARE_STATUS.AVAILABLE)
@@ -47,6 +48,6 @@ export default memo(function Square(props: SquareProps) {
     }
 
     return (
-        <div className={location.pathname === '/game' ? classList.join(" ") : classes} data-testid='square' onClick={handleClick}>{props.children}</div>
+        <div className={location.pathname === `/game/${id}` ? classList.join(" ") : classes} data-testid='square' onClick={handleClick}>{props.children}</div>
     )
 })
