@@ -13,7 +13,7 @@ gameHandler.post("/", validateSchema(createGameSchema), async (req: Request, res
     // TODO: decode user id from token
     const userId = req.userId;
     const game = req.body;
-    const newGame = await createGame({ ...game, userId });
+    const newGame = await createGame({ userId, ...game });
     return res.status(200).send(newGame);
 })
 
@@ -24,10 +24,8 @@ gameHandler.put("/:id", validateSchema(updateGameSchema), async (req: Request, r
     const userId = req.userId;;
     const gameId = req.params.id;
     const currentGame = await getGameByFilter({ userId: new mongoose.Types.ObjectId(userId), _id: { $ne: new mongoose.Types.ObjectId(gameId) } });
+    if ((currentGame?.gameOver)) return res.sendStatus(405)
     if ((currentGame?.winner)) return res.sendStatus(405)
-    // if (currentGame?.gameArray) {
-    //     logic
-    // }
     const newGame = await updateGame(gameId, userId, { ...game });
     if (!newGame) return res.sendStatus(404)
     return res.status(200).json(newGame)

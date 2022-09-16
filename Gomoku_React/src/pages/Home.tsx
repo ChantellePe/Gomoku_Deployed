@@ -1,16 +1,33 @@
-import { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useContext, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../components'
 import style from './Home.module.css'
-import { GameContext } from '../context'
-import { SquareContext } from '../context'
+import { GameType } from '../types'
+import { GameContext, SquareContext, UserContext } from '../context'
 import { PLAYER } from '../constants'
-
+import { get, post, put, del } from '../utils/http'
+import { response } from 'express'
 
 export default function Home() {
     const navigate = useNavigate()
     const { boardSize, setBoardSize } = useContext(GameContext)
     const { nextTurn } = useContext(SquareContext)
+    const { user } = useContext(UserContext)
+
+
+    const newGame = async () => {
+        const game: GameType = await post(`/game`, {
+            userId: user?._id,
+            gameOver: false,
+            currentPlayer: "Black",
+            gameArray: [],
+            gameArray_PlayerOne: [],
+            gameArray_PlayerTwo: [],
+            boardSize: boardSize
+        })
+        
+        navigate(`game/${game._id}`)
+    }
 
 
     return (
@@ -19,7 +36,7 @@ export default function Home() {
             <form className={style.boardForm} onSubmit={(e) => {
                 e.preventDefault()
                 nextTurn(PLAYER.PLAYER_ONE)
-                navigate('/game')
+                newGame()
             }}>
                 <select className={style.dropDown}
                     onChange={(e) => {

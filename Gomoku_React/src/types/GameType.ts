@@ -1,13 +1,14 @@
+
 export type GameType = {
     _id: string
     userId: string
-    CurrentPlayer: String
+    currentPlayer: string
     gameOver: Boolean
-    winner?: String
+    winner?: string
     gameArray: number[][]
     gameArray_PlayerOne: number[][]
     gameArray_PlayerTwo: number[][]
     boardSize: number
-    createdAt: String
-    updatedAt: String
+    createdAt: string
+    updatedAt: string
 }

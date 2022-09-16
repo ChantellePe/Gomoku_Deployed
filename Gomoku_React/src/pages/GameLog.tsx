@@ -54,7 +54,6 @@ export default function GameLog() {
     }
 
     if (!user) return <Navigate to='/login' />
-    if (!user) return null
     if (!game) return null
 
     return (
