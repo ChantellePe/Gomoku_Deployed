@@ -6,6 +6,7 @@ import { deleteGameSchema, getGameSchema } from '../schema/game.schema';
 import { deleteGame, getGamesByFilter, getGameById } from '../service/games.service'
 import { deserializeUser } from "../middleware/deserializeUser";
 
+
 const gamesHandler = express.Router();
 gamesHandler.use(deserializeUser);
 

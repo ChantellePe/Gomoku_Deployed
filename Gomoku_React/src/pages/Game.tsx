@@ -7,7 +7,7 @@ import { Square, Button } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import { GameType } from '../types'
 import buttonStyle from '../components/Button.module.css'
-import { put, del } from '../utils/http'
+import { put, deleteMany } from '../utils/http'
 
 
 type PlayerMove = {
@@ -30,7 +30,6 @@ function gameReducer(state: number[][] = [], action: PlayerMove) {
 }
 
 export default function Game() {
-
     const navigate = useNavigate()
     const [gameOver, setGameOver] = useState(false)
     const [winner, setWinner] = useState<PLAYER | undefined>(undefined)
@@ -89,18 +88,17 @@ export default function Game() {
                 gameArray_PlayerTwo: playerTwoState,
                 boardSize: boardSize
             })
+        } else {
+            return
         }
     }
 
-    const delGame = async () => {
-        if (game?.gameArray.length === 0) {
-            await del(`game/${game._id}`)
-        }
-    }
 
     useEffect(() => {
         gameMove()
     }, [playerOneState, playerTwoState])
+
+
 
 
     // useEffect(() => {
@@ -254,7 +252,6 @@ export default function Game() {
         console.log(winner)
         const finalArray = mergeArrays(playerOneState, playerTwoState)
         if (gameOver && finalArray.length > 0) {
-
             navigate('/games')
         } else {
             resetGame()

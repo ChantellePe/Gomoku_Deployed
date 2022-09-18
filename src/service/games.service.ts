@@ -42,3 +42,7 @@ export async function deleteGame(id: string, userId: string) {
         userId: new mongoose.Types.ObjectId(userId)
     })
 }
+
+export async function deleteGamesByFilter(query: FilterQuery<GameDocument>) {
+    return await GameModel.deleteMany(query).lean()
+}

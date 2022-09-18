@@ -5,7 +5,7 @@ import buttonStyle from '../components/Button.module.css'
 import { UserContext } from '../context'
 import type { GameType } from '../types'
 import style from './Games.module.css'
-import { get } from '../utils/http'
+import { get, deleteMany} from '../utils/http'
 
 
 const dateFormat = (date: string) => {
@@ -32,6 +32,18 @@ export default function Games() {
             navigate('/')
         }
     }, [logout, navigate])
+
+
+    const delGames = async () => {
+        console.log("finding game to delete...")
+        await deleteMany("/")
+        console.log("deleted")
+    }
+
+
+    useEffect(() => {
+        delGames()
+    }, [navigate])
 
 
     useEffect(() => {

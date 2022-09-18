@@ -5,6 +5,7 @@ import gamesHandler from './handlers/games.handler';
 import authHandler from './handlers/auth.handler';
 import connectDB from './util/connectDB';
 import mongoose from 'mongoose';
+import homeHandler from './handlers/home.handler';
 
 dotenv.config();
 
@@ -17,8 +18,8 @@ const port = process.env.PORT;
 app.use(express.json());
 
 app.use('/game', gameHandler);
-app.use('/games', gamesHandler);
-app.use('/', authHandler);
+app.use('/games', gamesHandler, homeHandler);
+app.use('/', authHandler, homeHandler);
 
 
 mongoose.connection.once('connected', () => {

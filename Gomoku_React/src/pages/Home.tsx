@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../components'
 import style from './Home.module.css'
 import { GameType } from '../types'
 import { GameContext, SquareContext, UserContext } from '../context'
 import { PLAYER } from '../constants'
-import { get, post, put, del } from '../utils/http'
+import { deleteMany, post } from '../utils/http'
 import { response } from 'express'
 
 export default function Home() {
@@ -25,10 +25,21 @@ export default function Home() {
             gameArray_PlayerTwo: [],
             boardSize: boardSize
         })
-        
+
         navigate(`game/${game._id}`)
     }
 
+
+    const delGames = async () => {
+        console.log("finding game to delete...")
+        await deleteMany("/")
+        console.log("deleted")
+    }
+
+
+    useEffect(() => {
+        delGames()
+    }, [navigate])
 
     return (
         <div className={style.boardForm}>
