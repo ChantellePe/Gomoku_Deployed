@@ -8,10 +8,11 @@ const players = {
     PlayerTwo: "White",
 } as const;
 
-const winners = {
+export const winners = {
     PlayerOne: "Black",
     PlayerTwo: "White",
-    Tie: "Tie"
+    Tie: "Tie",
+    Undefined: ""
 } as const;
 
 
@@ -25,7 +26,7 @@ const payload = {
         gameArray_PlayerTwo: array(z.array(number())),
         gameArray: array(z.array(number())),
         currentPlayer: z.nativeEnum(players),
-        winner: z.nativeEnum(winners).optional(),
+        winner: z.nativeEnum(winners),
         boardSize: number({
             required_error: "Board size is required",
         }),

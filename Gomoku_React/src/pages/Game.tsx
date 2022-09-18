@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useReducer, useState, useEffect, useCallback } from 'react'
-import { Navigate, useNavigate, useLocation, useParams } from 'react-router-dom'
+import { useContext, useReducer, useState, useEffect } from 'react'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
 import { Square, Button } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import { GameType } from '../types'
 import buttonStyle from '../components/Button.module.css'
-import { put, deleteMany } from '../utils/http'
+import { put } from '../utils/http'
 
 
 type PlayerMove = {
@@ -18,8 +18,6 @@ type PlayerMove = {
 function gameReducer(state: number[][] = [], action: PlayerMove) {
     const { type, payload } = action
     switch (type) {
-        case PLAYER_MOVE_ACTION.INITIALISE:
-            return [payload]
         case PLAYER_MOVE_ACTION.SELECT:
             return [...state, payload]
         case PLAYER_MOVE_ACTION.RESET:
@@ -32,7 +30,7 @@ function gameReducer(state: number[][] = [], action: PlayerMove) {
 export default function Game() {
     const navigate = useNavigate()
     const [gameOver, setGameOver] = useState(false)
-    const [winner, setWinner] = useState<PLAYER | undefined>(undefined)
+    const [winner, setWinner] = useState<PLAYER | "">("")
     const [resetButtonClicked, setResetButtonClicked] = useState(false);
     const { boardSize } = useContext(GameContext)
     const { user } = useContext(UserContext)
@@ -40,7 +38,6 @@ export default function Game() {
     const [game, setGame] = useState<GameType>()
     const [playerOneState, dispatch1] = useReducer(gameReducer, [])
     const [playerTwoState, dispatch2] = useReducer(gameReducer, [])
-    //const location = useLocation()
     const { id = "" } = useParams()
 
     const resetGame = () => {
@@ -49,10 +46,10 @@ export default function Game() {
         dispatch2({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
         nextTurn(PLAYER.PLAYER_ONE)
         setGameOver(false)
-        setWinner(undefined)
+        setWinner("")
     }
 
-    const getClassNames = (gameOver: boolean, winner: PLAYER | undefined) => {
+    const getClassNames = (gameOver: boolean, winner: PLAYER | "") => {
         switch (gameOver) {
             case false:
                 return `${style.header}`
@@ -68,28 +65,31 @@ export default function Game() {
     }
 
     const gameMove = async () => {
-        if (playerTurn === PLAYER.PLAYER_ONE) {
-            const results = await put(`/game/${id}`, {
+        let results: GameType
+        if (playerTurn === PLAYER.PLAYER_ONE && !game?.gameOver) {
+            results = await put(`/game/${id}`, {
                 userId: user?._id,
                 gameOver: false,
                 currentPlayer: "Black",
                 gameArray: [],
+                winner: "",
                 gameArray_PlayerOne: playerOneState,
                 gameArray_PlayerTwo: playerTwoState,
                 boardSize: boardSize
             })
-        } else if (playerTurn === PLAYER.PLAYER_TWO) {
-            const results = await put(`/game/${id}`, {
+            return setGame(results)
+        } else if (playerTurn === PLAYER.PLAYER_TWO && !game?.gameOver) {
+            results = await put(`/game/${id}`, {
                 userId: user?._id,
                 gameOver: false,
                 currentPlayer: "White",
                 gameArray: [],
+                winner: "",
                 gameArray_PlayerOne: playerOneState,
                 gameArray_PlayerTwo: playerTwoState,
                 boardSize: boardSize
             })
-        } else {
-            return
+            setGame(results)
         }
     }
 
@@ -99,98 +99,6 @@ export default function Game() {
     }, [playerOneState, playerTwoState])
 
 
-
-
-    // useEffect(() => {
-    //     function exists(arr: number[][], search: number[]): boolean {
-    //         return arr.some(row => JSON.stringify(row) === JSON.stringify(search))
-    //     }
-    //     function fiveConseq(squareIds: number[][]): boolean {
-    //         for (let idx = 0; idx < squareIds.length; idx++) {
-    //             if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 1, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 2, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 3, squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + 4, squareIds[idx][1]])) {
-    //                 if (!(exists(squareIds, [squareIds[idx][0] - 1, squareIds[idx][1]])) && (!exists(squareIds, [squareIds[idx][0] + 5, squareIds[idx][1]]))) {
-    //                     return true
-    //                 }
-    //             }
-    //         }
-    //         return false
-    //     }
-
-    //     function fiveDown(squareIds: number[][]): boolean {
-    //         const number = boardSize
-    //         for (let idx = 0; idx < squareIds.length; idx++) {
-    //             if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
-    //                 if (!(exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1])) && !(exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5]))) {
-    //                     return true
-    //                 }
-    //             }
-    //         }
-    //         return false
-    //     }
-
-    //     function diagLeft(squareIds: number[][]): boolean {
-    //         const number = boardSize - 1
-    //         for (let idx = 0; idx < squareIds.length; idx++) {
-    //             if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
-    //                 if (!(exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1])) && (!exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5]))) {
-    //                     return true
-    //                 }
-    //             }
-    //         }
-    //         return false
-    //     }
-
-    //     function diagRight(squareIds: number[][]): boolean {
-    //         const number = boardSize + 1
-    //         for (let idx = 0; idx < squareIds.length; idx++) {
-    //             if (exists(squareIds, [squareIds[idx][0], squareIds[idx][1]]) && exists(squareIds, [squareIds[idx][0] + number, squareIds[idx][1] + 1]) && exists(squareIds, [squareIds[idx][0] + (number * 2), squareIds[idx][1] + 2]) && exists(squareIds, [squareIds[idx][0] + (number * 3), squareIds[idx][1] + 3]) && exists(squareIds, [squareIds[idx][0] + (number * 4), squareIds[idx][1] + 4])) {
-    //                 if (!(exists(squareIds, [squareIds[idx][0] - number, squareIds[idx][1] - 1])) && (!exists(squareIds, [squareIds[idx][0] + (number * 5), squareIds[idx][1] + 5]))) {
-    //                     return true
-    //                 }
-    //             }
-    //         }
-    //         return false
-    //     }
-
-    //     
-
-    //     if (playerOneState.length > 3 && playerTwoState.length > 3) {
-    //         if (playerOneState.length + playerTwoState.length === boardSize ** 2) {
-    //             setWinner(PLAYER.TIE)
-    //             setGameOver(true)
-    //         } else {
-    //             if (fiveConseq(playerOneState)) {
-    //                 setWinner(PLAYER.PLAYER_ONE)
-    //                 setGameOver(true)
-    //             } else if (fiveConseq(playerTwoState)) {
-    //                 setWinner(PLAYER.PLAYER_TWO)
-    //                 setGameOver(true)
-    //             } else if (fiveDown(playerTwoState)) {
-    //                 setWinner(PLAYER.PLAYER_TWO)
-    //                 setGameOver(true)
-    //             } else if (fiveDown(playerOneState)) {
-    //                 setWinner(PLAYER.PLAYER_ONE)
-    //                 setGameOver(true)
-    //             } else if (diagLeft(playerTwoState)) {
-    //                 setWinner(PLAYER.PLAYER_TWO)
-    //                 setGameOver(true)
-    //             } else if (diagLeft(playerOneState)) {
-    //                 setWinner(PLAYER.PLAYER_ONE)
-    //                 setGameOver(true)
-    //             } else if (diagRight(playerTwoState)) {
-    //                 setWinner(PLAYER.PLAYER_TWO)
-    //                 setGameOver(true)
-    //             } else if (diagRight(playerOneState)) {
-    //                 setWinner(PLAYER.PLAYER_ONE)
-    //                 setGameOver(true)
-    //             } else {
-    //                 setWinner(undefined)
-    //             }
-    //         }
-    //         console.log(playerOneState)
-    //         console.log(playerTwoState)
-    //     }
-    // }, [playerOneState, playerTwoState])
 
     if (!user) return <Navigate to="/login" replace />
     if (!boardSize) return null
@@ -217,14 +125,20 @@ export default function Game() {
     }
 
     const announceWinner = () => {
-        if (winner === PLAYER.PLAYER_ONE) {
+        if (game?.winner === "Black") {
+            setGameOver(true)
+            setWinner(PLAYER.PLAYER_ONE)
             return 'Black WINS!!!'
-        } else if (winner === PLAYER.PLAYER_TWO) {
+        } else if (game?.winner === "White") {
+            setGameOver(true)
+            setWinner(PLAYER.PLAYER_TWO)
             return 'White WINS!!!'
-        } else if (winner === PLAYER.TIE) {
+        } else if (game?.winner === "Tie") {
+            setGameOver(true)
+            setWinner(PLAYER.TIE)
             return `It's a TIE!!!`
         } else {
-            return winner
+            return
         }
     }
 
@@ -237,21 +151,10 @@ export default function Game() {
         return `${style.board}`
     }
 
-    const mergeArrays = (a1: number[][], a2: number[][]) => {
-        let length = a1.length > a2.length ? a1.length : a2.length
-        let a3: number[][] = []
 
-        for (let i: number = 0; i < length; i++) {
-            a3.push(a1[i])
-            a3.push(a2[i])
-        }
-        return a3
-    }
-
+    //TO BE MODIFIED
     const leave = () => {
-        console.log(winner)
-        const finalArray = mergeArrays(playerOneState, playerTwoState)
-        if (gameOver && finalArray.length > 0) {
+        if (game?.gameOver && game?.gameArray.length > 0) {
             navigate('/games')
         } else {
             resetGame()
@@ -261,12 +164,12 @@ export default function Game() {
 
     return (
         <div className={style.container}>
-            <h1 className={getClassNames(gameOver, winner)} >{winner === undefined ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
+            <h1 className={getClassNames(gameOver, winner)} >{winner === "" ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
             <div className={getBoardStyles()} id={game?._id}
                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                 {[...Array(boardSize * boardSize)].map((_, index) => (
                     <Square resetButtonClicked={resetButtonClicked} key={idGenerator(index).join(",")} id={idGenerator(index)} playerTurn={playerTurn}
-                        playerMove={async () => {
+                        playerMove={() => {
                             if (playerTurn === PLAYER.PLAYER_ONE) {
                                 dispatch1({ type: PLAYER_MOVE_ACTION.SELECT, payload: idGenerator(index) })
                             } else if (playerTurn === PLAYER.PLAYER_TWO) {
