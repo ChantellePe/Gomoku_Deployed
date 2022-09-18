@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useState, useEffect, useCallback } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Button } from '../components'
@@ -5,7 +6,7 @@ import buttonStyle from '../components/Button.module.css'
 import { UserContext } from '../context'
 import type { GameType } from '../types'
 import style from './Games.module.css'
-import { get, deleteMany} from '../utils/http'
+import { get, deleteMany } from '../utils/http'
 
 
 const dateFormat = (date: string) => {
@@ -34,12 +35,16 @@ export default function Games() {
     }, [logout, navigate])
 
 
-    const delGames = async () => {
-        console.log("finding game to delete...")
-        await deleteMany("/")
-        console.log("deleted")
-    }
 
+    const delGames = async () => {
+        try {
+            if (user) {
+                await deleteMany("/")
+            }
+        } catch (error) {
+            console.log((error as Error).message)
+        }
+    }
 
     useEffect(() => {
         delGames()

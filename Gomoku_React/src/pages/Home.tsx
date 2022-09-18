@@ -1,12 +1,13 @@
-import { useContext, useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../components'
 import style from './Home.module.css'
 import { GameType } from '../types'
 import { GameContext, SquareContext, UserContext } from '../context'
 import { PLAYER } from '../constants'
 import { deleteMany, post } from '../utils/http'
-import { response } from 'express'
+
 
 export default function Home() {
     const navigate = useNavigate()
@@ -20,20 +21,26 @@ export default function Home() {
             userId: user?._id,
             gameOver: false,
             currentPlayer: "Black",
+            winner: "",
             gameArray: [],
             gameArray_PlayerOne: [],
             gameArray_PlayerTwo: [],
             boardSize: boardSize
         })
-
         navigate(`game/${game._id}`)
     }
 
 
+
+
     const delGames = async () => {
-        console.log("finding game to delete...")
-        await deleteMany("/")
-        console.log("deleted")
+        try {
+            if (user) {
+                await deleteMany("/")
+            }
+        } catch (error) {
+            console.log((error as Error).message)
+        }
     }
 
 
@@ -46,8 +53,12 @@ export default function Home() {
 
             <form className={style.boardForm} onSubmit={(e) => {
                 e.preventDefault()
-                nextTurn(PLAYER.PLAYER_ONE)
-                newGame()
+                if (!user) {
+                    return navigate('login')
+                } else {
+                    nextTurn(PLAYER.PLAYER_ONE)
+                    newGame()
+                }
             }}>
                 <select className={style.dropDown}
                     onChange={(e) => {

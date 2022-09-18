@@ -63,9 +63,9 @@ export default function GameLog() {
                 const boardSize = Object.values(game)[0].boardSize
                 const gameArr = Object.values(game)[0].gameArray
                 return (
-                    <div key="container" className={style.container}>
-                        <h1 key="winner" className={style.header}>Winner: {winner}</h1>
-                        <div key="board" className={style.board} id={`Game-${id}`}
+                    <div className={style.container}>
+                        <h1 className={style.header}>Winner: {winner}</h1>
+                        <div key={`Game-${id}`} className={style.board} id={`Game-${id}`}
                             style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                             {[...Array(boardSize ** 2)].map((e, index) => {
 
@@ -96,7 +96,7 @@ export default function GameLog() {
                         </div>
 
                         <div className={style.buttonSection}>
-                            <Button className={buttonStyle.button} onClick={() => navigate(`/games`)} > Back </Button>
+                            <Button className={buttonStyle.button} key={`Game-${id}`} onClick={() => navigate(`/games`)} > Back </Button>
                         </div>
                     </div >
                 )

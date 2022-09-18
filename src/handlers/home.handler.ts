@@ -12,11 +12,12 @@ homeHandler.delete("/", async (req: Request, res: Response) => {
         const game = req.body;
         const id = req.params.id;
         const userId = req.userId;
-        //const playerOneArrayLength = 0;
-        const gamesToDelete = await deleteGamesByFilter(
+        await deleteGamesByFilter(
             {
-                userId: new mongoose.Types.ObjectId(userId),
-                gameOver: { $eq: false }
+                $and: [
+                    { userId: new mongoose.Types.ObjectId(userId) },
+                    { $or: [{ gameOver: { $eq: false } }, { gameArray: { $eq: [] } }] }
+                ]
             });
         return res.sendStatus(200);
     } catch (err) {
