@@ -67,7 +67,7 @@
     padding: 1rem 1rem;
     transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     user-select: none;
-    width: 25%;
+    width: 30%;
     font-size: 100%;
     font-family: 'Domine', Verdana, Times, serif;
     text-shadow:
@@ -84,4 +84,13 @@
 .viewLog:hover {
     background-color: #b10076;
     color: #ffffff;
+}
+
+.deleteIcon {
+    height: 3%;
+    width: 3%;
+    background-color: transparent;
+    align-items: right;
+    margin: 2% 3%;
+    cursor: pointer;
 }

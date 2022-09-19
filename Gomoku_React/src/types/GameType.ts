@@ -4,7 +4,7 @@ export type GameType = {
     userId: string
     currentPlayer: string
     gameOver: Boolean
-    winner?: string
+    winner: string
     gameArray: number[][]
     gameArray_PlayerOne: number[][]
     gameArray_PlayerTwo: number[][]

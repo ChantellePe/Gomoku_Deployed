@@ -6,7 +6,7 @@ import buttonStyle from '../components/Button.module.css'
 import { UserContext } from '../context'
 import type { GameType } from '../types'
 import style from './Games.module.css'
-import { get, deleteMany } from '../utils/http'
+import { get, deleteMany, del } from '../utils/http'
 
 
 const dateFormat = (date: string) => {
@@ -22,6 +22,7 @@ export default function Games() {
     const { user, logout } = useContext(UserContext)
     const navigate = useNavigate()
     const [games, setGames] = useState<GameType[][]>([[]])
+    const [deleteGame, setDeleteGame] = useState(false)
 
     const fetchGames = useCallback(async () => {
         try {
@@ -46,9 +47,27 @@ export default function Games() {
         }
     }
 
+
+    // const deleteGameById = async () => {
+    //     try {
+    //         if (user) {
+    //             await del(`games/${gameId}`)
+    //         }
+    //     } catch (error) {
+    //         console.log((error as Error).message)
+    //     }
+    // }
+
     useEffect(() => {
         delGames()
     }, [navigate])
+
+    const deleteHandler = async (gameId: string) => {
+        await del(`games/${gameId}`)
+        setDeleteGame(deleteGame ? false : true)
+        window.location.reload();
+    }
+
 
 
     useEffect(() => {
@@ -95,6 +114,13 @@ export default function Games() {
                         >
                             View Game Log
                         </Button>
+                        <img
+                            src={require("../utils/DeleteButtonImg.png")} alt='Delete'
+                            className={[buttonStyle.deleteIcon].join(" ")}
+                            onClick={() => deleteHandler(gameId)}
+                        />
+
+
                     </div>
                 )
             })
@@ -102,3 +128,4 @@ export default function Games() {
         </div>
     )
 }
+
