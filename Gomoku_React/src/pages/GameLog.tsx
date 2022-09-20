@@ -5,15 +5,17 @@ import { UserContext } from '../context'
 import buttonStyle from '../components/Button.module.css'
 import style from './GameLog.module.css'
 import squareStyle from '../components/Square.module.css'
-import { Square, Button } from '../components'
+import { Square, Button, LoadingSpinner } from '../components'
 import type { GameType } from '../types'
 import { get } from '../utils/http'
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
 
 export default function GameLog() {
     const { user, logout } = useContext(UserContext)
     const [game, setGame] = useState<GameType[]>()
     const navigate = useNavigate()
     const { id = '' } = useParams();
+    const { promiseInProgress } = usePromiseTracker();
 
     const fetchGame = useCallback(async (id: string) => {
         try {
@@ -27,7 +29,7 @@ export default function GameLog() {
     }, [logout, navigate])
 
     useEffect(() => {
-        fetchGame(id)
+        trackPromise(fetchGame(id))
     }, [fetchGame, id])
 
     const idGenerator = (id: number, boardSize: number): number[] => {
@@ -57,53 +59,59 @@ export default function GameLog() {
     if (!game) return null
 
     return (
-        <div>
-            {Object.values(game).map((key) => {
-                const winner = Object.values(game)[0].winner
-                const boardSize = Object.values(game)[0].boardSize
-                const gameArr = Object.values(game)[0].gameArray
-                return (
-                    <div className={style.container}>
-                        <h1 className={style.header}>Winner: {winner}</h1>
-                        <div key={`Game-${id}`} className={style.board} id={`Game-${id}`}
-                            style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-                            {[...Array(boardSize ** 2)].map((e, index) => {
+        (promiseInProgress === true) ?
+            <LoadingSpinner />
+            :
+            <div className={style.container}>
+                {Object.values(game).map((key) => {
+                    const winner = Object.values(game)[0].winner
+                    const boardSize = Object.values(game)[0].boardSize
+                    const gameArr = Object.values(game)[0].gameArray
+                    return (
 
-                                const classColor = (sqID: number[]) => gameArr.map((e, i) => {
-                                    if (arraysEqual(e, sqID)) {
-                                        if (i === 0 || i % 2 === 0) {
-                                            return (`${squareStyle.square}  ${squareStyle.Black} ${style.numberWhite}`)
-                                        } else if (i === 1 || i % 2 === 1) {
-                                            return ([`${squareStyle.square}  ${squareStyle.White}`])
+                        <div className={style.container}>
+                            <h1 className={style.header}>Winner: {winner}</h1>
+                            <div key={`Game-${id}`} className={style.board} id={`Game-${id}`}
+                                style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
+                                {[...Array(boardSize ** 2)].map((e, index) => {
+
+                                    const classColor = (sqID: number[]) => gameArr.map((e, i) => {
+                                        if (arraysEqual(e, sqID)) {
+                                            if (i === 0 || i % 2 === 0) {
+                                                return (`${squareStyle.square}  ${squareStyle.Black} ${style.numberWhite}`)
+                                            } else if (i === 1 || i % 2 === 1) {
+                                                return ([`${squareStyle.square}  ${squareStyle.White}`])
+                                            }
+                                        } else if (!arraysEqual(e, sqID)) {
+                                            return (`${squareStyle.square} ${style.available}`)
                                         }
-                                    } else if (!arraysEqual(e, sqID)) {
-                                        return (`${squareStyle.square} ${style.available}`)
-                                    }
-                                })
-                                const getIndex = (sqID: number[]) => gameArr.map((e, i) => {
-                                    if (arraysEqual(e, sqID)) {
-                                        return i + 1
-                                    }
-                                })
+                                    })
+                                    const getIndex = (sqID: number[]) => gameArr.map((e, i) => {
+                                        if (arraysEqual(e, sqID)) {
+                                            return i + 1
+                                        }
+                                    })
 
-                                return (
-                                    <div>
-                                        <Square id={idGenerator(index, boardSize)} classes={classColor(idGenerator(index, boardSize)).join(' ')}
-                                            key={idGenerator(index, boardSize).join(" ")} playerMove={() => null}><div className={`${style.numbers}`}>{getIndex(idGenerator(index, boardSize))}</div></Square>
-                                    </div>
+                                    return (
+                                        <div>
+                                            <Square id={idGenerator(index, boardSize)} classes={classColor(idGenerator(index, boardSize)).join(' ')}
+                                                key={idGenerator(index, boardSize).join(" ")} playerMove={() => null}><div className={`${style.numbers}`}>{getIndex(idGenerator(index, boardSize))}</div></Square>
+                                        </div>
+                                    )
+                                }
+
                                 )
-                            })}
-                        </div>
+                                }
+                            </div>
 
-                        <div className={style.buttonSection}>
-                            <Button className={buttonStyle.button} key={`Game-${id}`} onClick={() => navigate(`/games`)} > Back </Button>
-                        </div>
-                    </div >
-                )
-            }
-            )
-            }
-        </div >
+                            <div className={style.buttonSection}>
+                                <Button className={buttonStyle.button} key={`Game-${id}`} onClick={() => navigate(`/games`)} > Back </Button>
+                            </div>
+                        </div >
+                    )
+                }
+                )}
+            </div>
     )
 }
 

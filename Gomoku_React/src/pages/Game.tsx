@@ -3,12 +3,12 @@ import { useContext, useReducer, useState, useEffect } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
-import { Square, Button } from '../components'
+import { Square, Button, LoadingSpinner } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import { GameType } from '../types'
 import buttonStyle from '../components/Button.module.css'
 import { put } from '../utils/http'
-
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
 
 
 type PlayerMove = {
@@ -38,6 +38,7 @@ export default function Game() {
     const [playerOneState, dispatch1] = useReducer(gameReducer, [])
     const [playerTwoState, dispatch2] = useReducer(gameReducer, [])
     const { id = "" } = useParams()
+    const { promiseInProgress } = usePromiseTracker();
 
     const resetGame = async () => {
         if (game?.gameOver) {
@@ -115,7 +116,7 @@ export default function Game() {
 
 
     useEffect(() => {
-        gameMove()
+        trackPromise(gameMove())
     }, [playerOneState, playerTwoState])
 
 
@@ -165,7 +166,7 @@ export default function Game() {
     }
 
     const getBoardStyles = (): string => {
-        if (game?.gameOver) {
+        if (game?.gameOver || promiseInProgress === true) {
             return `${style.gameOver} ${style.board}`
         } else if (!game?.gameOver) {
             return `${style.board}`
@@ -184,7 +185,11 @@ export default function Game() {
 
     return (
         <div className={style.container}>
-            <h1 className={getClassNames()} >{game?.winner === "" ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
+            {
+                (promiseInProgress === true) ?
+                    <LoadingSpinner />
+                    :
+                    <h1 className={getClassNames()} >{game?.winner === "" ? `Current Player: ${playerTurn}` : announceWinner()}</h1>}
             <div className={getBoardStyles()} id={game?._id}
                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                 {[...Array(boardSize * boardSize)].map((_, index) => (
@@ -209,4 +214,3 @@ export default function Game() {
 }
 
 
-//

@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useState, useEffect, useCallback } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { Button } from '../components'
+import { Button, LoadingSpinner } from '../components'
 import buttonStyle from '../components/Button.module.css'
 import { UserContext } from '../context'
 import type { GameType } from '../types'
 import style from './Games.module.css'
 import { get, deleteMany, del } from '../utils/http'
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
 
 
 const dateFormat = (date: string) => {
     const day = date.split("-")[2]
     const month = date.split("-")[1]
     const year = date.split("-")[0]
-
     return day + "/" + month + "/" + year
 }
 
@@ -23,6 +23,8 @@ export default function Games() {
     const navigate = useNavigate()
     const [games, setGames] = useState<GameType[][]>([[]])
     const [deleteGame, setDeleteGame] = useState(false)
+    const { promiseInProgress } = usePromiseTracker();
+
 
     const fetchGames = useCallback(async () => {
         try {
@@ -35,8 +37,6 @@ export default function Games() {
         }
     }, [logout, navigate])
 
-
-
     const delGames = async () => {
         try {
             if (user) {
@@ -47,19 +47,8 @@ export default function Games() {
         }
     }
 
-
-    // const deleteGameById = async () => {
-    //     try {
-    //         if (user) {
-    //             await del(`games/${gameId}`)
-    //         }
-    //     } catch (error) {
-    //         console.log((error as Error).message)
-    //     }
-    // }
-
     useEffect(() => {
-        delGames()
+        trackPromise(delGames())
     }, [navigate])
 
     const deleteHandler = async (gameId: string) => {
@@ -75,7 +64,7 @@ export default function Games() {
             console.log("There is no user")
             return
         } else {
-            fetchGames()
+            trackPromise(fetchGames())
         }
     }, [fetchGames, user])
 
@@ -89,43 +78,47 @@ export default function Games() {
     console.log(gameDetails3)
 
     return (
-        <div className={style.container}>
-            <h1 className={style.header}>
-                You have {numOfGames} {numOfGames === 1 ? 'game' : 'games'}
-            </h1>
-            {gameDetails3[0].map((key, i) => {
-                if (numOfGames === 0) return null
-                const gameId = gameDetails3[0][i]?._id
-                const createdAt = gameDetails3[0][i]?.createdAt
-                const winner = gameDetails3[0][i]?.winner
-                const date = createdAt.split("T")[0]
+        (promiseInProgress === true) ?
+            <LoadingSpinner />
+            :
+            <div className={style.container}>
+                <h1 className={style.header}> You have {numOfGames} {numOfGames === 1 ? 'game' : 'games'} </h1 >
+                {
+                    gameDetails3[0].map((key, i) => {
+                        if (numOfGames === 0) return null
+                        const gameId = gameDetails3[0][i]?._id
+                        const createdAt = gameDetails3[0][i]?.createdAt
+                        const winner = gameDetails3[0][i]?.winner
+                        const date = createdAt.split("T")[0]
 
-                return (
-                    <div id={gameId} className={`${style.list}`} key={gameId}>
-                        <p className={style.title}>
-                            {`Game #${i + 1} @ ${dateFormat(date)}`}
-                        </p>
-                        <p>
-                            {`Winner: ${winner}`}
-                        </p>
-                        <Button
-                            className={[buttonStyle.viewLog].join(' ')}
-                            onClick={() => navigate(`/games/${gameId}`)}
-                        >
-                            View Game Log
-                        </Button>
-                        <img
-                            src={require("../utils/DeleteButtonImg.png")} alt='Delete'
-                            className={[buttonStyle.deleteIcon].join(" ")}
-                            onClick={() => deleteHandler(gameId)}
-                        />
+                        return (
+                            <div id={gameId} className={`${style.list}`} key={gameId}>
+                                <p className={style.title}>
+                                    {`Game #${i + 1} @ ${dateFormat(date)}`}
+                                </p>
+                                <p>
+                                    {`Winner: ${winner}`}
+                                </p>
+                                <Button
+                                    className={[buttonStyle.viewLog].join(' ')}
+                                    onClick={() => navigate(`/games/${gameId}`)}
+                                >
+                                    View Game Log
+                                </Button>
+                                <img
+                                    src={require("../utils/DeleteButtonImg.png")} alt='Delete'
+                                    className={[buttonStyle.deleteIcon].join(" ")}
+                                    onClick={() => deleteHandler(gameId)}
+                                />
 
 
-                    </div>
-                )
-            })
-            }
-        </div>
+                            </div>
+                        )
+                    })
+                }
+
+            </div >
+
     )
 }
 
