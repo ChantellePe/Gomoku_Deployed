@@ -22,10 +22,8 @@ gameHandler.put("/:id", validateSchema(updateGameSchema), async (req: Request, r
     let game = req.body;
     const userId = req.userId;
     const gameId = req.params.id;
-    //const currentGame = await getGameByFilter({ userId: new mongoose.Types.ObjectId(userId), _id: { $ne: new mongoose.Types.ObjectId(gameId) } });
     game.gameArray = mergeArrays(game.gameArray_PlayerOne, game.gameArray_PlayerTwo)
-
-    if ((game.gameOver)) {
+    if (game.gameOver) {
         return res.sendStatus(405)
     } else if ((game.gameArray_PlayerOne.length + game.gameArray_PlayerTwo.length) === (game.boardSize ** 2)) {
         game.winner = winners.Tie

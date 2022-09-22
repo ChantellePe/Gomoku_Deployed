@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "0081192f-f3a3-4084-903e-4d31388cc4bf",
+		"name": "202134865_postman_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23200745"
+	},
+	"item": [
+		{
+			"name": "Get Games by User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Game",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"632be214ae6be1bc096d3b00\",\r\n    \"gameArray_PlayerOne\": [[10,0],[11,0]], \r\n    \"gameArray_PlayerTwo\": [[1,0],[8,0]], \r\n    \"gameArray\": [[10,0],[1,0],[11,0],[8,0]],\r\n    \"gameOver\": false,\r\n    \"winner\": \"\",\r\n    \"currentPlayer\": \"White\",\r\n    \"boardSize\": 15\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Game",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"632be214ae6be1bc096d3b00\",\r\n    \"gameArray_PlayerOne\": [[10,0],[11,0],[0,0],[2,0],[13,0]], \r\n    \"gameArray_PlayerTwo\": [[1,0],[8,0],[14,0],[3,0]], \r\n    \"gameArray\": [[10,0],[1,0],[11,0],[8,0],[0,0],[14,0],[2,0],[3,0],[13,0]],\r\n    \"gameOver\": false,\r\n    \"winner\": \"\",\r\n    \"currentPlayer\": \"White\",\r\n    \"boardSize\": 15\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/game/632be5f8ae6be1bc096d3d3b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"game",
+						"632be5f8ae6be1bc096d3d3b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Game by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games/632be2ccae6be1bc096d3bcc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"632be2ccae6be1bc096d3bcc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Game by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games/632c45598d39b1868d902ba0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"632c45598d39b1868d902ba0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Unfinished Games from Games Page",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Unfinished Games from Home Page",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Marker\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Cperreau\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
