@@ -96,17 +96,13 @@ export default function Game() {
         }
     }
 
-
     useEffect(() => {
         trackPromise(gameMove())
     }, [playerOneState, playerTwoState])
 
-
-
     useEffect(() => {
         resetGame()
     }, [resetButtonClicked])
-
 
     if (!user) return <Navigate to="/login" replace />
     if (!boardSize) return null
@@ -189,5 +185,3 @@ export default function Game() {
         </div>
     )
 }
-
-

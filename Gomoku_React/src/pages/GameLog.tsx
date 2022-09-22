@@ -114,5 +114,3 @@ export default function GameLog() {
             </div>
     )
 }
-
-

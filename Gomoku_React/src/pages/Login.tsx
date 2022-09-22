@@ -10,7 +10,6 @@ export default function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-
     const navigate = useNavigate()
 
     const handleLogin = async () => {

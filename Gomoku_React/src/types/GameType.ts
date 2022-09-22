@@ -1,4 +1,3 @@
-
 export type GameType = {
     _id: string
     userId: string

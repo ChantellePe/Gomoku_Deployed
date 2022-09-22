@@ -1,7 +1,6 @@
 import GameModel, { GameDocument } from '../model/game.model';
 import mongoose, { DocumentDefinition, FilterQuery } from 'mongoose';
 
-
 export async function getGameById(id: string) {
     return await GameModel.findById(id).lean();
 }

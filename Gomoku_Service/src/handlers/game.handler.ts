@@ -10,7 +10,6 @@ gameHandler.use(deserializeUser);
 
 // Create a game
 gameHandler.post("/", validateSchema(createGameSchema), async (req: Request, res: Response) => {
-    // TODO: decode user id from token
     const userId = req.userId;
     const game = req.body;
     const newGame = await createGame({ userId, ...game });
@@ -61,17 +60,14 @@ gameHandler.put("/:id", validateSchema(updateGameSchema), async (req: Request, r
     const newGame = await updateGame(gameId, userId, { ...game });
     if (!newGame) return res.sendStatus(404)
     return res.status(200).json(newGame)
-
 })
 
-
-
-
-
-
+//Game helper function
 function exists(arr: number[][], search: number[]): boolean {
     return arr.some(row => JSON.stringify(row) === JSON.stringify(search))
 }
+
+//Determine winner functions
 
 function fiveConseq(squareIds: number[][]): boolean {
     for (let idx = 0; idx < squareIds.length; idx++) {
@@ -119,9 +115,6 @@ function diagRight(squareIds: number[][], boardSize: number): boolean {
     }
     return false
 }
-
-
-
 
 const mergeArrays = (a1: number[][], a2: number[][]) => {
     let length = a1.length > a2.length ? a1.length : a2.length

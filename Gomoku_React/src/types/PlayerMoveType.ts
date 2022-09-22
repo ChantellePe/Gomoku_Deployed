@@ -1,4 +1,3 @@
-
 import { PLAYER_MOVE_ACTION } from '../constants'
 
 export type PlayerMoveType = {

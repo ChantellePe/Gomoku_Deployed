@@ -14,6 +14,5 @@ export default function SquareProvider({ children }: SquareProviderProps) {
         <SquareContext.Provider value={{ playerTurn, nextTurn }}>
             {children}
         </SquareContext.Provider>
-
     )
 }

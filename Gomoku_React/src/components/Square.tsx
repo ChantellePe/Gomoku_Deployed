@@ -4,7 +4,6 @@ import { PLAYER, SQUARE_STATUS } from '../constants'
 import { SquareContext } from '../context'
 import { useLocation, useParams } from 'react-router-dom'
 
-
 type SquareProps = {
     id: number[]
     playerTurn?: PLAYER

@@ -30,9 +30,6 @@ export default function Home() {
         navigate(`game/${game._id}`)
     }
 
-
-
-
     const delGames = async () => {
         try {
             if (user) {
@@ -42,7 +39,6 @@ export default function Home() {
             console.log((error as Error).message)
         }
     }
-
 
     useEffect(() => {
         delGames()

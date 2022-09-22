@@ -12,7 +12,6 @@ dotenv.config();
 // connect to database
 connectDB();
 
-
 const app: Express = express();
 const port = process.env.PORT;
 app.use(express.json());
@@ -20,7 +19,6 @@ app.use(express.json());
 app.use('/game', gameHandler);
 app.use('/games', gamesHandler, homeHandler);
 app.use('/', authHandler, homeHandler);
-
 
 mongoose.connection.once('connected', () => {
     console.log('⚡️[server]: Connected to MongoDB.');

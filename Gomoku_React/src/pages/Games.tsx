@@ -18,7 +18,6 @@ const dateFormat = (date: string) => {
 }
 
 export default function Games() {
-
     const { user, logout } = useContext(UserContext)
     const navigate = useNavigate()
     const [games, setGames] = useState<GameType[][]>([[]])
@@ -56,8 +55,6 @@ export default function Games() {
         setDeleteGame(deleteGame ? false : true)
         window.location.reload();
     }
-
-
 
     useEffect(() => {
         if (!user) {
@@ -110,15 +107,11 @@ export default function Games() {
                                     className={[buttonStyle.deleteIcon].join(" ")}
                                     onClick={() => deleteHandler(gameId)}
                                 />
-
-
                             </div>
                         )
                     })
                 }
-
             </div >
-
-    )
-}
+        )
+    }
 

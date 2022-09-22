@@ -2,7 +2,6 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Logout from './logout'
 
-
 const mockUseNavigate = jest.fn()
 
 jest.mock('react-router-dom', () => ({

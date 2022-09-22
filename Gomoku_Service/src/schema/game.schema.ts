@@ -1,8 +1,5 @@
-
 import { object, string, number, TypeOf, array, z } from "zod"
 
-
-//saveGames({ ...games, [`Game-${Object.keys(games).length + 1}-${winner}-${Number(boardSize)}-${date}`]: finalArray })
 const players = {
     PlayerOne: "Black",
     PlayerTwo: "White",

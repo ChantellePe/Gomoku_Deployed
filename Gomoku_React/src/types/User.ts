@@ -3,10 +3,6 @@ export type User = {
     token: string
 }
 
-// export type User = {
-//     username: string
-// }
-
 export type Credential = {
     username: string
     password: string

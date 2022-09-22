@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 const homeHandler = express.Router();
 homeHandler.use(deserializeUser);
 
+//Delete unfinished games
 homeHandler.delete("/", async (req: Request, res: Response) => {
     try {
         const game = req.body;

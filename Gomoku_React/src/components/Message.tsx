@@ -1,4 +1,3 @@
-
 import style from './Message.module.css'
 
 type MessageProps = {
