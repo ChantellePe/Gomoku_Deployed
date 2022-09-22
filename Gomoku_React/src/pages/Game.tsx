@@ -3,7 +3,7 @@ import { useContext, useReducer, useState, useEffect } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { GameContext, SquareContext, UserContext } from '../context'
 import style from './Game.module.css'
-import { Square, Button, LoadingSpinner } from '../components'
+import { Square, Button } from '../components'
 import { PLAYER, PLAYER_MOVE_ACTION } from '../constants'
 import { GameType } from '../types'
 import buttonStyle from '../components/Button.module.css'
@@ -42,26 +42,8 @@ export default function Game() {
 
     const resetGame = async () => {
         if (game?.gameOver) {
-            // const game: GameType | void = await post(`/game`, {
-            //     userId: user?._id,
-            //     gameOver: false,
-            //     currentPlayer: "Black",
-            //     winner: "",
-            //     gameArray: [],
-            //     gameArray_PlayerOne: [],
-            //     gameArray_PlayerTwo: [],
-            //     boardSize: boardSize
-            //})
             return navigate(`/`)
-            // if (game._id) {
-            //     navigate(`game/${game._id}`)
-            // } else {
-            //     navigate(`/`)
-            // }
-            // })
-
         } else {
-            // setResetButtonClicked(() => resetButtonClicked ? false : true)
             dispatch1({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
             dispatch2({ type: PLAYER_MOVE_ACTION.RESET, payload: [] })
             nextTurn(PLAYER.PLAYER_ONE)
@@ -162,7 +144,6 @@ export default function Game() {
                 return
             }
         }
-
     }
 
     const getBoardStyles = (): string => {
@@ -185,11 +166,7 @@ export default function Game() {
 
     return (
         <div className={style.container}>
-            {
-                (promiseInProgress === true) ?
-                    <LoadingSpinner />
-                    :
-                    <h1 className={getClassNames()} >{game?.winner === "" ? `Current Player: ${playerTurn}` : announceWinner()}</h1>}
+            <h1 className={getClassNames()} >{game?.winner === "" ? `Current Player: ${playerTurn}` : announceWinner()}</h1>
             <div className={getBoardStyles()} id={game?._id}
                 style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
                 {[...Array(boardSize * boardSize)].map((_, index) => (
