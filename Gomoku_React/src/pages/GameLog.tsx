@@ -62,7 +62,7 @@ export default function GameLog() {
         (promiseInProgress === true) ?
             <LoadingSpinner />
             :
-            <div className={style.container}>
+            <div className={style.container} key={`Game-${id}`}>
                 {Object.values(game).map((key) => {
                     const winner = Object.values(game)[0].winner
                     const boardSize = Object.values(game)[0].boardSize
