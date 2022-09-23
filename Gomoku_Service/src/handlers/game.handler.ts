@@ -13,8 +13,10 @@ gameHandler.post("/", validateSchema(createGameSchema), async (req: Request, res
     const userId = req.userId;
     const game = req.body;
     const newGame = await createGame({ userId, ...game });
-    return res.status(200).send(newGame);
+    if (!newGame) return res.status(500)
+    return res.status(200).send(newGame)
 })
+
 
 // Modify a game
 gameHandler.put("/:id", validateSchema(updateGameSchema), async (req: Request, res: Response) => {

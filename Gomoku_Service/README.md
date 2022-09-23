@@ -23,7 +23,7 @@ I have set up the following username and password for markers to use:
 
 > * Username: Marker
 > * Password: 1234
-> * Postman Collection: https://www.getpostman.com/collections/f92b7364e91c21b1fa61
+> * Postman Collection: https://www.getpostman.com/collections/27178b1f8e9cee9bf651
 
 ## Issues?
 

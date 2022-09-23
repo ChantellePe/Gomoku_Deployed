@@ -32,6 +32,7 @@ gamesHandler.get("/:id", validateSchema(getGameSchema), async (req: Request, res
         const userId = req.userId;
         const game = await getGameById(id);
         if (!game) return res.sendStatus(404);
+        if (JSON.stringify(game.userId) !== JSON.stringify(userId)) return res.sendStatus(403);
         return res.status(200).json({ game });
     } catch (err) {
         return res.status(500).send(err);

@@ -15,9 +15,6 @@ export const winners = {
 
 const payload = {
     body: object({
-        userId: string({
-            required_error: "User id is required",
-        }),
         gameOver: z.boolean(),
         gameArray_PlayerOne: array(z.array(number())),
         gameArray_PlayerTwo: array(z.array(number())),

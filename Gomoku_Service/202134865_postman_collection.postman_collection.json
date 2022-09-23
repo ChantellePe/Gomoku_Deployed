@@ -14,7 +14,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzkyNzgwMCwiZXhwIjoxNjYzOTU2NjAwfQ.hlQaVOY-LltMFKGClNORN7_ZLDHhVIQHv78DcrU9AjhmdYf88Kf8SEKkJ8Bk4Jp_0fu6X_tPl5tBU3FqGthKhRh0pfhmuXB6XhoZHaGvT2kzBqVbSFLGhtD1vdUP6tgxKgsDi553zbDeUANRXF_2qMGpv4b90JtVManOCEeNJgI",
 							"type": "string"
 						}
 					]
@@ -43,7 +43,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzkyNzgwMCwiZXhwIjoxNjYzOTU2NjAwfQ.hlQaVOY-LltMFKGClNORN7_ZLDHhVIQHv78DcrU9AjhmdYf88Kf8SEKkJ8Bk4Jp_0fu6X_tPl5tBU3FqGthKhRh0pfhmuXB6XhoZHaGvT2kzBqVbSFLGhtD1vdUP6tgxKgsDi553zbDeUANRXF_2qMGpv4b90JtVManOCEeNJgI",
 							"type": "string"
 						}
 					]
@@ -52,7 +52,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\": \"632be214ae6be1bc096d3b00\",\r\n    \"gameArray_PlayerOne\": [[10,0],[11,0]], \r\n    \"gameArray_PlayerTwo\": [[1,0],[8,0]], \r\n    \"gameArray\": [[10,0],[1,0],[11,0],[8,0]],\r\n    \"gameOver\": false,\r\n    \"winner\": \"\",\r\n    \"currentPlayer\": \"White\",\r\n    \"boardSize\": 15\r\n}",
+					"raw": "{\r\n    \"gameArray_PlayerOne\": [[10,0],[11,0]], \r\n    \"gameArray_PlayerTwo\": [[1,0],[8,0]], \r\n    \"gameArray\": [[10,0],[1,0],[11,0],[8,0]],\r\n    \"gameOver\": false,\r\n    \"winner\": \"\",\r\n    \"currentPlayer\": \"White\",\r\n    \"boardSize\": 15\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -81,7 +81,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2Mzg1MzYyOSwiZXhwIjoxNjYzODgyNDI5fQ.HyqylUZF1vPIn3qj22UBCMT7WhTTQpUedWjZ6FmFGlxhx-t5cqwouzW1SXwSnqS2dKr6S4lwL3j7oy07ECe56xUkgLYBs1Y7LH4OOWkKFM7ejyNOhPvwzltoeON0lRT9oPxGBv0c3W56xazfbtMYDUt6NxfBE0sZRyg_k0RXSXg",
 							"type": "string"
 						}
 					]
@@ -90,7 +90,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\": \"632be214ae6be1bc096d3b00\",\r\n    \"gameArray_PlayerOne\": [[10,0],[11,0],[0,0],[2,0],[13,0]], \r\n    \"gameArray_PlayerTwo\": [[1,0],[8,0],[14,0],[3,0]], \r\n    \"gameArray\": [[10,0],[1,0],[11,0],[8,0],[0,0],[14,0],[2,0],[3,0],[13,0]],\r\n    \"gameOver\": false,\r\n    \"winner\": \"\",\r\n    \"currentPlayer\": \"White\",\r\n    \"boardSize\": 15\r\n}\r\n\r\n\r\n",
+					"raw": "{\r\n    \"gameArray_PlayerOne\": [[10,0],[11,0],[0,0],[2,0],[13,0]], \r\n    \"gameArray_PlayerTwo\": [[1,0],[8,0],[14,0],[3,0]], \r\n    \"gameArray\": [[10,0],[1,0],[11,0],[8,0],[0,0],[14,0],[2,0],[3,0],[13,0]],\r\n    \"gameOver\": false,\r\n    \"winner\": \"\",\r\n    \"currentPlayer\": \"White\",\r\n    \"boardSize\": 15\r\n}\r\n\r\n\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -98,7 +98,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/game/632be5f8ae6be1bc096d3d3b",
+					"raw": "http://localhost:8080/game/632d86ea9f39c3b836f58cc8",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -106,7 +106,7 @@
 					"port": "8080",
 					"path": [
 						"game",
-						"632be5f8ae6be1bc096d3d3b"
+						"632d86ea9f39c3b836f58cc8"
 					]
 				}
 			},
@@ -120,7 +120,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2Mzg1MzYyOSwiZXhwIjoxNjYzODgyNDI5fQ.HyqylUZF1vPIn3qj22UBCMT7WhTTQpUedWjZ6FmFGlxhx-t5cqwouzW1SXwSnqS2dKr6S4lwL3j7oy07ECe56xUkgLYBs1Y7LH4OOWkKFM7ejyNOhPvwzltoeON0lRT9oPxGBv0c3W56xazfbtMYDUt6NxfBE0sZRyg_k0RXSXg",
 							"type": "string"
 						}
 					]
@@ -150,7 +150,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzkyNzgwMCwiZXhwIjoxNjYzOTU2NjAwfQ.hlQaVOY-LltMFKGClNORN7_ZLDHhVIQHv78DcrU9AjhmdYf88Kf8SEKkJ8Bk4Jp_0fu6X_tPl5tBU3FqGthKhRh0pfhmuXB6XhoZHaGvT2kzBqVbSFLGhtD1vdUP6tgxKgsDi553zbDeUANRXF_2qMGpv4b90JtVManOCEeNJgI",
 							"type": "string"
 						}
 					]
@@ -158,7 +158,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/games/632c45598d39b1868d902ba0",
+					"raw": "http://localhost:8080/games/632c5acd8a39c55c0267526f",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -166,7 +166,7 @@
 					"port": "8080",
 					"path": [
 						"games",
-						"632c45598d39b1868d902ba0"
+						"632c5acd8a39c55c0267526f"
 					]
 				}
 			},
@@ -180,7 +180,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzkyNzgwMCwiZXhwIjoxNjYzOTU2NjAwfQ.hlQaVOY-LltMFKGClNORN7_ZLDHhVIQHv78DcrU9AjhmdYf88Kf8SEKkJ8Bk4Jp_0fu6X_tPl5tBU3FqGthKhRh0pfhmuXB6XhoZHaGvT2kzBqVbSFLGhtD1vdUP6tgxKgsDi553zbDeUANRXF_2qMGpv4b90JtVManOCEeNJgI",
 							"type": "string"
 						}
 					]
@@ -209,7 +209,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzgyMDYwMiwiZXhwIjoxNjYzODQ5NDAyfQ.XfdO-LpoebxkSvTCLmX4y0CM6rFa6WO3phdgvzMqB65g1XJvJmDFr5jbyIjDY1rnruLkPX1c5hD4DOxPGDCOYS-w6-EkA0tquG7QfeOCibTX9C83wAoHtZumQ26Rr0w7ZrlAvpf0FKSWW852aNdUt_bFqVl69tH47jiIp0GyMaM",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmtlciIsIl9pZCI6IjYzMmJlMjE0YWU2YmUxYmMwOTZkM2IwMCIsImlhdCI6MTY2MzkyNzgwMCwiZXhwIjoxNjYzOTU2NjAwfQ.hlQaVOY-LltMFKGClNORN7_ZLDHhVIQHv78DcrU9AjhmdYf88Kf8SEKkJ8Bk4Jp_0fu6X_tPl5tBU3FqGthKhRh0pfhmuXB6XhoZHaGvT2kzBqVbSFLGhtD1vdUP6tgxKgsDi553zbDeUANRXF_2qMGpv4b90JtVManOCEeNJgI",
 							"type": "string"
 						}
 					]
