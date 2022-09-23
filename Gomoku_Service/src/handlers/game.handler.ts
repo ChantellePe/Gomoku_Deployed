@@ -18,9 +18,9 @@ gameHandler.post("/", validateSchema(createGameSchema), async (req: Request, res
 
 // Modify a game
 gameHandler.put("/:id", validateSchema(updateGameSchema), async (req: Request, res: Response) => {
-    let game = req.body;
-    const id = req.params.id;
-    const userId = req.userId;
+    let game = req.body
+    const id = req.params.id
+    const userId = req.userId
     const currentGame = await getGameByFilter(
         {
             _id: new mongoose.Types.ObjectId(id),
