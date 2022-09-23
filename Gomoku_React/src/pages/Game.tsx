@@ -67,33 +67,38 @@ export default function Game() {
     }
 
     const gameMove = async () => {
-        let results: GameType
-        if (playerTurn === PLAYER.PLAYER_ONE && !game?.gameOver) {
-            results = await put(`/game/${id}`, {
-                userId: user?._id,
-                gameOver: false,
-                currentPlayer: "Black",
-                gameArray: [],
-                winner: "",
-                gameArray_PlayerOne: playerOneState,
-                gameArray_PlayerTwo: playerTwoState,
-                boardSize: boardSize
-            })
-            return setGame(results)
-        } else if (playerTurn === PLAYER.PLAYER_TWO && !game?.gameOver) {
-            results = await put(`/game/${id}`, {
-                userId: user?._id,
-                gameOver: false,
-                currentPlayer: "White",
-                gameArray: [],
-                winner: "",
-                gameArray_PlayerOne: playerOneState,
-                gameArray_PlayerTwo: playerTwoState,
-                boardSize: boardSize
-            })
-            setGame(results)
-
+        try {
+            let results: GameType
+            if (playerTurn === PLAYER.PLAYER_ONE && !game?.gameOver) {
+                results = await put(`/game/${id}`, {
+                    userId: user?._id,
+                    gameOver: false,
+                    currentPlayer: "Black",
+                    gameArray: [],
+                    winner: "",
+                    gameArray_PlayerOne: playerOneState,
+                    gameArray_PlayerTwo: playerTwoState,
+                    boardSize: boardSize
+                })
+                return setGame(results)
+            } else if (playerTurn === PLAYER.PLAYER_TWO && !game?.gameOver) {
+                results = await put(`/game/${id}`, {
+                    userId: user?._id,
+                    gameOver: false,
+                    currentPlayer: "White",
+                    gameArray: [],
+                    winner: "",
+                    gameArray_PlayerOne: playerOneState,
+                    gameArray_PlayerTwo: playerTwoState,
+                    boardSize: boardSize
+                })
+                return setGame(results)
+            }
+        } catch (err) {
+            console.log((err as Error).message)
+            navigate('/')
         }
+
     }
 
     useEffect(() => {
