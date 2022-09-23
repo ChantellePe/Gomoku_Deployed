@@ -7,7 +7,7 @@ export interface GameDocument extends Document {
     currentPlayer: String;
     winner: String;
     gameOver: Boolean;
-    gameArray: [[]];
+    gameArray: [[number]];
     gameArray_PlayerOne: [[number]];
     gameArray_PlayerTwo: [[number]];
     boardSize: number;

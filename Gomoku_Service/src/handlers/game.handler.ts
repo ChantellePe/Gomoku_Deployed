@@ -19,45 +19,54 @@ gameHandler.post("/", validateSchema(createGameSchema), async (req: Request, res
 // Modify a game
 gameHandler.put("/:id", validateSchema(updateGameSchema), async (req: Request, res: Response) => {
     let game = req.body;
+    const id = req.params.id;
     const userId = req.userId;
-    const gameId = req.params.id;
-    game.gameArray = mergeArrays(game.gameArray_PlayerOne, game.gameArray_PlayerTwo)
-    if (game.gameOver) {
+    const currentGame = await getGameByFilter(
+        {
+            _id: new mongoose.Types.ObjectId(id),
+            userId: new mongoose.Types.ObjectId(userId),
+        }
+    );
+    if (!currentGame) {
+        return res.sendStatus(404)
+    } else if (currentGame.gameOver) {
         return res.sendStatus(405)
-    } else if ((game.gameArray_PlayerOne.length + game.gameArray_PlayerTwo.length) === (game.boardSize ** 2)) {
-        game.winner = winners.Tie
-        game.gameOver = true
     } else {
-        if (fiveConseq(game.gameArray_PlayerOne)) {
-            game.winner = winners.PlayerOne
-            game.gameOver = true
-        } else if (fiveConseq(game.gameArray_PlayerTwo)) {
-            game.winner = winners.PlayerTwo
-            game.gameOver = true
-        } else if (fiveDown(game.gameArray_PlayerTwo, game.boardSize)) {
-            game.winner = winners.PlayerTwo
-            game.gameOver = true
-        } else if (fiveDown(game.gameArray_PlayerOne, game.boardSize)) {
-            game.winner = winners.PlayerOne
-            game.gameOver = true
-        } else if (diagLeft(game.gameArray_PlayerTwo, game.boardSize)) {
-            game.winner = winners.PlayerTwo
-            game.gameOver = true
-        } else if (diagLeft(game.gameArray_PlayerOne, game.boardSize)) {
-            game.winner = winners.PlayerOne
-            game.gameOver = true
-        } else if (diagRight(game.gameArray_PlayerTwo, game.boardSize)) {
-            game.winner = winners.PlayerTwo
-            game.gameOver = true
-        } else if (diagRight(game.gameArray_PlayerOne, game.boardSize)) {
-            game.winner = winners.PlayerOne
+        game.gameArray = mergeArrays(game?.gameArray_PlayerOne, game?.gameArray_PlayerTwo)
+        if ((game.gameArray_PlayerOne.length + game.gameArray_PlayerTwo.length) === (game.boardSize ** 2)) {
+            game.winner = winners.Tie
             game.gameOver = true
         } else {
-            game.winner = ""
+            if (fiveConseq(game.gameArray_PlayerOne)) {
+                game.winner = winners.PlayerOne
+                game.gameOver = true
+            } else if (fiveConseq(game.gameArray_PlayerTwo)) {
+                game.winner = winners.PlayerTwo
+                game.gameOver = true
+            } else if (fiveDown(game.gameArray_PlayerTwo, game.boardSize)) {
+                game.winner = winners.PlayerTwo
+                game.gameOver = true
+            } else if (fiveDown(game.gameArray_PlayerOne, game.boardSize)) {
+                game.winner = winners.PlayerOne
+                game.gameOver = true
+            } else if (diagLeft(game.gameArray_PlayerTwo, game.boardSize)) {
+                game.winner = winners.PlayerTwo
+                game.gameOver = true
+            } else if (diagLeft(game.gameArray_PlayerOne, game.boardSize)) {
+                game.winner = winners.PlayerOne
+                game.gameOver = true
+            } else if (diagRight(game.gameArray_PlayerTwo, game.boardSize)) {
+                game.winner = winners.PlayerTwo
+                game.gameOver = true
+            } else if (diagRight(game.gameArray_PlayerOne, game.boardSize)) {
+                game.winner = winners.PlayerOne
+                game.gameOver = true
+            } else {
+                game.winner = ""
+            }
         }
     }
-
-    const newGame = await updateGame(gameId, userId, { ...game });
+    const newGame = await updateGame(id, userId, { ...game });
     if (!newGame) return res.sendStatus(404)
     return res.status(200).json(newGame)
 })
