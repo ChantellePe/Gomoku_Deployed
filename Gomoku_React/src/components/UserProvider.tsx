@@ -39,6 +39,7 @@ export default function UserProvider({ children }: UserProviderProps) {
                 password,
             })
             setUser(user)
+            setUsername(username)
             setToken(user.token)
             return true
         } catch (error) {
