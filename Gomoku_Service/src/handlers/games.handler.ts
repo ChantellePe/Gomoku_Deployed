@@ -1,6 +1,4 @@
-import e from "express";
 import express, { Request, Response } from "express";
-import { z } from "zod";
 import validateSchema from '../middleware/validateSchema';
 import { deleteGameSchema, getGameSchema } from '../schema/game.schema';
 import { deleteGame, getGamesByFilter, getGameById } from '../service/games.service'

@@ -46,7 +46,6 @@ export default function Home() {
 
     return (
         <div className={style.boardForm}>
-
             <form className={style.boardForm} onSubmit={(e) => {
                 e.preventDefault()
                 if (!user) {
