@@ -3,21 +3,21 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "bootstrapdb": "ts-node src/util/bootstrapDB.ts",
     "start": "npx tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChantellePe/Gomoku-Complete.git"
+    "url": "git+https://github.com/ChantellePe/Gomoku_Deployed.git"
   },
   "author": "Chantelle Perreau",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ChantellePe/Gomoku-Complete/issues"
+    "url": "https://github.com/ChantellePe/Gomoku_Deployed/issues"
   },
-  "homepage": "https://github.com/ChantellePe/Gomoku-Complete#readme",
+  "homepage": "https://github.com/ChantellePe/Gomoku_Deployed#readme",
   "keywords": [],
   "description": "",
   "dependencies": {
