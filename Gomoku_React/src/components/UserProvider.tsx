@@ -16,7 +16,7 @@ export default function UserProvider({ children }: UserProviderProps) {
 
     const login = async (username: string, password: string) => {
         try {
-            const user = await post<Credential, User>('/login', {
+            const user = await post<Credential, User>('/api/login', {
                 username,
                 password,
             })
@@ -34,7 +34,7 @@ export default function UserProvider({ children }: UserProviderProps) {
 
     const signup = async (username: string, password: string) => {
         try {
-            const user = await post<Credential, User>('/signup', {
+            const user = await post<Credential, User>('/api/signup', {
                 username,
                 password,
             })

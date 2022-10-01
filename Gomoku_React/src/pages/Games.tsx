@@ -27,7 +27,7 @@ export default function Games() {
 
     const fetchGames = useCallback(async () => {
         try {
-            const result = await get<GameType[][]>('/games')
+            const result = await get<GameType[][]>('/api/games')
             setGames(result)
         } catch (error) {
             console.log((error as Error).message)
@@ -39,7 +39,7 @@ export default function Games() {
     const delGames = async () => {
         try {
             if (user) {
-                await deleteMany("/")
+                await deleteMany("/api")
             }
         } catch (error) {
             console.log((error as Error).message)
@@ -51,7 +51,7 @@ export default function Games() {
     }, [navigate])
 
     const deleteHandler = async (gameId: string) => {
-        await del(`games/${gameId}`)
+        await del(`/api/games/${gameId}`)
         setDeleteGame(deleteGame ? false : true)
         window.location.reload();
     }
@@ -112,6 +112,6 @@ export default function Games() {
                     })
                 }
             </div >
-        )
-    }
+    )
+}
 

@@ -70,7 +70,7 @@ export default function Game() {
         try {
             let results: GameType
             if (playerTurn === PLAYER.PLAYER_ONE && !game?.gameOver) {
-                results = await put(`/game/${id}`, {
+                results = await put(`/api/game/${id}`, {
                     userId: user?._id,
                     gameOver: false,
                     currentPlayer: "Black",
@@ -82,7 +82,7 @@ export default function Game() {
                 })
                 return setGame(results)
             } else if (playerTurn === PLAYER.PLAYER_TWO && !game?.gameOver) {
-                results = await put(`/game/${id}`, {
+                results = await put(`/api/game/${id}`, {
                     userId: user?._id,
                     gameOver: false,
                     currentPlayer: "White",

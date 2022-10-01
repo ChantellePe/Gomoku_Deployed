@@ -13,9 +13,9 @@ const app: Express = express()
 
 app.use(express.json());
 
-app.use('/game', gameHandler);
-app.use('/games', gamesHandler, homeHandler);
-app.use('/', authHandler, homeHandler);
+app.use('/api/game', gameHandler);
+app.use('/api/games', gamesHandler, homeHandler);
+app.use('/api/', authHandler, homeHandler);
 
 export const server = createServer(app)
 

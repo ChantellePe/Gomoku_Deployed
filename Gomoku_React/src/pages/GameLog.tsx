@@ -19,7 +19,7 @@ export default function GameLog() {
 
     const fetchGame = useCallback(async (id: string) => {
         try {
-            const result = await get<GameType[]>(`/games/${id}`)
+            const result = await get<GameType[]>(`/api/games/${id}`)
             setGame(result)
         } catch (error) {
             console.log((error as Error).message)

@@ -17,7 +17,7 @@ export default function Home() {
 
 
     const newGame = async () => {
-        const game: GameType = await post(`/game`, {
+        const game: GameType = await post(`/api/game`, {
             userId: user?._id,
             gameOver: false,
             currentPlayer: "Black",
@@ -33,7 +33,7 @@ export default function Home() {
     const delGames = async () => {
         try {
             if (user) {
-                await deleteMany("/")
+                await deleteMany("/api")
             }
         } catch (error) {
             console.log((error as Error).message)
