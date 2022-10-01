@@ -30,7 +30,4 @@ I have set up the following username and password for markers to use:
 Please contact me on the details below:
 
 > * UNE Email: cperreau@myune.edu.au
-> * Email: chantelle_perreau@hotmail.com
-> * Phone: 0413 706 352
-
 
