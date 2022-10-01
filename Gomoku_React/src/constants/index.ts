@@ -14,3 +14,5 @@ export enum PLAYER_MOVE_ACTION {
     SELECT = 'SELECT',
     RESET = 'RESET'
 }
+
+export const API_HOST = process.env.REACT_APP_API_HOST || ''

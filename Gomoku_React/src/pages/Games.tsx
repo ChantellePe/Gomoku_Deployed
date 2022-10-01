@@ -8,7 +8,7 @@ import type { GameType } from '../types'
 import style from './Games.module.css'
 import { get, deleteMany, del } from '../utils/http'
 import { trackPromise, usePromiseTracker } from "react-promise-tracker";
-
+import { API_HOST } from '../constants'
 
 const dateFormat = (date: string) => {
     const day = date.split("-")[2]
@@ -27,7 +27,7 @@ export default function Games() {
 
     const fetchGames = useCallback(async () => {
         try {
-            const result = await get<GameType[][]>('/api/games')
+            const result = await get<GameType[][]>(`${API_HOST}/api/games`)
             setGames(result)
         } catch (error) {
             console.log((error as Error).message)
@@ -39,7 +39,7 @@ export default function Games() {
     const delGames = async () => {
         try {
             if (user) {
-                await deleteMany("/api")
+                await deleteMany(`${API_HOST}/api`)
             }
         } catch (error) {
             console.log((error as Error).message)
@@ -51,7 +51,7 @@ export default function Games() {
     }, [navigate])
 
     const deleteHandler = async (gameId: string) => {
-        await del(`/api/games/${gameId}`)
+        await del(`${API_HOST}/api/games/${gameId}`)
         setDeleteGame(deleteGame ? false : true)
         window.location.reload();
     }

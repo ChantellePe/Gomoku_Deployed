@@ -7,7 +7,7 @@ import { GameType } from '../types'
 import { GameContext, SquareContext, UserContext } from '../context'
 import { PLAYER } from '../constants'
 import { deleteMany, post } from '../utils/http'
-
+import { API_HOST } from '../constants'
 
 export default function Home() {
     const navigate = useNavigate()
@@ -17,7 +17,7 @@ export default function Home() {
 
 
     const newGame = async () => {
-        const game: GameType = await post(`/api/game`, {
+        const game: GameType = await post(`${API_HOST}/api/game`, {
             userId: user?._id,
             gameOver: false,
             currentPlayer: "Black",
@@ -33,7 +33,7 @@ export default function Home() {
     const delGames = async () => {
         try {
             if (user) {
-                await deleteMany("/api")
+                await deleteMany(`${API_HOST}/api`)
             }
         } catch (error) {
             console.log((error as Error).message)

@@ -9,6 +9,7 @@ import { Square, Button, LoadingSpinner } from '../components'
 import type { GameType } from '../types'
 import { get } from '../utils/http'
 import { trackPromise, usePromiseTracker } from "react-promise-tracker";
+import { API_HOST } from '../constants'
 
 export default function GameLog() {
     const { user, logout } = useContext(UserContext)
@@ -19,7 +20,7 @@ export default function GameLog() {
 
     const fetchGame = useCallback(async (id: string) => {
         try {
-            const result = await get<GameType[]>(`/api/games/${id}`)
+            const result = await get<GameType[]>(`${API_HOST}/api/games/${id}`)
             setGame(result)
         } catch (error) {
             console.log((error as Error).message)

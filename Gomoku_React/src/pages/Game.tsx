@@ -9,7 +9,7 @@ import { GameType } from '../types'
 import buttonStyle from '../components/Button.module.css'
 import { put } from '../utils/http'
 import { trackPromise, usePromiseTracker } from "react-promise-tracker";
-
+import { API_HOST } from '../constants'
 
 type PlayerMove = {
     type: PLAYER_MOVE_ACTION
@@ -39,6 +39,7 @@ export default function Game() {
     const [playerTwoState, dispatch2] = useReducer(gameReducer, [])
     const { id = "" } = useParams()
     const { promiseInProgress } = usePromiseTracker();
+
 
     const resetGame = async () => {
         if (game?.gameOver) {
@@ -70,7 +71,7 @@ export default function Game() {
         try {
             let results: GameType
             if (playerTurn === PLAYER.PLAYER_ONE && !game?.gameOver) {
-                results = await put(`/api/game/${id}`, {
+                results = await put(`${API_HOST}/api/game/${id}`, {
                     userId: user?._id,
                     gameOver: false,
                     currentPlayer: "Black",
@@ -82,7 +83,7 @@ export default function Game() {
                 })
                 return setGame(results)
             } else if (playerTurn === PLAYER.PLAYER_TWO && !game?.gameOver) {
-                results = await put(`/api/game/${id}`, {
+                results = await put(`${API_HOST}/api/game/${id}`, {
                     userId: user?._id,
                     gameOver: false,
                     currentPlayer: "White",
