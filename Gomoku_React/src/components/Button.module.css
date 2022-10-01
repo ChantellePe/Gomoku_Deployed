@@ -16,7 +16,7 @@
     touch-action: manipulation;
     transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     user-select: none;
-    margin: 0.8% 3%;
+    margin: 1% 3% 1% 3%;
     font-family: 'Domine', Verdana, Times, serif;
     text-shadow:
         1px 4px 1px #580051,
