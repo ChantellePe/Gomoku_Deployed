@@ -39,7 +39,7 @@ function Header() {
             <div className={style.container}>
                 {welcomeMessage()}
                 <Link to="/" className={style.title}>
-                    Gomoku
+                    <span className={style.girly}>Girly</span> <span className={style.gomoku}>Gomoku</span>  
                 </Link>
                 {getActions()}
             </div>
