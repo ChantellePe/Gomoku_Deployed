@@ -25,11 +25,11 @@
     height: 130px;
     display: inline-flex;
     justify-content: space-between;
-    background-color: rgb(255, 205, 253, 0.65);
+    background-color: rgb(254, 190, 237, 0.5);
 }
 
 .title {
-    color: rgb(230, 39, 169);
+    color: #ff6ad2f0;
     height: 100%;
     margin-top: 1%;
     text-align: left;

@@ -3,7 +3,7 @@
     height: auto;
     text-align: center;
     align-items: right;
-    background-color: #d60096;
+    background-color: #ce5aabf0;
     border: 0;
     border-radius: 1rem;
     box-sizing: border-box;
@@ -28,7 +28,7 @@
 }
 
 .button:hover {
-    background-color: #b10076;
+    background-color: #dd7fc1;
     color: #ffffff;
 }
 
