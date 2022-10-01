@@ -27,7 +27,7 @@
     width: 50%;
     height: 50%;
     text-align: center;
-    background-color: #d60096;
+    background-color: #ce5aabf0;
     border: 0;
     border-radius: 1rem;
     box-sizing: border-box;
@@ -52,7 +52,7 @@
 }
 
 .startGameButton:hover {
-    background-color: #b10076;
+    background-color: #dd7fc1;
     color: #ffffff;
 }
 
