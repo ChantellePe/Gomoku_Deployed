@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import { createServer } from 'http'
-import cors from 'cors'
+//import cors from 'cors'
 import gameHandler from './handlers/game.handler';
 import gamesHandler from './handlers/games.handler';
 import authHandler from './handlers/auth.handler';
