@@ -62,26 +62,61 @@
 }
 
 
-@media only screen and (max-width: 1050px) {
+@media only screen and (max-width: 1070px) {
 
+    .girly {
+        font-size: 6.5rem;
+        font-weight: 700;
+    }
 
     .gomoku {
-        font-size: 4rem;
+        font-size: 4.5rem;
     }
-}
-
-@media only screen and (max-width: 960px) {
 
     .title {
         color: #ff6ad2f0;
         height: 100%;
-        margin: 2% 0 1% 0;
+        margin: 2.5% 0 1% 0;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 1033px) {
+
+    .girly {
+        font-size: 6.5rem;
+        font-weight: 700;
+    }
+
+    .gomoku {
+        font-size: 4.5rem;
+    }
+
+    .title {
+        color: #ff6ad2f0;
+        height: 100%;
+        margin: 2.5% 0 1% 0;
+        text-align: left;
+    }
+}
+
+
+@media only screen and (max-width: 983px) {
+
+    .title {
+        color: #ff6ad2f0;
+        height: 100%;
+        margin: 3% 0 1% 0;
         text-align: left;
     }
 
     .girly {
-        font-size: 7rem;
+        font-size: 6rem;
         font-weight: 700;
+    }
+
+    .gomoku {
+        font-size: 4rem;
     }
 
 }
@@ -101,6 +136,13 @@
 
     .gomoku {
         font-size: 5rem;
+    }
+
+    .title {
+        color: #ff6ad2f0;
+        height: 100%;
+        margin: 3.5% 0 1% 0;
+        text-align: left;
     }
 
 }
