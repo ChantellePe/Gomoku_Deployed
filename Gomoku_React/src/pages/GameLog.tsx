@@ -56,7 +56,7 @@ export default function GameLog() {
         return JSON.stringify(a1) === JSON.stringify(a2);
     }
 
-    if (!user) return <Navigate to='/login' />
+    if (!user) return <Navigate to='/login' replace />
     if (!game) return null
 
     return (
